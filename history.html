@@ -1,67 +1,385 @@
-<!-- history.html -->
 <!DOCTYPE html>
 <html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>သမိုင်း - မြန်မာနိုင်ငံ</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>မြန်မာ့သမိုင်း - Myanmar History</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #c9a227;
+            --secondary-color: #8b4513;
+            --background-color: #fff9f0;
+            --text-color: #333;
+            --header-height: 70px;
+            --timeline-color: #b08b1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Myanmar Text", sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .page-header {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: calc(-1 * var(--header-height));
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .page-header p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--timeline-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            transform: translateX(100px);
+        }
+
+        .timeline-item:nth-child(even).visible {
+            transform: translateX(0);
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid var(--timeline-color);
+            right: -67px;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -67px;
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .info-box h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .info-box ul {
+            list-style: none;
+        }
+
+        .info-box li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-box li::before {
+            content: '•';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        /* History Grid */
+        .history-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 4rem 0;
+        }
+
+        .history-content {
+            padding-right: 2rem;
+        }
+
+        .history-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .history-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .history-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::after {
+                left: -37px !important;
+                right: auto;
+            }
+
+            .history-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .history-content {
+                padding-right: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation (same as index.html) -->
-    <nav class="navbar">
+    <nav id="navbar">
         <div class="container">
             <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <ul class="nav-menu">
+            <ul class="nav-links">
                 <li><a href="index.html">ပင်မ</a></li>
                 <li><a href="history.html" class="active">သမိုင်း</a></li>
                 <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
                 <li><a href="places.html">နေရာများ</a></li>
                 <li><a href="food.html">အစားအစာ</a></li>
             </ul>
-            <button class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </nav>
 
-    <!-- History Hero -->
     <header class="page-header">
-        <div class="container">
+        <div class="container" data-aos="fade-up">
             <h1>မြန်မာ့သမိုင်း</h1>
             <p>အတိတ်မှ ယနေ့ထိ</p>
         </div>
     </header>
 
-    <!-- History Content -->
-    <section class="section">
-        <div class="container">
-            <div class="history-grid">
-                <div class="history-content">
-                    <h2>သမိုင်းအကျဉ်း</h2>
-                    <p>မြန်မာနိုင်ငံသည် ရှေးယခင်ကတည်းက ပုဂံ၊ အင်းဝ၊ ကုန်းဘောင် စသည့်ခေတ်များဖြင့် သမိုင်းကြောင်းရှည်ကြာခဲ့ပါသည်။</p>
-                    
-                    <div class="info-box">
-                        <h3>အချက်အလက်များ</h3>
-                        <ul>
-                            <li>နိုင်ငံတည်နေရာ - အရှေ့တောင်အာရှ</li>
-                            <li>မြို့တော် - နေပြည်တော်</li>
-                            <li>အကြီးဆုံးမြို့ - ရန်ကုန်မြို့</li>
-                            <li>လူဦးရေ - ၅၄ သန်းခန့်</li>
-                        </ul>
-                    </div>
+    <main class="container">
+        <div class="history-grid">
+            <div class="history-content" data-aos="fade-right">
+                <h2>သမိုင်းအကျဉ်း</h2>
+                <p>မြန်မာနိုင်ငံသည် ရှေးယခင်ကတည်းက ပုဂံ၊ အင်းဝ၊ ကုန်းဘောင် စသည့်ခေတ်များဖြင့် သမိုင်းကြောင်းရှည်ကြာခဲ့ပါသည်။</p>
+                
+                <div class="info-box" data-aos="fade-up">
+                    <h3>အချက်အလက်များ</h3>
+                    <ul>
+                        <li>နိုင်ငံတည်နေရာ - အရှေ့တောင်အာရှ</li>
+                        <li>မြို့တော် - နေပြည်တော်</li>
+                        <li>အကြီးဆုံးမြို့ - ရန်ကုန်မြို့</li>
+                        <li>လူဦးရေ - ၅၄ သန်းခန့်</li>
+                    </ul>
                 </div>
-                <div class="history-image">
-                    <img src="/api/placeholder/800/600" alt="ရှေးဟောင်းမြို့တော်" loading="lazy">
+            </div>
+            
+            <div class="history-image" data-aos="fade-left">
+                <img src="/api/placeholder/800/600" alt="ရှေးဟောင်းမြို့တော်" loading="lazy">
+            </div>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)</div>
+                    <p>နိုင်ငံတော်၏ ပထမဆုံး စည်းလုံးညီညွတ်သော ပြည်ထောင်စု။ ထင်ရှားသော ဘုရားပုထိုးများ တည်ဆောက်ခဲ့သောခေတ်။</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">အင်းဝခေတ် (၁၃၆၄-၁၅၅၅)</div>
+                    <p>မြန်မာစာပေနှင့် ယဉ်ကျေးမှု ဖွံ့ဖြိုးတိုးတက်ခဲ့သောခေတ်။</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">ကုန်းဘောင်ခေတ် (၁၇၅၂-၁၈၈၅)</div>
+                    <p>မြန်မာ့သမိုင်းတွင် နောက်ဆုံး မင်းဆက်။ ယဉ်ကျေးမှုနှင့် စီးပွားရေး ထွန်းကားခဲ့သောခေတ်။</p>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Footer (same as index.html) -->
-    <footer class="footer">
+    <footer>
         <div class="container">
             <p>© 2024 မြန်မာနိုင်ငံ</p>
             <div class="social-links">
@@ -71,6 +389,95 @@
             </div>
         </div>
     </footer>
-    <script src="js/script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll <= 0) {
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Timeline scroll animation
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        const isInViewport = (element) => {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        };
+
+        const handleTimelineAnimation = () => {
+            timelineItems.forEach(item => {
+                if (isInViewport(item)) {
+                    item.classList.add('visible');
+                }
+            });
+        };
+
+        // Initial check for visible timeline items
+        handleTimelineAnimation();
+
+        // Listen for scroll events
+        window.addEventListener('scroll', handleTimelineAnimation);
+
+        // Parallax effect for page header
+        const pageHeader = document.querySelector('.page-header');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            pageHeader.style.backgroundPositionY = `${scrolled * 0.5}px`;
+        });
+
+        // Add hover effect for info box items
+        const infoItems = document.querySelectorAll('.info-box li');
+        infoItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateX(10px)';
+                item.style.color = '#c9a227';
+                item.style.transition = 'all 0.3s ease';
+            });
+
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateX(0)';
+                item.style.color = 'var(--text-color)';
+            });
+        });
+
+        // Add smooth scroll behavior for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
-</html>
+</html>2px 10px rgba(0, 0, 0, 0.1)';
+                return;
+            }
+
+            if (currentScroll > lastScroll && currentScroll > 70) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+                navbar.style.boxShadow = '0
