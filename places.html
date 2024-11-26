@@ -3,82 +3,528 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>နေရာများ - မြန်မာနိုင်ငံ</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>လည်ပတ်စရာနေရာများ - Myanmar Places</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #c9a227;
+            --secondary-color: #8b4513;
+            --background-color: #fff9f0;
+            --text-color: #333;
+            --header-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Myanmar Text", sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .page-header {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: calc(-1 * var(--header-height));
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .page-header p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Place Categories */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            padding-top: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Places Grid */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .place-card {
+            position: relative;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .place-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-image {
+            position: relative;
+            padding-top: 66.67%; /* 3:2 aspect ratio */
+            overflow: hidden;
+        }
+
+        .card-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .place-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .place-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            background: white;
+        }
+
+        .card-body h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body p {
+            color: #666;
+            margin-bottom: 1rem;
+            height: 3em;
+            overflow: hidden;
+        }
+
+        .place-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .place-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Place Details Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            padding-top: 75%;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .place-details {
+            margin-top: 2rem;
+        }
+
+        .place-details h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .place-details ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .place-details li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .place-details li::before {
+            content: '•';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Quick Facts */
+        .quick-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 10px;
+        }
+
+        .fact-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .fact-item i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .places-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .quick-facts {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
+    <nav id="navbar">
         <div class="container">
             <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <ul class="nav-menu">
+            <ul class="nav-links">
                 <li><a href="index.html">ပင်မ</a></li>
                 <li><a href="history.html">သမိုင်း</a></li>
                 <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
                 <li><a href="places.html" class="active">နေရာများ</a></li>
                 <li><a href="food.html">အစားအစာ</a></li>
             </ul>
-            <button class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </nav>
 
-    <!-- Places Hero -->
     <header class="page-header">
-        <div class="container">
+        <div class="container" data-aos="fade-up">
             <h1>လည်ပတ်စရာနေရာများ</h1>
             <p>မြန်မာပြည်၏ အလှအပများ</p>
         </div>
     </header>
 
-    <!-- Places Grid -->
-    <section class="section">
-        <div class="container">
-            <div class="grid">
-                <!-- Shwedagon Pagoda -->
-                <div class="place-card">
-                    <div class="card-image">
-                        <img src="images/Flag_of_Myanmar.svg.png" alt="ရွှေတိဂုံစေတီတော်" loading="lazy">
-                    </div>
-                    <div class="card-body">
-                        <h3>ရွှေတိဂုံစေတီတော်</h3>
-                        <p>ရန်ကုန်မြို့ရှိ ထင်ရှားသော ဘုရားစေတီ</p>
-                        <a href="#" class="btn-secondary">အသေးစိတ်ကြည့်ရန်</a>
+    <main class="container">
+        <div class="category-filters" data-aos="fade-up">
+            <button class="filter-btn active">အားလုံး</button>
+            <button class="filter-btn">စေတီပုထိုးများ</button>
+            <button class="filter-btn">သဘာဝအလှများ</button>
+            <button class="filter-btn">ယဉ်ကျေးမှုအမွေအနှစ်များ</button>
+        </div>
+
+        <div class="places-grid">
+            <div class="place-card" data-aos="fade-up" data-category="စေတီပုထိုးများ" data-id="shwedagon">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="ရွှေတိဂုံစေတီတော်" loading="lazy">
+                    <div class="card-overlay">
+                        <span>ပိုမိုကြည့်ရှုရန်</span>
                     </div>
                 </div>
-
-                <!-- Bagan -->
-                <div class="place-card">
-                    <div class="card-image">
-                        <img src="/api/placeholder/600/400" alt="ပုဂံဘုရားများ" loading="lazy">
-                    </div>
-                    <div class="card-body">
-                        <h3>ပုဂံဘုရားများ</h3>
-                        <p>ရှေးဟောင်းဗိသုကာလက်ရာများ</p>
-                        <a href="#" class="btn-secondary">အသေးစိတ်ကြည့်ရန်</a>
+                <div class="card-body">
+                    <h3>ရွှေတိဂုံစေတီတော်</h3>
+                    <p>ရန်ကုန်မြို့ရှိ ထင်ရှားသော ဘုရားစေတီ</p>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.9</div>
+                        <button class="btn-secondary" data-place="shwedagon">အသေးစိတ်ကြည့်ရန်</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Inle Lake -->
-                <div class="place-card">
-                    <div class="card-image">
-                        <img src="/api/placeholder/600/400" alt="အင်းလေးကန်" loading="lazy">
+            <div class="place-card" data-aos="fade-up" data-aos-delay="100" data-category="ယဉ်ကျေးမှုအမွေအနှစ်များ" data-id="bagan">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="ပုဂံဘုရားများ" loading="lazy">
+                    <div class="card-overlay">
+                        <span>ပိုမိုကြည့်ရှုရန်</span>
                     </div>
-                    <div class="card-body">
-                        <h3>အင်းလေးကန်</h3>
-                        <p>ရှမ်းပြည်နယ်ရှိ သဘာဝအလှ</p>
-                        <a href="#" class="btn-secondary">အသေးစိတ်ကြည့်ရန်</a>
+                </div>
+                <div class="card-body">
+                    <h3>ပုဂံဘုရားများ</h3>
+                    <p>ရှေးဟောင်းဗိသုကာလက်ရာများ</p>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.8</div>
+                        <button class="btn-secondary" data-place="bagan">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="place-card" data-aos="fade-up" data-aos-delay="200" data-category="သဘာဝအလှများ" data-id="inle">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="အင်းလေးကန်" loading="lazy">
+                    <div class="card-overlay">
+                        <span>ပိုမိုကြည့်ရှုရန်</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>အင်းလေးကန်</h3>
+                    <p>ရှမ်းပြည်နယ်ရှိ သဘာဝအလှ</p>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.7</div>
+                        <button class="btn-secondary" data-place="inle">အသေးစိတ်ကြည့်ရန်</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- Place Details Modal -->
+    <div class="modal" id="placeModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalGallery" class="gallery"></div>
+            <div class="quick-facts" id="quickFacts"></div>
+            <div class="place-details" id="placeDetails"></div>
+        </div>
+    </div>
+
+    <footer>
         <div class="container">
             <p>© 2024 မြန်မာနိုင်ငံ</p>
             <div class="social-links">
@@ -88,6 +534,225 @@
             </div>
         </div>
     </footer>
-    <script src="js/script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Place data
+        const places = {
+            'shwedagon': {
+                title: 'ရွှေတိဂုံစေတီတော်',
+                description: 'ရန်ကုန်မြို့၏ အထင်ကရ ရွှေတိဂုံစေတီတော်မြတ်ကြီး',
+                location: 'ရန်ကုန်မြို့',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                facts: [
+                    { icon: '🕌', label: 'အမြင့်', value: '၃၂၆ ပေ' },
+                    { icon: '📅', label: 'တည်ထားသည့်နှစ်', value: 'ဘီစီ ၅၈၈' },
+                    { icon: '⏰', label: 'ဖွင့်ချိန်', value: '၄:၀၀ - ၂၂:၀၀' },
+                    { icon: '💰', label: 'ဝင်ကြေး', value: '၁၀,၀၀၀ ကျပ်' }
+                ],
+                details: [
+                    'မြန်မာနိုင်ငံ၏ အထင်ရှားဆုံး ဘုရားစေတီ',
+                    'ရွှေချပ်များဖြင့် မွမ်းမံထားသော စေတီတော်',
+                    'ဗုဒ္ဓဘာသာဝင်များ၏ ဦးတည်ရာ နေရာတစ်ခု',
+                    'ကမ္ဘာလှည့်ခရီးသွားများ စိတ်ဝင်စားရာ နေရာ'
+                ]
+            },
+            'bagan': {
+                title: 'ပုဂံဘုရားများ',
+                description: 'ကမ္ဘာ့အမွေအနှစ် ပုဂံရှေးဟောင်းယဉ်ကျေးမှုနယ်မြေ',
+                location: 'မန္တလေးတိုင်း',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                facts: [
+                    { icon: '🏛️', label: 'ဘုရားအရေအတွက်', value: '၂,၂၀၀ ကျော်' },
+                    { icon: '📅', label: 'ခေတ်', value: '၁၁ ရာစု - ၁၃ ရာစု' },
+                    { icon: '🌅', label: 'အကောင်းဆုံးအချိန်', value: 'နံနက်၊ ညနေ' },
+                    { icon: '💰', label: 'ဇုန်ဝင်ကြေး', value: '၂၅,၀၀၀ ကျပ်' }
+                ],
+                details: [
+                    'ကမ္ဘာ့ယဉ်ကျေးမှုအမွေအနှစ် စာရင်းဝင်နေရာ',
+                    'ရှေးဟောင်းဗိသုကာလက်ရာများ',
+                    'မြန်မာ့သမိုင်းကို လေ့လာနိုင်သောနေရာ',
+                    'ဘေလွန်းစီးခြင်းဖြင့် ရှုမြင်နိုင်'
+                ]
+            },
+            'inle': {
+                title: 'အင်းလေးကန်',
+                description: 'ရှမ်းပြည်နယ်၏ သဘာဝအလှအပများ',
+                location: 'ရှမ်းပြည်နယ်',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                facts: [
+                    { icon: '💧', label: 'ဧရိယာ', value: '၄၄.९ စတုရန်းမိုင်' },
+                    { icon: '🚣', label: 'လူမျိုးစု', value: 'အင်းသားများ' },
+                    { icon: '🌞', label: 'အကောင်းဆုံးရာသီ', value: 'အေးချမ်းရာသီ' },
+                    { icon: '⏰', label: 'လည်ပတ်ချိန်', value: 'တစ်နေ့လုံး' }
+                ],
+                details: [
+                    'ရေပေါ်အိမ်များနှင့် ရေပေါ်ဈေးများ',
+                    'ခြေထောက်ဖြင့် လှေလောင်းသော ငါးဖမ်းသမားများ',
+                    'ရေပေါ်ဥယျာဉ်များ',
+                    'ရိုးရာလက်မှုပညာများ'
+                ]
+            }
+        };
+
+        // Modal functionality
+        const modal = document.getElementById('placeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalGallery = document.getElementById('modalGallery');
+        const quickFacts = document.getElementById('quickFacts');
+        const placeDetails = document.getElementById('placeDetails');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Add click event listeners to place buttons
+        document.querySelectorAll('[data-place]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const placeId = button.dataset.place;
+                const place = places[placeId];
+                
+                if (place) {
+                    // Populate modal content
+                    modalTitle.textContent = place.title;
+                    
+                    // Create gallery
+                    modalGallery.innerHTML = place.images.map(src => `
+                        <div class="gallery-item">
+                            <img src="${src}" alt="${place.title}" loading="lazy">
+                        </div>
+                    `).join('');
+                    
+                    // Create quick facts
+                    quickFacts.innerHTML = place.facts.map(fact => `
+                        <div class="fact-item">
+                            <div class="fact-icon">${fact.icon}</div>
+                            <div class="fact-label">${fact.label}</div>
+                            <div class="fact-value">${fact.value}</div>
+                        </div>
+                    `).join('');
+                    
+                    // Create place details
+                    placeDetails.innerHTML = `
+                        <h4>အသေးစိတ်အချက်အလက်များ</h4>
+                        <p>${place.description}</p>
+                        <h4>တည်နေရာ</h4>
+                        <p>${place.location}</p>
+                        <h4>အထူးအချက်များ</h4>
+                        <ul>
+                            ${place.details.map(detail => `<li>${detail}</li>`).join('')}
+                        </ul>
+                    `;
+
+                    // Show modal
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close modal functionality
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Category filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const placeCards = document.querySelectorAll('.place-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const category = button.textContent;
+                
+                placeCards.forEach(card => {
+                    if (category === 'အားလုံး' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll <= 0) {
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                return;
+            }
+
+            if (currentScroll > lastScroll && currentScroll > 70) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Parallax effect for page header
+        const pageHeader = document.querySelector('.page-header');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            pageHeader.style.backgroundPositionY = `${scrolled * 0.5}px`;
+        });
+
+        // Initialize tooltips
+        document.querySelectorAll('.social-links a').forEach(link => {
+            link.addEventListener('mouseenter', (e) => {
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = e.target.getAttribute('aria-label');
+                document.body.appendChild(tooltip);
+                
+                const rect = e.target.getBoundingClientRect();
+                tooltip.style.top = `${rect.top - 30}px`;
+                tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2)}px`;
+            });
+
+            link.addEventListener('mouseleave', () => {
+                const tooltip = document.querySelector('.tooltip');
+                if (tooltip) tooltip.remove();
+            });
+        });
+    </script>
 </body>
 </html>
