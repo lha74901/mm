@@ -3,73 +3,424 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ယဉ်ကျေးမှု - မြန်မာနိုင်ငံ</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>မြန်မာ့ယဉ်ကျေးမှု - Myanmar Culture</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #c9a227;
+            --secondary-color: #8b4513;
+            --background-color: #fff9f0;
+            --text-color: #333;
+            --header-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Myanmar Text", sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .page-header {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: calc(-1 * var(--header-height));
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .page-header p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Culture Grid */
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .culture-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .culture-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .culture-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .culture-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .culture-card-body {
+            padding: 1.5rem;
+            position: relative;
+            background: white;
+        }
+
+        .culture-card-body h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .culture-card-body p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .culture-details {
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .culture-details.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Cultural Events Timeline */
+        .events-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            transform: translateX(10px);
+        }
+
+        .event-date {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .culture-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation (same structure) -->
-    <nav class="navbar">
+    <nav id="navbar">
         <div class="container">
             <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <ul class="nav-menu">
+            <ul class="nav-links">
                 <li><a href="index.html">ပင်မ</a></li>
                 <li><a href="history.html">သမိုင်း</a></li>
                 <li><a href="culture.html" class="active">ယဉ်ကျေးမှု</a></li>
                 <li><a href="places.html">နေရာများ</a></li>
                 <li><a href="food.html">အစားအစာ</a></li>
             </ul>
-            <button class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </nav>
 
-    <!-- Culture Hero -->
     <header class="page-header">
-        <div class="container">
+        <div class="container" data-aos="fade-up">
             <h1>မြန်မာ့ယဉ်ကျေးမှု</h1>
             <p>ရိုးရာအနုပညာနှင့် ယဉ်ကျေးမှုအမွေအနှစ်များ</p>
         </div>
     </header>
 
-    <!-- Culture Content -->
-    <section class="section">
-        <div class="container">
-            <div class="grid">
-                <!-- Traditional Art -->
-                <div class="card">
-                    <img src="/api/placeholder/600/400" alt="ရိုးရာအနုပညာ" loading="lazy">
-                    <div class="card-body">
-                        <h3>ရိုးရာအနုပညာ</h3>
-                        <p>ပန်းချီ၊ ပန်းပု၊ လက်မှုပညာများ</p>
-                    </div>
+    <main class="container">
+        <div class="culture-grid">
+            <div class="culture-card" data-aos="fade-up">
+                <img src="/api/placeholder/600/400" alt="ရိုးရာအနုပညာ" loading="lazy">
+                <div class="culture-card-body">
+                    <h3>ရိုးရာအနုပညာ</h3>
+                    <p>ပန်းချီ၊ ပန်းပု၊ လက်မှုပညာများ</p>
                 </div>
+            </div>
 
-                <!-- Traditional Dance -->
-                <div class="card">
-                    <img src="/api/placeholder/600/400" alt="ရိုးရာအက" loading="lazy">
-                    <div class="card-body">
-                        <h3>ရိုးရာအက</h3>
-                        <p>မြန်မာ့ရိုးရာအကပညာများ</p>
-                    </div>
+            <div class="culture-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="/api/placeholder/600/400" alt="ရိုးရာအက" loading="lazy">
+                <div class="culture-card-body">
+                    <h3>ရိုးရာအက</h3>
+                    <p>မြန်မာ့ရိုးရာအကပညာများ</p>
                 </div>
+            </div>
 
-                <!-- Traditional Music -->
-                <div class="card">
-                    <img src="/api/placeholder/600/400" alt="ရိုးရာဂီတ" loading="lazy">
-                    <div class="card-body">
-                        <h3>ရိုးရာဂီတ</h3>
-                        <p>မြန်မာ့ရိုးရာတူရိယာများ</p>
-                    </div>
+            <div class="culture-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="/api/placeholder/600/400" alt="ရိုးရာဂီတ" loading="lazy">
+                <div class="culture-card-body">
+                    <h3>ရိုးရာဂီတ</h3>
+                    <p>မြန်မာ့ရိုးရာတူရိယာများ</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer (same structure) -->
-    <footer class="footer">
+        <div class="events-timeline" data-aos="fade-up">
+            <h2>ယဉ်ကျေးမှုပွဲတော်များ</h2>
+            <div class="event-card">
+                <div class="event-date">သင်္ကြန်ပွဲတော်</div>
+                <p>မြန်မာ့နှစ်သစ်ကူးပွဲတော်</p>
+            </div>
+            <div class="event-card">
+                <div class="event-date">တန်ဆောင်တိုင်ပွဲတော်</div>
+                <p>မီးထွန်းပွဲတော်</p>
+            </div>
+            <div class="event-card">
+                <div class="event-date">ဝါဆိုပွဲတော်</div>
+                <p>ဗုဒ္ဓဘာသာဝင်များ၏ ဝါဝင်ပွဲတော်</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="cultureModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div class="gallery" id="modalGallery"></div>
+            <div id="modalDescription"></div>
+        </div>
+    </div>
+
+    <footer>
         <div class="container">
             <p>© 2024 မြန်မာနိုင်ငံ</p>
             <div class="social-links">
@@ -79,6 +430,176 @@
             </div>
         </div>
     </footer>
-    <script src="js/script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll <= 0) {
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                return;
+            }
+
+            if (currentScroll > lastScroll && currentScroll > 70) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('cultureModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalGallery = document.getElementById('modalGallery');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Cultural content data
+        const culturalContent = {
+            'ရိုးရာအနုပညာ': {
+                title: 'ရိုးရာအနုပညာ',
+                description: `
+                    <h3>မြန်မာ့ရိုးရာလက်မှုပညာ</h3>
+                    <p>မြန်မာ့ရိုးရာလက်မှုပညာသည် ရှေးဟောင်းအနုပညာလက်ရာများဖြစ်သည့် ပန်းပု၊ ပန်းချီ၊ ပန်းထိမ်၊ ပန်းတဉ်း စသည်တို့ပါဝင်သည်။</p>
+                    <p>အဓိကလက်မှုပညာများမှာ -</p>
+                    <ul>
+                        <li>ပန်းပုပညာ</li>
+                        <li>ပန်းချီပညာ</li>
+                        <li>လက်ရက်ကန်းပညာ</li>
+                        <li>ပန်းထိမ်ပညာ</li>
+                    </ul>
+                `,
+                images: [
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300'
+                ]
+            },
+            'ရိုးရာအက': {
+                title: 'ရိုးရာအက',
+                description: `
+                    <h3>မြန်မာ့ရိုးရာအက</h3>
+                    <p>မြန်မာ့ရိုးရာအကပညာသည် ယဉ်ကျေးမှုအမွေအနှစ်တစ်ခုဖြစ်ပြီး၊ ပွဲတော်များနှင့် အခမ်းအနားများတွင် ဖော်ပြလေ့ရှိသည်။</p>
+                    <p>ထင်ရှားသောအကများမှာ -</p>
+                    <ul>
+                        <li>ဇာတ်သဘင်</li>
+                        <li>ရိုးရာအက</li>
+                        <li>နတ်အက</li>
+                        <li>ဒုံးပတ်အက</li>
+                    </ul>
+                `,
+                images: [
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300'
+                ]
+            },
+            'ရိုးရာဂီတ': {
+                title: 'ရိုးရာဂီတ',
+                description: `
+                    <h3>မြန်မာ့ရိုးရာဂီတ</h3>
+                    <p>မြန်မာ့ရိုးရာဂီတသည် ရှေးဟောင်းတူရိယာများဖြင့် တီးခတ်သီဆိုသည့် အနုပညာဖြစ်သည်။</p>
+                    <p>အဓိကတူရိယာများမှာ -</p>
+                    <ul>
+                        <li>စောင်း</li>
+                        <li>ပတ်တား</li>
+                        <li>မြန်မာ့ဝါးပုလွေ</li>
+                        <li>သံစဉ်</li>
+                    </ul>
+                `,
+                images: [
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300',
+                    '/api/placeholder/400/300'
+                ]
+            }
+        };
+
+        // Add click event listeners to culture cards
+        document.querySelectorAll('.culture-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3').textContent;
+                const content = culturalContent[title];
+                
+                if (content) {
+                    modalTitle.textContent = content.title;
+                    modalDescription.innerHTML = content.description;
+                    
+                    // Create gallery
+                    modalGallery.innerHTML = content.images.map(src => `
+                        <div class="gallery-item">
+                            <img src="${src}" alt="${content.title}" loading="lazy">
+                            <div class="gallery-overlay">
+                                <span>ပိုမိုကြည့်ရှုရန်</span>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    // Show modal with animation
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Event cards hover effect
+        document.querySelectorAll('.event-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.backgroundColor = '#fff9f0';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.backgroundColor = 'white';
+            });
+        });
+
+        // Parallax effect for page header
+        const pageHeader = document.querySelector('.page-header');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            pageHeader.style.backgroundPositionY = `${scrolled * 0.5}px`;
+        });
+
+        // Add smooth scroll behavior for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
