@@ -1,51 +1,253 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာနိုင်ငံ - ပင်မစာမျက်နှာ</title>
+    <title>မြန်မာနိုင်ငံ</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">
-                <h1>မြန်မာနိုင်ငံ</h1>
-            </div>
-            <div class="nav-links">
-                <a href="index.html">ပင်မစာမျက်နှာ</a>
-                <a href="history.html">သမိုင်း</a>
-                <a href="culture.html">ယဉ်ကျေးမှု</a>
-                <a href="places.html">နေရာဒေသများ</a>
-                <a href="food.html">အစားအသောက်</a>
-            </div>
-            <div class="menu-btn">
+        <div class="container">
+            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">ပင်မ</a></li>
+                <li><a href="history.html">သမိုင်း</a></li>
+                <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
+                <li><a href="places.html">နေရာများ</a></li>
+                <li><a href="food.html">အစားအစာ</a></li>
+            </ul>
+            <button class="menu-toggle">
                 <span></span>
-            </div>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <main>
-        <section id="home" class="section hero">
-            <div class="hero-content">
-                <h1 class="animate-fade-in">မြန်မာနိုင်ငံ</h1>
-                <p>ရွှေပြည်တော်မြန်မာ</p>
-                <a href="history.html" class="cta-button animate-fade-in-delay">လေ့လာရန်</a>
-            </div>
-        </section>
-    </main>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1>မြန်မာနိုင်ငံ</h1>
+            <p>ရွှေပြည်တော်မြန်မာ</p>
+            <a href="#discover" class="btn-primary">လေ့လာရန်</a>
+        </div>
+    </header>
 
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="#" class="social-icon"></a>
-                <a href="#" class="social-icon"></a>
-                <a href="#" class="social-icon"></a>
+    <!-- Discover Section -->
+    <section id="discover" class="section">
+        <div class="container">
+            <h2 class="section-title">လေ့လာစရာများ</h2>
+            <div class="grid">
+                <!-- History Card -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="သမိုင်း" loading="lazy">
+                    <div class="card-body">
+                        <h3>သမိုင်း</h3>
+                        <p>မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</p>
+                        <a href="history.html" class="btn-secondary">ပိုမိုလေ့လာရန်</a>
+                    </div>
+                </div>
+
+                <!-- Culture Card -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="ယဉ်ကျေးမှု" loading="lazy">
+                    <div class="card-body">
+                        <h3>ယဉ်ကျေးမှု</h3>
+                        <p>မြန်မာ့ရိုးရာယဉ်ကျေးမှုများ</p>
+                        <a href="culture.html" class="btn-secondary">ပိုမိုလေ့လာရန်</a>
+                    </div>
+                </div>
+
+                <!-- Places Card -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="နေရာများ" loading="lazy">
+                    <div class="card-body">
+                        <h3>နေရာများ</h3>
+                        <p>လည်ပတ်လေ့လာစရာနေရာများ</p>
+                        <a href="places.html" class="btn-secondary">ပိုမိုလေ့လာရန်</a>
+                    </div>
+                </div>
             </div>
-            <p>© 2024 မြန်မာနိုင်ငံ။ မူပိုင်ခွင့်လက်ဝယ်ရှိသည်။</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 မြန်မာနိုင်ငံ</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Twitter">TW</a>
+            </div>
         </div>
     </footer>
+    <script src="script.js"></script>
+</body>
+</html>
 
+<!-- history.html -->
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>သမိုင်း - မြန်မာနိုင်ငံ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation (same as index.html) -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">ပင်မ</a></li>
+                <li><a href="history.html" class="active">သမိုင်း</a></li>
+                <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
+                <li><a href="places.html">နေရာများ</a></li>
+                <li><a href="food.html">အစားအစာ</a></li>
+            </ul>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- History Hero -->
+    <header class="page-header">
+        <div class="container">
+            <h1>မြန်မာ့သမိုင်း</h1>
+            <p>အတိတ်မှ ယနေ့ထိ</p>
+        </div>
+    </header>
+
+    <!-- History Content -->
+    <section class="section">
+        <div class="container">
+            <div class="history-grid">
+                <div class="history-content">
+                    <h2>သမိုင်းအကျဉ်း</h2>
+                    <p>မြန်မာနိုင်ငံသည် ရှေးယခင်ကတည်းက ပုဂံ၊ အင်းဝ၊ ကုန်းဘောင် စသည့်ခေတ်များဖြင့် သမိုင်းကြောင်းရှည်ကြာခဲ့ပါသည်။</p>
+                    
+                    <div class="info-box">
+                        <h3>အချက်အလက်များ</h3>
+                        <ul>
+                            <li>နိုင်ငံတည်နေရာ - အရှေ့တောင်အာရှ</li>
+                            <li>မြို့တော် - နေပြည်တော်</li>
+                            <li>အကြီးဆုံးမြို့ - ရန်ကုန်မြို့</li>
+                            <li>လူဦးရေ - ၅၄ သန်းခန့်</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="history-image">
+                    <img src="/api/placeholder/800/600" alt="ရှေးဟောင်းမြို့တော်" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (same as index.html) -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 မြန်မာနိုင်ငံ</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Twitter">TW</a>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!-- culture.html -->
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ယဉ်ကျေးမှု - မြန်မာနိုင်ငံ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation (same structure) -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">ပင်မ</a></li>
+                <li><a href="history.html">သမိုင်း</a></li>
+                <li><a href="culture.html" class="active">ယဉ်ကျေးမှု</a></li>
+                <li><a href="places.html">နေရာများ</a></li>
+                <li><a href="food.html">အစားအစာ</a></li>
+            </ul>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Culture Hero -->
+    <header class="page-header">
+        <div class="container">
+            <h1>မြန်မာ့ယဉ်ကျေးမှု</h1>
+            <p>ရိုးရာအနုပညာနှင့် ယဉ်ကျေးမှုအမွေအနှစ်များ</p>
+        </div>
+    </header>
+
+    <!-- Culture Content -->
+    <section class="section">
+        <div class="container">
+            <div class="grid">
+                <!-- Traditional Art -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="ရိုးရာအနုပညာ" loading="lazy">
+                    <div class="card-body">
+                        <h3>ရိုးရာအနုပညာ</h3>
+                        <p>ပန်းချီ၊ ပန်းပု၊ လက်မှုပညာများ</p>
+                    </div>
+                </div>
+
+                <!-- Traditional Dance -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="ရိုးရာအက" loading="lazy">
+                    <div class="card-body">
+                        <h3>ရိုးရာအက</h3>
+                        <p>မြန်မာ့ရိုးရာအကပညာများ</p>
+                    </div>
+                </div>
+
+                <!-- Traditional Music -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="ရိုးရာဂီတ" loading="lazy">
+                    <div class="card-body">
+                        <h3>ရိုးရာဂီတ</h3>
+                        <p>မြန်မာ့ရိုးရာတူရိယာများ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (same structure) -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 မြန်မာနိုင်ငံ</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Twitter">TW</a>
+            </div>
+        </div>
+    </footer>
     <script src="js/script.js"></script>
 </body>
 </html>
