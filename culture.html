@@ -3,61 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာနိုင်ငံ - ယဉ်ကျေးမှု</title>
+    <title>ယဉ်ကျေးမှု - မြန်မာနိုင်ငံ</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Navigation (same structure) -->
     <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">
-                <h1>မြန်မာနိုင်ငံ</h1>
-            </div>
-            <div class="nav-links">
-                <a href="index.html">ပင်မစာမျက်နှာ</a>
-                <a href="history.html">သမိုင်း</a>
-                <a href="culture.html">ယဉ်ကျေးမှု</a>
-                <a href="places.html">နေရာဒေသများ</a>
-                <a href="food.html">အစားအသောက်</a>
-            </div>
-            <div class="menu-btn">
+        <div class="container">
+            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">ပင်မ</a></li>
+                <li><a href="history.html">သမိုင်း</a></li>
+                <li><a href="culture.html" class="active">ယဉ်ကျေးမှု</a></li>
+                <li><a href="places.html">နေရာများ</a></li>
+                <li><a href="food.html">အစားအစာ</a></li>
+            </ul>
+            <button class="menu-toggle">
                 <span></span>
-            </div>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <main>
-        <section id="culture" class="section parallax">
-            <div class="section-content">
-                <h2 class="section-title">ယဉ်ကျေးမှု</h2>
-                <div class="culture-grid">
-                    <div class="culture-card">
+    <!-- Culture Hero -->
+    <header class="page-header">
+        <div class="container">
+            <h1>မြန်မာ့ယဉ်ကျေးမှု</h1>
+            <p>ရိုးရာအနုပညာနှင့် ယဉ်ကျေးမှုအမွေအနှစ်များ</p>
+        </div>
+    </header>
+
+    <!-- Culture Content -->
+    <section class="section">
+        <div class="container">
+            <div class="grid">
+                <!-- Traditional Art -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="ရိုးရာအနုပညာ" loading="lazy">
+                    <div class="card-body">
                         <h3>ရိုးရာအနုပညာ</h3>
-                        <p>အဆန်းကြယ်ဆုံး လက်မှုပညာများ</p>
+                        <p>ပန်းချီ၊ ပန်းပု၊ လက်မှုပညာများ</p>
                     </div>
-                    <div class="culture-card">
+                </div>
+
+                <!-- Traditional Dance -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="ရိုးရာအက" loading="lazy">
+                    <div class="card-body">
                         <h3>ရိုးရာအက</h3>
-                        <p>ရိုးရာယဉ်ကျေးမှု အကများ</p>
+                        <p>မြန်မာ့ရိုးရာအကပညာများ</p>
                     </div>
-                    <div class="culture-card">
+                </div>
+
+                <!-- Traditional Music -->
+                <div class="card">
+                    <img src="/api/placeholder/600/400" alt="ရိုးရာဂီတ" loading="lazy">
+                    <div class="card-body">
                         <h3>ရိုးရာဂီတ</h3>
-                        <p>မြန်မာ့ရိုးရာ တေးဂီတများ</p>
+                        <p>မြန်မာ့ရိုးရာတူရိယာများ</p>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <div class="footer-content">
+    <!-- Footer (same structure) -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 မြန်မာနိုင်ငံ</p>
             <div class="social-links">
-                <a href="#" class="social-icon"></a>
-                <a href="#" class="social-icon"></a>
-                <a href="#" class="social-icon"></a>
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Twitter">TW</a>
             </div>
-            <p>© 2024 မြန်မာနိုင်ငံ။ မူပိုင်ခွင့်လက်ဝယ်ရှိသည်။</p>
         </div>
     </footer>
-
     <script src="js/script.js"></script>
 </body>
 </html>
