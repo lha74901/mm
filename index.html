@@ -1,90 +1,98 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>မြန်မာနိုင်ငံ</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        .more-link {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .more-link:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">ပင်မ</a></li>
-                <li><a href="history.html">သမိုင်း</a></li>
-                <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
-                <li><a href="places.html">နေရာများ</a></li>
-                <li><a href="food.html">အစားအစာ</a></li>
-            </ul>
-            <button class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container">
-            <h1>မြန်မာနိုင်ငံ</h1>
-            <p>ရွှေပြည်တော်မြန်မာ</p>
-            <a href="#discover" class="btn-primary">လေ့လာရန်</a>
-        </div>
+    <header>
+        <h1>မြန်မာနိုင်ငံ</h1>
     </header>
-
-    <!-- Discover Section -->
-    <section id="discover" class="section">
-        <div class="container">
-            <h2 class="section-title">လေ့လာစရာများ</h2>
-            <div class="grid">
-                <!-- History Card -->
-                <div class="card">
-                    <img src="images/Flag_of_Myanmar.png" alt="သမိုင်း" loading="lazy">
-                    <div class="card-body">
-                        <h3>သမိုင်း</h3>
-                        <p>မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</p>
-                        <a href="history.html" class="btn-secondary">ပိုမိုလေ့လာရန်</a>
-                    </div>
-                </div>
-
-                <!-- Culture Card -->
-                <div class="card">
-                    <img src="/api/placeholder/600/400" alt="ယဉ်ကျေးမှု" loading="lazy">
-                    <div class="card-body">
-                        <h3>ယဉ်ကျေးမှု</h3>
-                        <p>မြန်မာ့ရိုးရာယဉ်ကျေးမှုများ</p>
-                        <a href="culture.html" class="btn-secondary">ပိုမိုလေ့လာရန်</a>
-                    </div>
-                </div>
-
-                <!-- Places Card -->
-                <div class="card">
-                    <img src="/api/placeholder/600/400" alt="နေရာများ" loading="lazy">
-                    <div class="card-body">
-                        <h3>နေရာများ</h3>
-                        <p>လည်ပတ်လေ့လာစရာနေရာများ</p>
-                        <a href="places.html" class="btn-secondary">ပိုမိုလေ့လာရန်</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+    <nav>
+        <a href="#home">ပင်မ</a>
+        <a href="#history">သမိုင်း</a>
+        <a href="#culture">ယဉ်ကျေးမှု</a>
+        <a href="#places">နေရာများ</a>
+        <a href="#food">အစားအစာ</a>
+        <a href="#explore">လေ့လာစရာများ</a>
+    </nav>
+    
+    <section id="history">
+        <h2>သမိုင်း</h2>
+        <h3>မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</h3>
+        <p>မြန်မာနိုင်ငံ၏ ကြွယ်ဝသောသမိုင်းကြောင်းနှင့် ယဉ်ကျေးမှုအမွေအနှစ်များအကြောင်း လေ့လာရန်။</p>
+        <a href="#" class="more-link">ပိုမိုလေ့လာရန်</a>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2024 မြန်မာနိုင်ငံ</p>
-            <div class="social-links">
-                <a href="#" aria-label="Facebook">FB</a>
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="Twitter">TW</a>
-            </div>
-        </div>
-    </footer>
-    <script src="js/script.js"></script>
+    
+    <section id="culture">
+        <h2>ယဉ်ကျေးမှု</h2>
+        <h3>မြန်မာ့ရိုးရာယဉ်ကျေးမှုများ</h3>
+        <p>မြန်မာ့ရိုးရာယဉ်ကျေးမှု၊ ဓလေ့ထုံးတမ်းများနှင့် ပွဲတော်များအကြောင်း ပိုမိုသိရှိလိုပါက။</p>
+        <a href="#" class="more-link">ပိုမိုလေ့လာရန်</a>
+    </section>
+    
+    <section id="places">
+        <h2>နေရာများ</h2>
+        <h3>လည်ပတ်လေ့လာစရာနေရာများ</h3>
+        <p>မြန်မာနိုင်ငံရှိ အံ့မသဖွယ်နေရာများနှင့် ခရီးသွားစရာနေရာများအကြောင်း ရှာဖွေလေ့လာရန်။</p>
+        <a href="#" class="more-link">ပိုမိုလေ့လာရန်</a>
+    </section>
+    
+    <script>
+        // JavaScript can be added here for interactivity
+    </script>
 </body>
 </html>
