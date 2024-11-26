@@ -1,41 +1,29 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
+/* script.js */
+document.addEventListener('DOMContentLoaded', () => {
+    // Elements
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
     const navbar = document.querySelector('.navbar');
-    const menuBtn = document.querySelector('.menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    const sections = document.querySelectorAll('.section');
-    const cards = document.querySelectorAll('.place-card, .food-card, .culture-card');
-
-    // Navbar scroll effect
-    function handleScroll() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    }
-
-    window.addEventListener('scroll', handleScroll);
-
-    // Mobile menu toggle
-    menuBtn.addEventListener('click', () => {
-        menuBtn.classList.toggle('active');
-        navLinks.classList.toggle('active');
+    
+    // Mobile menu functionality
+    menuToggle?.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
     });
 
-    // Close mobile menu when clicking outside
+    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !menuBtn.contains(e.target)) {
-            menuBtn.classList.remove('active');
-            navLinks.classList.remove('active');
+        if (!navMenu?.contains(e.target) && !menuToggle?.contains(e.target)) {
+            menuToggle?.classList.remove('active');
+            navMenu?.classList.remove('active');
         }
     });
 
-    // Smooth scrolling for navigation links
+    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const target = document.querySelector(anchor.getAttribute('href'));
             
             if (target) {
                 const headerOffset = navbar.offsetHeight;
@@ -47,14 +35,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
 
-                // Close mobile menu after clicking
-                menuBtn.classList.remove('active');
-                navLinks.classList.remove('active');
+                // Close mobile menu if open
+                menuToggle?.classList.remove('active');
+                navMenu?.classList.remove('active');
             }
         });
     });
 
-    // Intersection Observer for fade-in animations
+    // Navbar scroll effect
+    const handleScroll = () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Intersection Observer for animations
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -65,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                // Unobserve after animation
                 observer.unobserve(entry.target);
             }
         });
@@ -72,37 +72,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    sections.forEach(section => {
-        section.querySelectorAll('.fade-in').forEach(element => {
-            observer.observe(element);
-        });
+    // Observe all elements with fade-in class
+    document.querySelectorAll('.fade-in').forEach(element => {
+        observer.observe(element);
     });
 
-    // Parallax effect for sections with parallax class
-    const parallaxSections = document.querySelectorAll('.parallax');
-    
-    function handleParallax() {
-        parallaxSections.forEach(section => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * 0.5;
-            section.style.backgroundPositionY = `${rate}px`;
-        });
-    }
-
-    window.addEventListener('scroll', handleParallax);
-
-    // Card hover effects
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-
-    // Lazy loading for images
+    // Image lazy loading fallback
     if ('loading' in HTMLImageElement.prototype) {
         const images = document.querySelectorAll('img[loading="lazy"]');
         images.forEach(img => {
@@ -116,20 +91,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize any dynamic content
-    function initializePage() {
+    const initializePage = () => {
         // Add fade-in class to appropriate elements
         document.querySelectorAll('.section-content').forEach(content => {
-            content.classList.add('fade-in');
+            if (!content.classList.contains('fade-in')) {
+                content.classList.add('fade-in');
+            }
         });
 
-        // Initialize any page-specific animations
+        // Initialize page-specific animations
         const heroContent = document.querySelector('.hero-content');
         if (heroContent) {
             heroContent.querySelectorAll('*').forEach((element, index) => {
                 element.style.animationDelay = `${index * 0.2}s`;
             });
         }
-    }
+    };
 
     // Run initialization
     initializePage();
