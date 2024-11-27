@@ -3,367 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာနိုင်ငံ - Myanmar Tourism</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <title>မြန်မာနိုင်ငံ</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #c9a227;
-            --secondary-color: #8b4513;
-            --background-color: #fff9f0;
-            --text-color: #333;
-            --header-height: 70px;
+        @font-face {
+            font-family: 'Padauk';
+            src: url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        
         body {
-            font-family: "Myanmar Text", sans-serif;
-            line-height: 1.6;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            font-family: 'Padauk', sans-serif;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Navigation */
-        nav {
-            background-color: rgba(255, 255, 255, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: var(--header-height);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover:after,
-        .nav-links a.active:after {
-            width: 100%;
-        }
-
-        /* Hero Section */
         .hero {
-            height: 100vh;
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1920/1080');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/1080');
             background-size: cover;
             background-position: center;
-            display: flex;
-            align-items: center;
-            color: white;
-            margin-top: calc(-1 * var(--header-height));
+            height: 80vh;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Cards */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 0;
-        }
-
-        .card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
+        .place-card, .food-card, .culture-card {
             transition: transform 0.3s ease;
         }
 
-        .card:hover img {
-            transform: scale(1.05);
+        .place-card:hover, .food-card:hover, .culture-card:hover {
+            transform: translateY(-5px);
         }
 
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .card-body h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
+        .category-filters button {
             transition: all 0.3s ease;
         }
 
-        .btn-primary {
-            background-color: var(--primary-color);
+        .category-filters button.active {
+            background-color: #4A5568;
             color: white;
         }
 
-        .btn-primary:hover {
-            background-color: #b08b1f;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--secondary-color);
-            color: var(--secondary-color);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        /* Section Headers */
-        .section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--secondary-color);
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
+        .timeline {
+            position: relative;
             padding: 2rem 0;
         }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.1);
-            transition: background-color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary-color);
-        }
-
-        /* Food Cards */
-        .food-card {
-            position: relative;
-        }
-
-        .card-overlay {
+        .timeline::before {
+            content: '';
             position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: #E2E8F0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
         }
 
-        .food-card:hover .card-overlay {
-            opacity: 1;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: fadeIn 1s ease-out;
+        .modal.active {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <nav id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">ပင်မ</a></li>
-                <li><a href="history.html">သမိုင်း</a></li>
-                <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
-                <li><a href="places.html">နေရာများ</a></li>
-                <li><a href="food.html">အစားအစာ</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="container" data-aos="fade-up">
-            <h1>မြန်မာနိုင်ငံ</h1>
-            <p>ရွှေပြည်တော်မြန်မာ</p>
-            <a href="#discover" class="btn btn-primary">လေ့လာရန်</a>
-        </div>
-    </section>
-
-    <section id="discover" class="section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">လေ့လာစရာများ</h2>
-            <div class="grid">
-                <div class="card" data-aos="fade-up" data-aos-delay="100">
-                    <img src="images/bagan.png" alt="သမိုင်း" loading="lazy">
-                    <div class="card-body">
-                        <h3>သမိုင်း</h3>
-                        <p>မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</p>
-                        <a href="history.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
-                    </div>
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="index.html" class="flex items-center text-xl font-bold text-gray-800">မြန်မာနိုင်ငံ</a>
                 </div>
-
-                <div class="card" data-aos="fade-up" data-aos-delay="200">
-                    <img src="/api/placeholder/600/400" alt="ယဉ်ကျေးမှု" loading="lazy">
-                    <div class="card-body">
-                        <h3>ယဉ်ကျေးမှု</h3>
-                        <p>မြန်မာ့ရိုးရာယဉ်ကျေးမှုများ</p>
-                        <a href="culture.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
-                    </div>
-                </div>
-
-                <div class="card" data-aos="fade-up" data-aos-delay="300">
-                    <img src="/api/placeholder/600/400" alt="နေရာများ" loading="lazy">
-                    <div class="card-body">
-                        <h3>နေရာများ</h3>
-                        <p>လည်ပတ်လေ့လာစရာနေရာများ</p>
-                        <a href="places.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
-                    </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="inline-flex items-center px-1 pt-1 text-gray-900">ပင်မ</a>
+                    <a href="history.html" class="inline-flex items-center px-1 pt-1 text-gray-500 hover:text-gray-900">သမိုင်း</a>
+                    <a href="culture.html" class="inline-flex items-center px-1 pt-1 text-gray-500 hover:text-gray-900">ယဉ်ကျေးမှု</a>
+                    <a href="places.html" class="inline-flex items-center px-1 pt-1 text-gray-500 hover:text-gray-900">နေရာများ</a>
+                    <a href="food.html" class="inline-flex items-center px-1 pt-1 text-gray-500 hover:text-gray-900">အစားအစာ</a>
                 </div>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <footer>
-        <div class="container">
-            <p>© 2024 မြန်မာနိုင်ငံ</p>
-            <div class="social-links">
-                <a href="#" aria-label="Facebook">FB</a>
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="Twitter">TW</a>
+    <div class="hero flex items-center justify-center text-center">
+        <div class="text-white">
+            <h1 class="text-5xl font-bold mb-4">ရွှေပြည်တော်မြန်မာ</h1>
+            <p class="text-xl mb-8">ယဉ်ကျေးမှု၊ သဘာဝအလှအပနှင့် သမိုင်းအမွေအနှစ်များပေါင်းစပ်ထားသော တိုင်းပြည်</p>
+            <a href="#discover" class="bg-white text-gray-900 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+                လေ့လာရန်
+            </a>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section id="discover" class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">လေ့လာစရာများ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="/api/placeholder/600/400" alt="သမိုင်း" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">သမိုင်း</h3>
+                        <p class="text-gray-600 mb-4">မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</p>
+                        <a href="history.html" class="text-blue-600 hover:text-blue-800">ပိုမိုလေ့လာရန် →</a>
+                    </div>
+                </div>
+                <!-- Similar cards for Culture and Places -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <p>© 2024 မြန်မာနိုင်ငံ</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-300">FB</a>
+                    <a href="#" class="hover:text-gray-300">IG</a>
+                    <a href="#" class="hover:text-gray-300">TW</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Initialize AOS (Animate On Scroll)
-        AOS.init({
-            duration: 1000,
-            once: true
+        // Navigation active state
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('nav a').forEach(link => {
+            if (link.getAttribute('href') === currentPath.split('/').pop()) {
+                link.classList.add('text-gray-900');
+                link.classList.remove('text-gray-500');
+            }
         });
 
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        let lastScroll = 0;
-
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll <= 0) {
-                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-                return;
-            }
-
-            if (currentScroll > lastScroll && currentScroll > 70) {
-                // Scrolling down
-                navbar.style.transform = 'translateY(-100%)';
-            } else {
-                // Scrolling up
-                navbar.style.transform = 'translateY(0)';
-                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
-            }
-
-            lastScroll = currentScroll;
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        // Category filters
+        document.querySelectorAll('.category-filters button').forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.dataset.category;
+                document.querySelectorAll('.category-filters button').forEach(btn => {
+                    btn.classList.remove('active');
                 });
+                button.classList.add('active');
+                
+                document.querySelectorAll('[data-category]').forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal functionality
+        document.querySelectorAll('[data-modal-trigger]').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const modalId = trigger.dataset.modalTrigger;
+                document.getElementById(modalId).classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.modal .close').forEach(close => {
+            close.addEventListener('click', () => {
+                close.closest('.modal').classList.remove('active');
             });
         });
     </script>
