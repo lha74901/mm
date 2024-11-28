@@ -1,157 +1,158 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာ့သမိုင်း - Myanmar History</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <title>History - Multilingual</title>
     <style>
-        :root {
-            --primary-color: #B8860B;
-            --secondary-color: #8B4513;
-            --accent-color: #DAA520;
-            --text-color: #333;
-            --bg-color: #FFF8DC;
-            --timeline-color: #B8860B;
-            --card-bg: rgba(255, 255, 255, 0.95);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Padauk", sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: system-ui, -apple-system, sans-serif;
             line-height: 1.6;
         }
 
         .container {
             width: 100%;
-            padding: 0 15px;
+            padding: 0 1rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         /* Navigation */
-        .navbar {
-            background: var(--card-bg);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+        .nav-container {
+            position: relative;
+            padding: 1rem;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
+        .nav-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 15px;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary-color);
             text-decoration: none;
-            z-index: 1001;
+            color: #333;
         }
 
-        /* Menu Toggle and Mobile Nav */
         .menu-toggle {
             display: block;
-            position: relative;
-            z-index: 1001;
-            padding: 10px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            padding: 0.5rem;
             cursor: pointer;
         }
 
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background-color: var(--primary-color);
-            margin: 5px 0;
-            transition: all 0.3s;
-        }
-
         .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            height: 100vh;
-            background: white;
-            display: flex;
+            display: none;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: right 0.3s ease;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 1rem 0;
         }
 
         .nav-links.active {
-            right: 0;
+            display: flex;
         }
 
         .nav-links a {
+            padding: 0.5rem 0;
             text-decoration: none;
-            color: var(--text-color);
-            font-size: 1.2rem;
-            padding: 1rem;
-            display: block;
-            width: 100%;
-            text-align: center;
+            color: #333;
+            transition: color 0.3s;
         }
 
-        .nav-links a:hover,
+        .nav-links a:hover {
+            color: #666;
+        }
+
         .nav-links a.active {
-            color: var(--primary-color);
-            background: rgba(184, 134, 11, 0.1);
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            padding: 0.5rem;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .language-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            flex: 1;
+            max-width: 100px;
+            transition: background-color 0.3s;
+        }
+
+        .language-btn:hover {
+            background: #444;
+        }
+
+        .active-lang {
+            background: #666;
         }
 
         /* Page Header */
         .page-header {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/800/400');
-            background-size: cover;
-            background-position: center;
-            color: white;
+            background: #f5f5f5;
+            padding: 3rem 0;
             text-align: center;
-            padding: 100px 20px 60px;
             margin-bottom: 2rem;
         }
 
         .page-header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        .page-header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* Dynasty Cards */
-        .dynasty-section {
+        /* Sections */
+        section {
             padding: 2rem 0;
         }
 
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        /* Dynasty Grid */
         .dynasty-grid {
             display: grid;
-            gap: 2rem;
-            margin: 2rem 0;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 1rem 0;
         }
 
         .dynasty-card {
-            background: var(--card-bg);
-            border-radius: 15px;
+            background: #fff;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
 
         .dynasty-card:hover {
@@ -169,83 +170,43 @@
         }
 
         .dynasty-content h3 {
-            color: var(--secondary-color);
-            font-size: 1.5rem;
             margin-bottom: 1rem;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 0.5rem;
+            font-size: 1.5rem;
         }
 
         /* Timeline */
         .timeline-section {
-            position: relative;
+            background: #f5f5f5;
             padding: 3rem 0;
-            background: rgba(184, 134, 11, 0.05);
-        }
-
-        .timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 1rem;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background: var(--timeline-color);
+            margin-bottom: 4rem;
         }
 
         .timeline-item {
-            position: relative;
-            padding-left: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0.7rem;
-            top: 0;
-            width: 1rem;
-            height: 1rem;
-            background: var(--timeline-color);
-            border-radius: 50%;
-            box-shadow: 0 0 0 4px rgba(184, 134, 11, 0.2);
-        }
-
-        .timeline-content {
-            background: var(--card-bg);
+            background: #fff;
             padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .timeline-date {
-            color: var(--secondary-color);
             font-weight: bold;
+            color: #666;
             margin-bottom: 0.5rem;
-            font-size: 1.1rem;
         }
 
-        /* Cultural Heritage Section */
-        .heritage-section {
-            padding: 3rem 0;
-        }
-
+        /* Heritage Section */
         .heritage-grid {
             display: grid;
-            gap: 2rem;
-            margin: 2rem 0;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
 
         .heritage-card {
-            background: var(--card-bg);
-            border-radius: 15px;
+            background: #fff;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .heritage-card img {
@@ -258,38 +219,11 @@
             padding: 1.5rem;
         }
 
-        .heritage-content h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Section Titles */
-        .section-title {
-            text-align: center;
-            color: var(--secondary-color);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--accent-color);
-        }
-
         /* Footer */
         footer {
             background: #333;
-            color: white;
-            padding: 2rem 0;
-            margin-top: 2rem;
+            color: #fff;
+            padding: 2rem 1rem 5rem;
         }
 
         .footer-content {
@@ -297,7 +231,6 @@
             flex-direction: column;
             align-items: center;
             gap: 1rem;
-            text-align: center;
         }
 
         .social-links {
@@ -306,89 +239,47 @@
         }
 
         .social-links a {
-            color: white;
+            color: #fff;
             text-decoration: none;
             font-size: 1.2rem;
-            padding: 0.5rem;
-            transition: color 0.3s;
         }
 
-        .social-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Tablet and Desktop Styles */
+        /* Desktop Styles */
         @media (min-width: 768px) {
-            .container {
-                max-width: 1200px;
-                padding: 0 30px;
-            }
-
             .menu-toggle {
                 display: none;
             }
 
             .nav-links {
-                position: static;
-                width: auto;
-                height: auto;
+                display: flex;
                 flex-direction: row;
-                background: none;
-                box-shadow: none;
+                gap: 2rem;
+                width: auto;
+                padding: 0;
+            }
+
+            .dynasty-grid, .heritage-grid {
+                grid-template-columns: repeat(3, 1fr);
                 gap: 2rem;
             }
 
-            .nav-links a {
-                padding: 0;
-                width: auto;
-            }
-
-            .page-header {
-                padding: 150px 0 80px;
-            }
-
-            .page-header h1 {
-                font-size: 3.5rem;
-            }
-
-            .dynasty-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .heritage-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .timeline::before {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .timeline-item {
-                padding-left: 0;
-                width: 50%;
-            }
-
-            .timeline-item:nth-child(odd) {
-                margin-left: auto;
-                padding-left: 2rem;
-            }
-
-            .timeline-item:nth-child(even) {
-                padding-right: 2rem;
-            }
-
-            .timeline-item::before {
-                left: -0.5rem;
-            }
-
-            .timeline-item:nth-child(odd)::before {
-                left: -0.5rem;
-            }
-
-            .timeline-item:nth-child(even)::before {
-                right: -0.5rem;
+            .language-switcher {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                bottom: auto;
                 left: auto;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .language-btn {
+                padding: 0.5rem 1rem;
+            }
+
+            footer {
+                padding: 2rem 1rem;
             }
 
             .footer-content {
@@ -398,97 +289,113 @@
         }
     </style>
 </head>
-<!-- English Version -->
-
 <body>
-    <div class="overlay"></div>
+    <nav class="nav-container">
+        <div class="nav-top">
+            <a href="index.html" class="logo" data-en="Myanmar" data-ru="Мьянма" data-my="မြန်မာနိုင်ငံ">Myanmar</a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" data-en="Home" data-ru="Главная" data-my="ပင်မ">Home</a>
+            <a href="#" class="active" data-en="History" data-ru="История" data-my="သမိုင်း">History</a>
+            <a href="#" data-en="Culture" data-ru="Культура" data-my="ယဉ်ကျေးမှု">Culture</a>
+            <a href="#" data-en="Places" data-ru="Места" data-my="နေရာများ">Places</a>
+            <a href="#" data-en="Food" data-ru="Еда" data-my="အစားအစာ">Food</a>
+        </div>
+    </nav>
 
-    <div class="nav-container">
-        <a href="index.html" class="logo">Myanmar</a>
-
-        <div class="menu-toggle"></div>
-
-        <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="history.html" class="active">History</a>
-            <a href="culture.html">Culture</a>
-            <a href="places.html">Places</a>
-            <a href="food.html">Food</a>
-        </nav>
+    <div class="language-switcher">
+        <button class="language-btn" onclick="changeLanguage('en')" id="en-btn">EN</button>
+        <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn">RU</button>
+        <button class="language-btn" onclick="changeLanguage('my')" id="my-btn">MY</button>
     </div>
 
     <header class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>History of Myanmar</h1>
-            <p>From Past to Present</p>
+        <div class="container">
+            <h1 data-en="History of Myanmar" data-ru="История Мьянмы" data-my="မြန်မာ့သမိုင်း">History of Myanmar</h1>
+            <p data-en="From Past to Present" data-ru="От прошлого к настоящему" data-my="အတိတ်မှ ယနေ့ထိ">From Past to Present</p>
         </div>
     </header>
 
     <main>
         <section class="dynasty-section">
             <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Notable Dynasties</h2>
-                
+                <h2 class="section-title" data-en="Notable Dynasties" data-ru="Знаменитые династии" data-my="ထင်ရှားသော မင်းဆက်များ">Notable Dynasties</h2>
                 <div class="dynasty-grid">
-                    <div class="dynasty-card" data-aos="fade-up">
+                    <div class="dynasty-card">
                         <img src="/api/placeholder/600/400" alt="Bagan Era">
                         <div class="dynasty-content">
-                            <h3>Bagan Era</h3>
-                            <p>The first unified union of the nation. Known for the construction of famous pagodas and temples.</p>
+                            <h3 data-en="Bagan Era" data-ru="Эпоха Баган" data-my="ပုဂံခေတ်">Bagan Era</h3>
+                            <p data-en="The first unified state of the nation. Known for its remarkable temples and pagodas."
+                               data-ru="Первое единое государство нации. Известно своими замечательными храмами и пагодами."
+                               data-my="နိုင်ငံတော်၏ ပထမဆုံး စည်းလုံးညီညွတ်သော ပြည်ထောင်စု။ ထင်ရှားသော ဘုရားပုထိုးများ တည်ဆောက်ခဲ့သောခေတ်။">
+                                The first unified state of the nation. Known for its remarkable temples and pagodas.
+                            </p>
                         </div>
                     </div>
 
-                    <div class="dynasty-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="dynasty-card">
                         <img src="/api/placeholder/600/400" alt="Inwa Era">
                         <div class="dynasty-content">
-                            <h3>Inwa Era</h3>
-                            <p>An important dynasty in Myanmar history. A period of cultural and economic prosperity.</p>
+                            <h3 data-en="Inwa Era" data-ru="Эпоха Инва" data-my="အင်းဝခေတ်">Inwa Era</h3>
+                            <p data-en="An important dynasty in Myanmar history. Period of cultural and economic prosperity."
+                               data-ru="Важная династия в истории Мьянмы. Период культурного и экономического процветания."
+                               data-my="မြန်မာ့သမိုင်းတွင် အရေးပါသော မင်းဆက်။ ယဉ်ကျေးမှုနှင့် စီးပွားရေး ထွန်းကားခဲ့သောခေတ်။">
+                                An important dynasty in Myanmar history. Period of cultural and economic prosperity.
+                            </p>
                         </div>
                     </div>
 
-                    <div class="dynasty-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="dynasty-card">
                         <img src="/api/placeholder/600/400" alt="Konbaung Era">
                         <div class="dynasty-content">
-                            <h3>Konbaung Era</h3>
-                            <p>A period of development in Myanmar literature and culture.</p>
+                            <h3 data-en="Konbaung Era" data-ru="Эпоха Конбаун" data-my="ကုန်းဘောင်ခေတ်">Konbaung Era</h3>
+                            <p data-en="Period of development in Myanmar literature and culture."
+                               data-ru="Период развития мьянманской литературы и культуры."
+                               data-my="မြန်မာစာပေနှင့် ယဉ်ကျေးမှု ဖွံ့ဖြိုးတိုးတက်ခဲ့သောခေတ်။">
+                                Period of development in Myanmar literature and culture.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Timeline Section -->
         <section class="timeline-section">
             <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Historical Milestones</h2>
-                
+                <h2 class="section-title" data-en="Historical Milestones" data-ru="Исторические вехи" data-my="သမိုင်းမှတ်တိုင်များ">Historical Milestones</h2>
                 <div class="timeline">
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Bagan Era (1044-1287)</div>
-                            <p>The first unified union of the nation. Known for the construction of famous pagodas and temples.</p>
+                    <div class="timeline-item">
+                        <div class="timeline-date" data-en="Bagan Era (1044-1287)" data-ru="Эпоха Баган (1044-1287)" data-my="ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)">
+                            Bagan Era (1044-1287)
                         </div>
+                        <p data-en="The first unified state of the nation. Era of temple building and cultural development."
+                           data-ru="Первое единое государство нации. Эпоха строительства храмов и культурного развития."
+                           data-my="နိုင်ငံတော်၏ ပထမဆုံး စည်းလုံးညီညွတ်သော ပြည်ထောင်စု။ ဘုရားပုထိုးများ တည်ဆောက်ခြင်းနှင့် ယဉ်ကျေးမှု ဖွံ့ဖြိုးတိုးတက်ခဲ့သောခေတ်။">
+                            The first unified state of the nation. Era of temple building and cultural development.
+                        </p>
                     </div>
 
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Toungoo Era (1510-1599)</div>
-                            <p>The second empire of Myanmar. A period of cultural and economic development.</p>
+                    <div class="timeline-item">
+                        <div class="timeline-date" data-en="Toungoo Era (1510-1752)" data-ru="Эпоха Таунгу (1510-1752)" data-my="တောင်ငူခေတ် (၁၅၁၀-၁၇၅၂)">
+                            Toungoo Era (1510-1752)
                         </div>
+                        <p data-en="Second Myanmar<p data-en="Second Myanmar Empire. Period of significant territorial expansion and cultural development."
+                           data-ru="Вторая мьянманская империя. Период значительного территориального расширения и культурного развития."
+                           data-my="မြန်မာနိုင်ငံ၏ ဒုတိယမြောက် အင်ပါယာ။ နယ်မြေချဲ့ထွင်ခြင်းနှင့် ယဉ်ကျေးမှု ဖွံ့ဖြိုးတိုးတက်ခဲ့သည်။">
+                            Second Myanmar Empire. Period of significant territorial expansion and cultural development.
+                        </p>
                     </div>
 
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Nyaungyan Era (1599-1752)</div>
-                            <p>Dynasty that emerged after the Toungoo period. Flourished in arts and architecture.</p>
+                    <div class="timeline-item">
+                        <div class="timeline-date" data-en="Konbaung Era (1752-1885)" data-ru="Эпоха Конбаун (1752-1885)" data-my="ကုန်းဘောင်ခေတ် (၁၇၅၂-၁၈၈၅)">
+                            Konbaung Era (1752-1885)
                         </div>
-                    </div>
-
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Konbaung Era (1752-1885)</div>
-                            <p>Period of development in Myanmar literature and culture. The last Myanmar dynasty.</p>
-                        </div>
+                        <p data-en="Last Myanmar dynasty. Period of cultural renaissance and modernization."
+                           data-ru="Последняя мьянманская династия. Период культурного возрождения и модернизации."
+                           data-my="နောက်ဆုံးမြန်မာမင်းဆက်။ ယဉ်ကျေးမှု ပြန်လည်နိုးထခြင်းနှင့် ခေတ်မီတိုးတက်ခြင်း ဖြစ်ပေါ်ခဲ့သည်။">
+                            Last Myanmar dynasty. Period of cultural renaissance and modernization.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -496,42 +403,41 @@
 
         <section class="heritage-section">
             <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Cultural Heritage</h2>
-                
+                <h2 class="section-title" data-en="Cultural Heritage" data-ru="Культурное наследие" data-my="ယဉ်ကျေးမှုအမွေအနှစ်များ">Cultural Heritage</h2>
                 <div class="heritage-grid">
-                    <div class="heritage-card" data-aos="fade-up">
+                    <div class="heritage-card">
                         <img src="/api/placeholder/600/400" alt="Bagan Temples">
                         <div class="heritage-content">
-                            <h3>Bagan Temples</h3>
-                            <p>World Heritage listed ancient temples and pagodas. Study the architectural works of the Bagan period.</p>
+                            <h3 data-en="Bagan Temples" data-ru="Храмы Багана" data-my="ပုဂံဘုရားများ">Bagan Temples</h3>
+                            <p data-en="World Heritage site with ancient temples and pagodas."
+                               data-ru="Объект Всемирного наследия с древними храмами и пагодами."
+                               data-my="ကမ္ဘာ့အမွေအနှစ်စာရင်းဝင် ရှေးဟောင်းဘုရားပုထိုးများ။">
+                                World Heritage site with ancient temples and pagodas.
+                            </p>
                         </div>
                     </div>
 
-                    <div class="heritage-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="heritage-card">
                         <img src="/api/placeholder/600/400" alt="Shwedagon Pagoda">
                         <div class="heritage-content">
-                            <h3>Shwedagon Pagoda</h3>
-                            <p>One of Myanmar's most iconic pagodas. A symbol of Yangon city.</p>
+                            <h3 data-en="Shwedagon Pagoda" data-ru="Пагода Шведагон" data-my="ရွှေတိဂုံစေတီတော်">Shwedagon Pagoda</h3>
+                            <p data-en="Most sacred Buddhist pagoda in Myanmar."
+                               data-ru="Самая священная буддийская пагода в Мьянме."
+                               data-my="မြန်မာနိုင်ငံ၏ အထင်ကရ ဘုရားစေတီများထဲမှ တစ်ဆူ။">
+                                Most sacred Buddhist pagoda in Myanmar.
+                            </p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="info-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Historical Facts</h2>
-                
-                <div class="info-grid">
-                    <div class="info-card" data-aos="fade-up">
-                        <div class="info-content">
-                            <h3>National Information</h3>
-                            <ul>
-                                <li>Country Location - Southeast Asia</li>
-                                <li>Capital - Naypyidaw</li>
-                                <li>Largest City - Yangon</li>
-                                <li>Population - Approximately 54 million</li>
-                            </ul>
+                    <div class="heritage-card">
+                        <img src="/api/placeholder/600/400" alt="Mandalay Palace">
+                        <div class="heritage-content">
+                            <h3 data-en="Mandalay Palace" data-ru="Мандалайский дворец" data-my="မန္တလေးနန်းတော်">Mandalay Palace</h3>
+                            <p data-en="Last royal palace of the last Myanmar monarchy."
+                               data-ru="Последний королевский дворец последней мьянманской монархии."
+                               data-my="နောက်ဆုံးမြန်မာဘုရင်များ၏ နန်းတော်။">
+                                Last royal palace of the last Myanmar monarchy.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -541,7 +447,7 @@
 
     <footer>
         <div class="container footer-content">
-            <p>© 2024 Myanmar</p>
+            <p data-en="© 2024 Myanmar" data-ru="© 2024 Мьянма" data-my="© ၂၀၂၄ မြန်မာနိုင်ငံ">© 2024 Myanmar</p>
             <div class="social-links">
                 <a href="#" aria-label="Facebook">FB</a>
                 <a href="#" aria-label="Instagram">IG</a>
@@ -549,214 +455,55 @@
             </div>
         </div>
     </footer>
-</body>
-</html>
 
-<!-- Russian Version -->
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>История Мьянмы - Русский</title>
-</head>
-<body>
-    <div class="overlay"></div>
-
-    <div class="nav-container">
-        <a href="index.html" class="logo">Мьянма</a>
-
-        <div class="menu-toggle"></div>
-
-        <nav class="nav-links">
-            <a href="index.html">Главная</a>
-            <a href="history.html" class="active">История</a>
-            <a href="culture.html">Культура</a>
-            <a href="places.html">Места</a>
-            <a href="food.html">Еда</a>
-        </nav>
-    </div>
-
-    <header class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>История Мьянмы</h1>
-            <p>От прошлого к настоящему</p>
-        </div>
-    </header>
-
-    <main>
-        <section class="dynasty-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Знаменитые Династии</h2>
-                
-                <div class="dynasty-grid">
-                    <div class="dynasty-card" data-aos="fade-up">
-                        <img src="/api/placeholder/600/400" alt="Эпоха Паган">
-                        <div class="dynasty-content">
-                            <h3>Эпоха Паган</h3>
-                            <p>Первый объединенный союз нации. Известен строительством знаменитых пагод и храмов.</p>
-                        </div>
-                    </div>
-
-                    <div class="dynasty-card" data-aos="fade-up" data-aos-delay="100">
-                        <img src="/api/placeholder/600/400" alt="Эпоха Инва">
-                        <div class="dynasty-content">
-                            <h3>Эпоха Инва</h3>
-                            <p>Важная династия в истории Мьянмы. Период культурного и экономического процветания.</p>
-                        </div>
-                    </div>
-
-                    <div class="dynasty-card" data-aos="fade-up" data-aos-delay="200">
-                        <img src="/api/placeholder/600/400" alt="Эпоха Конбаун">
-                        <div class="dynasty-content">
-                            <h3>Эпоха Конбаун</h3>
-                            <p>Период развития мьянманской литературы и культуры.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="timeline-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Исторические Вехи</h2>
-                
-                <div class="timeline">
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Эпоха Паган (1044-1287)</div>
-                            <p>Первый объединенный союз нации. Известен строительством знаменитых пагод и храмов.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Эпоха Таунгу (1510-1599)</div>
-                            <p>Вторая империя Мьянмы. Период культурного и экономического развития.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Эпоха Ньяунъян (1599-1752)</div>
-                            <p>Династия, появившаяся после периода Таунгу. Расцвет искусства и архитектуры.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-content">
-                            <div class="timeline-date">Эпоха Конбаун (1752-1885)</div>
-                            <p>Период развития мьянманской литературы и культуры. Последняя династия Мьянмы.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="heritage-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Культурное Наследие</h2>
-                
-                <div class="heritage-grid">
-                    <div class="heritage-card" data-aos="fade-up">
-                        <img src="/api/placeholder/600/400" alt="Храмы Пагана">
-                        <div class="heritage-content">
-                            <h3>Храмы Пагана</h3>
-                            <p>Древние храмы и пагоды, включенные в список Всемирного наследия. Изучение архитектурных работ периода Паган.</p>
-                        </div>
-                    </div>
-
-                    <div class="heritage-card" data-aos="fade-up" data-aos-delay="100">
-                        <img src="/api/placeholder/600/400" alt="Пагода Шведагон">
-                        <div class="heritage-content">
-                            <h3>Пагода Шведагон</h3>
-                            <p>Одна из самых знаковых пагод Мьянмы. Символ города Янгон.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="info-section">
-            <div class="container">
-                <h2 class="section-title" data-aos="fade-up">Исторические Факты</h2>
-                
-                <div class="info-grid">
-                    <div class="info-card" data-aos="fade-up">
-                        <div class="info-content">
-                            <h3>Информация о Стране</h3>
-                            <ul>
-                                <li>Расположение - Юго-Восточная Азия</li>
-                                <li>Столица - Нейпьидо</li>
-                                <li>Крупнейший город - Янгон</li>
-                                <li>Население - Примерно 54 миллиона</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container footer-content">
-            <p>© 2024 Мьянма</p>
-            <div class="social-links">
-                <a href="#" aria-label="Facebook">FB</a>
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="Twitter">TW</a>
-            </div>
-        </div>
-    </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 50
-        });
-
-        // Mobile menu functionality
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        const overlay = document.querySelector('.overlay');
-
-        menuToggle.addEventListener('click', () => {
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
             navLinks.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-        });
+        }
 
-        overlay.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
+        function changeLanguage(lang) {
+            // Update active button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active-lang');
             });
+            document.getElementById(lang + '-btn').classList.add('active-lang');
+
+            // Update content
+            document.querySelectorAll('[data-' + lang + ']').forEach(element => {
+                element.textContent = element.getAttribute('data-' + lang);
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Store the selected language in localStorage
+            localStorage.setItem('selectedLanguage', lang);
+        }
+
+        // Handle clicks outside the menu to close it
+        document.addEventListener('click', function(event) {
+            const navLinks = document.getElementById('nav-links');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!event.target.closest('.nav-container')) {
+                navLinks.classList.remove('active');
+            }
         });
 
-        // Smooth scrolling
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+            changeLanguage(savedLanguage);
+        });
+
+        // Add smooth scrolling for better mobile experience
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const headerOffset = 60;
-                    const elementPosition = target.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
     </script>
