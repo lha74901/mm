@@ -3,20 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="မြန်မာ့ရိုးရာအစားအစာများ - Explore traditional Myanmar cuisine">
     <title>မြန်မာ့အစားအစာ - Myanmar Food</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #c9a227;
-            --secondary-color: #8b4513;
-            --background-color: #fff9f0;
-            --text-color: #333;
-            --header-height: 70px;
-            --accent-color: #e67e22;
-            --transition-speed: 0.3s;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -24,135 +15,115 @@
         }
 
         body {
-            font-family: "Myanmar Text", "Pyidaungsu", sans-serif;
+            font-family: 'Padauk', sans-serif;
             line-height: 1.6;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            overflow-x: hidden;
+            color: #333;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            width: 100%;
         }
 
         /* Navigation */
         nav {
-            background-color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
         }
 
         nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: var(--header-height);
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary-color);
+            color: #4A90E2;
             text-decoration: none;
-            transition: color var(--transition-speed) ease;
         }
 
-        .nav-links {
+        nav ul {
             display: flex;
-            gap: 2rem;
             list-style: none;
+            gap: 2rem;
         }
 
-        .nav-links a {
-            color: var(--text-color);
+        nav a {
             text-decoration: none;
+            color: #333;
             font-weight: 500;
-            transition: color var(--transition-speed) ease;
-            position: relative;
-            padding: 0.5rem 0;
+            transition: color 0.3s ease;
         }
 
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width var(--transition-speed) ease;
+        nav a:hover, nav a.active {
+            color: #4A90E2;
         }
 
-        .nav-links a:hover:after,
-        .nav-links a.active:after {
-            width: 100%;
-        }
-
-        /* Hero Section */
+        /* Page Header */
         .page-header {
-            height: 60vh;
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('/api/placeholder/1920/400') center/cover;
+            height: 400px;
             display: flex;
             align-items: center;
             color: white;
-            margin-top: var(--header-height);
-            position: relative;
+            margin-top: 70px;
+            text-align: center;
         }
 
         .page-header h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: 3.5rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .page-header p {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         /* Food Categories */
         .food-categories {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
+            gap: 2rem;
+            margin: 3rem 0;
             flex-wrap: wrap;
-            padding: 0 1rem;
         }
 
-        .category-btn {
+        .food-categories button {
+            background: none;
+            border: none;
             padding: 0.5rem 1.5rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 25px;
-            background: transparent;
-            color: var(--primary-color);
             cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            font-family: inherit;
-            font-size: 1rem;
+            font-family: 'Padauk', sans-serif;
+            font-size: 1.1rem;
+            color: #666;
+            transition: color 0.3s ease;
+            position: relative;
         }
 
-        .category-btn:hover,
-        .category-btn.active {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
+        .food-categories button:hover,
+        .food-categories button.active {
+            color: #4A90E2;
+        }
+
+        .food-categories button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #4A90E2;
         }
 
         /* Food Grid */
         .food-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
             padding: 2rem 0;
         }
@@ -161,11 +132,9 @@
             background: white;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform var(--transition-speed) ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
             cursor: pointer;
-            position: relative;
-            height: 100%;
         }
 
         .food-card:hover {
@@ -174,22 +143,15 @@
 
         .card-image {
             position: relative;
+            height: 200px;
             overflow: hidden;
-            padding-top: 66.67%;
         }
 
         .card-image img {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .food-card:hover .card-image img {
-            transform: scale(1.1);
+            transition: transform 0.3s ease;
         }
 
         .card-overlay {
@@ -198,57 +160,65 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             color: white;
             opacity: 0;
-            transition: opacity var(--transition-speed) ease;
+            transition: opacity 0.3s ease;
         }
 
         .food-card:hover .card-overlay {
             opacity: 1;
         }
 
+        .food-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
         .card-body {
             padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            height: calc(100% - 66.67%);
         }
 
         .card-body h3 {
-            color: var(--secondary-color);
             margin-bottom: 0.5rem;
-            font-size: 1.5rem;
+            color: #333;
         }
 
-        .card-body p {
-            color: #666;
-            margin-bottom: 1rem;
-            flex-grow: 1;
+        /* Food Facts */
+        .food-facts {
+            padding: 4rem 0;
+            background: #f8f9fa;
+            margin-top: 4rem;
         }
 
-        .btn-secondary {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: var(--secondary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: all var(--transition-speed) ease;
+        .food-facts h2 {
             text-align: center;
-            border: none;
-            cursor: pointer;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
         }
 
-        .btn-secondary:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
-        /* Recipe Modal */
+        .fact-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .fact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -256,56 +226,34 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1001;
-            opacity: 0;
-            transition: opacity var(--transition-speed) ease;
-            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1100;
+            overflow-y: auto;
         }
 
         .modal.active {
-            display: flex;
-            opacity: 1;
+            display: block;
         }
 
         .modal-content {
             background: white;
             width: 90%;
             max-width: 800px;
-            margin: auto;
+            margin: 2rem auto;
             padding: 2rem;
             border-radius: 15px;
             position: relative;
-            transform: translateY(-50px);
-            transition: transform var(--transition-speed) ease;
-            max-height: 90vh;
-            overflow-y: auto;
         }
 
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .close-modal {
+        .modal-content .close {
             position: absolute;
-            top: 1rem;
             right: 1rem;
-            font-size: 1.5rem;
+            top: 1rem;
+            font-size: 2rem;
             cursor: pointer;
-            color: var(--secondary-color);
-            transition: color var(--transition-speed) ease;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.1);
-        }
-
-        .close-modal:hover {
-            color: var(--primary-color);
-            background: rgba(0,0,0,0.2);
+            background: none;
+            border: none;
+            color: #333;
         }
 
         .recipe-details {
@@ -313,187 +261,70 @@
         }
 
         .recipe-details h4 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary-color);
-            font-size: 1.25rem;
-        }
-
-        .ingredients-list {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .ingredients-list li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .ingredients-list li::before {
-            content: '•';
-            color: var(--primary-color);
-            position: absolute;
-            left: 0;
-        }
-
-        .steps-list {
-            list-style: none;
-            counter-reset: step-counter;
-        }
-
-        .steps-list li {
-            padding: 0.5rem 0;
-            padding-left: 2.5rem;
-            position: relative;
-            margin-bottom: 1rem;
-        }
-
-        .steps-list li::before {
-            content: counter(step-counter);
-            counter-increment: step-counter;
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            width: 1.5rem;
-            height: 1.5rem;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.8rem;
-        }
-
-        /* Food Facts */
-        .food-facts {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 3rem 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .fact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .fact-card {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--background-color);
-            border-radius: 10px;
-            transition: transform var(--transition-speed) ease;
-        }
-
-        .fact-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .fact-icon {
-            font-size: 2rem;
-            color: var(--primary-color);
+            color: #4A90E2;
             margin-bottom: 1rem;
         }
 
         /* Footer */
         footer {
-            background-color: #333;
+            background: #333;
             color: white;
             padding: 2rem 0;
             margin-top: 4rem;
         }
 
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .social-links {
             display: flex;
             gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
         }
 
         .social-links a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.1);
-            transition: background-color var(--transition-speed) ease;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: color 0.3s ease;
         }
 
         .social-links a:hover {
-            background-color: var(--primary-color);
+            color: #4A90E2;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .food-categories {
+                gap: 1rem;
             }
 
-            .food-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 1.5rem;
-                padding: 1.5rem;
+            .food-categories button {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
             }
 
             .modal-content {
                 width: 95%;
-                padding: 1.5rem;
-            }
-
-            .fact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .page-header {
-                height: 50vh;
-            }
-        }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            .nav-links,
-            .food-categories,
-            .social-links,
-            .btn-secondary {
-                display: none;
-            }
-
-            .page-header {
-                height: auto;
-                margin: 2rem 0;
-            }
-
-            .food-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
+                margin: 1rem auto;
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <nav id="navbar">
+    <nav>
         <div class="container">
             <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <ul class="nav-links">
+            <ul>
                 <li><a href="index.html">ပင်မ</a></li>
                 <li><a href="history.html">သမိုင်း</a></li>
                 <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
@@ -512,59 +343,53 @@
 
     <main class="container">
         <div class="food-categories" data-aos="fade-up">
-            <button class="category-btn active" aria-pressed="true">အားလုံး</button>
-            <button class="category-btn" aria-pressed="false">မနက်စာ</button>
-            <button class="category-btn" aria-pressed="false">နေ့လည်စာ</button>
-            <button class="category-btn" aria-pressed="false">ညစာ</button>
-            <button class="category-btn" aria-pressed="false">အသုပ်များ</button>
-            <button class="category-btn" aria-pressed="false">အချိုများ</button>
+            <button class="active">အားလုံး</button>
+            <button>မနက်စာ</button>
+            <button>နေ့လည်စာ</button>
+            <button>ညစာ</button>
+            <button>အသုပ်များ</button>
+            <button>အချိုများ</button>
         </div>
 
         <div class="food-grid">
             <div class="food-card" data-aos="fade-up" data-category="မနက်စာ" data-id="mohinga">
                 <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="မုန့်ဟင်းခါး - မြန်မာ့ရိုးရာ နံနက်စာ" loading="lazy">
-                    <div class="card-overlay">
-                        <span>ပိုမိုကြည့်ရှုရန်</span>
-                    </div>
+                    <img src="/api/placeholder/600/400" alt="မုန့်ဟင်းခါး" loading="lazy">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
                 <div class="card-body">
                     <h3>မုန့်ဟင်းခါး</h3>
                     <p>မြန်မာ့ရိုးရာ နံနက်စာ</p>
-                    <button class="btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
+                    <button class="btn btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
                 </div>
             </div>
 
             <div class="food-card" data-aos="fade-up" data-aos-delay="100" data-category="အသုပ်များ" data-id="lapheto">
                 <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="လက်ဖက်သုပ် - မြန်မာ့ရိုးရာ သွပ်စရာ" loading="lazy">
-                    <div class="card-overlay">
-                        <span>ပိုမိုကြည့်ရှုရန်</span>
-                    </div>
+                    <img src="/api/placeholder/600/400" alt="လက်ဖက်သုပ်" loading="lazy">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
                 <div class="card-body">
                     <h3>လက်ဖက်သုပ်</h3>
                     <p>မြန်မာ့ရိုးရာ သွပ်စရာ</p>
-                    <button class="btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
+                    <button class="btn btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
                 </div>
             </div>
 
             <div class="food-card" data-aos="fade-up" data-aos-delay="200" data-category="နေ့လည်စာ" data-id="mohingabar">
                 <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="မိုဟင်းဘွား - မြန်မာ့ရိုးရာ နွေးထွေးစရာ" loading="lazy">
-                    <div class="card-overlay">
-                        <span>ပိုမိုကြည့်ရှုရန်</span>
-                    </div>
+                    <img src="/api/placeholder/600/400" alt="မိုဟင်းဘွား" loading="lazy">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
                 <div class="card-body">
                     <h3>မိုဟင်းဘွား</h3>
                     <p>မြန်မာ့ရိုးရာ နွေးထွေးစရာ</p>
-                    <button class="btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
+                    <button class="btn btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
                 </div>
             </div>
         </div>
 
-        <div class="food-facts" data-aos="fade-up">
+        <section class="food-facts" data-aos="fade-up">
             <h2>မြန်မာအစားအစာ အကြောင်း</h2>
             <div class="fact-grid">
                 <div class="fact-card">
@@ -572,39 +397,41 @@
                     <h3>အရသာ</h3>
                     <p>ချဉ်၊ ငန်၊ စပ်၊ ချို စသည့် အရသာပေါင်းစပ်မှု</p>
                 </div>
+
                 <div class="fact-card">
                     <div class="fact-icon" role="img" aria-label="ထမင်းဝိုင်း">🍚</div>
                     <h3>ထမင်းဝိုင်း</h3>
                     <p>ဟင်းလျာများစွာဖြင့် စုံလင်စွာ သုံးဆောင်ခြင်း</p>
                 </div>
+
                 <div class="fact-card">
                     <div class="fact-icon" role="img" aria-label="ရာသီအလိုက်">🥗</div>
                     <h3>ရာသီအလိုက်</h3>
                     <p>ရာသီပေါ်အစားအစာများ စုံလင်စွာရှိခြင်း</p>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <div class="modal" id="recipeModal" aria-hidden="true" role="dialog">
+    <div id="recipeModal" class="modal" aria-hidden="true" role="dialog">
         <div class="modal-content">
-            <button class="close-modal" aria-label="ပိတ်မည်">&times;</button>
+            <button class="close" aria-label="Close">×</button>
             <h2 id="modalTitle"></h2>
             <div class="card-image">
-                <img id="modalImage" src="" alt="" loading="lazy">
+                <img id="modalImage" alt="" loading="lazy">
             </div>
             <div class="recipe-details">
                 <h4>ပါဝင်ပစ္စည်းများ</h4>
-                <ul class="ingredients-list" id="ingredientsList"></ul>
+                <div id="modalIngredients"></div>
                 <h4>ပြုလုပ်ပုံအဆင့်ဆင့်</h4>
-                <ol class="steps-list" id="stepsList"></ol>
+                <div id="modalInstructions"></div>
             </div>
         </div>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 မြန်မာနိုင်ငံ - အခွင့်အရေးအားလုံး ထိန်းသိမ်းပြီး</p>
+            <p>© 2024 မြန်မာနိုင်ငံ - အခွင့်အရေးအားလုံး ထိန်းသိမ်းပြီး</p>
             <div class="social-links">
                 <a href="#" aria-label="Facebook">FB</a>
                 <a href="#" aria-label="Instagram">IG</a>
@@ -615,313 +442,133 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Initialize AOS
         AOS.init({
-            duration: 1000,
-            once: true,
-            disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            duration: 800,
+            easing: 'ease',
+            once: true
         });
+
+        // Food category filtering
+        const categoryButtons = document.querySelectorAll('.food-categories button');
+        const foodCards = document.querySelectorAll('.food-card');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const category = button.textContent;
+                
+                foodCards.forEach(card => {
+                    if (category === 'အားလုံး' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('recipeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalImage = document.getElementById('modalImage');
+        const modalIngredients = document.getElementById('modalIngredients');
+        const modalInstructions = document.getElementById('modalInstructions');
+        const closeButton = modal.querySelector('.close');
 
         // Recipe data
         const recipes = {
-            'mohinga': {
+            mohinga: {
                 title: 'မုန့်ဟင်းခါး',
-                image: '/api/placeholder/800/600',
+                image: '/api/placeholder/800/400',
                 ingredients: [
                     'ငါးရံ့',
-                    'ဂျုံမှုန့်',
+                    'ဂျုံမုန့်ညက်',
                     'ကြက်သွန်နီ',
                     'ကြက်သွန်ဖြူ',
                     'ငါးပိ',
-                    'နနွင်းမှုန့်',
-                    'ဆား',
-                    'ဆီ'
+                    'နနွင်းမုန့်',
+                    'ငရုတ်သီး',
+                    'ဆား'
                 ],
-                steps: [
+                instructions: [
                     'ငါးရံ့ကို သန့်စင်၍ ပြုတ်ပါ',
-                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူကို ဆီသတ်ပါ',
-                    'ငါးပိရည်နှင့် ရောမွှေပါ',
-                    'ဂျုံမှုန့်ကို ရေဖျော်၍ ထည့်ပါ',
-                    'အရသာအတွက် ဆားထည့်ပါ'
+                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူတို့ကို ဆီသတ်ပါ',
+                    'ငါးပိရည်နှင့် ဟင်းချက်ရည်ကို ရောပါ',
+                    'ဂျုံမုန့်ညက်ကို ထည့်၍ မွှေပါ',
+                    'လိုအပ်သလို အရသာမှည့်ပါ'
                 ]
             },
-            'lapheto': {
+            lapheto: {
                 title: 'လက်ဖက်သုပ်',
-                image: '/api/placeholder/800/600',
+                image: '/api/placeholder/800/400',
                 ingredients: [
-                    'လက်ဖက်စို',
+                    'လက်ဖက်စိမ်း',
                     'ပဲကြော်',
-                    'ကြက်သွန်ကြော်',
-                    'ပဲလွေးကြော်',
+                    'ပေါင်းတော်ကြော်',
                     'ဆီ',
                     'ဆား'
                 ],
-                steps: [
-                    'လက်ဖက်စိုကို ညှစ်ပါ',
-                    'ပဲကြော်၊ ကြက်သွန်ကြော်တို့နှင့် ရောမွှေပါ',
-                    'ဆီ၊ ဆား ထည့်၍ မွှေပါ',
-                    'အရသာအလိုက် ဆားထည့်ပါ'
+                instructions: [
+                    'လက်ဖက်စိမ်းကို သန့်စင်ပါ',
+                    'ပဲကြော်၊ ပေါင်းတော်ကြော်တို့ကို ထည့်ပါ',
+                    'ဆီ၊ ဆားထည့်၍ မွှေပါ'
                 ]
             },
-            'mohingabar': {
+            mohingabar: {
                 title: 'မိုဟင်းဘွား',
-                image: '/api/placeholder/800/600',
+                image: '/api/placeholder/800/400',
                 ingredients: [
-                    'အမဲသား',
+                    'နွားသား',
+                    'အာလူး',
                     'ကြက်သွန်နီ',
                     'ကြက်သွန်ဖြူ',
-                    'မဆလာ',
-                    'ဆား',
-                    'ဆီ'
+                    'ဟင်းခတ်အမွှေးအကြိုင်များ'
                 ],
-                steps: [
-                    'အမဲသားကို သန့်စင်၍ ပြုတ်ပါ',
-                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူကို ဆီသတ်ပါ',
-                    'မဆလာထည့်၍ မွှေပါ',
-                    'အရသာအတွက် ဆားထည့်ပါ'
+                instructions: [
+                    'နွားသားကို သန့်စင်၍ ပြုတ်ပါ',
+                    'အာလူးကို အတုံးလေးများဖြစ်အောင် လှီးပါ',
+                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူတို့ကို ဆီသတ်ပါ',
+                    'ဟင်းခတ်အမွှေးအကြိုင်များထည့်၍ ချက်ပါ'
                 ]
             }
         };
 
-        // Modal functionality with keyboard support
-        const modal = document.getElementById('recipeModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalImage = document.getElementById('modalImage');
-        const ingredientsList = document.getElementById('ingredientsList');
-        const stepsList = document.getElementById('stepsList');
-        const closeModalBtn = document.querySelector('.close-modal');
+        // Open modal
+        foodCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const recipeId = card.dataset.id;
+                const recipe = recipes[recipeId];
 
-        function openModal(recipe) {
-            modalTitle.textContent = recipe.title;
-            modalImage.src = recipe.image;
-            modalImage.alt = recipe.title;
-            
-            ingredientsList.innerHTML = recipe.ingredients
-                .map(ingredient => `<li>${ingredient}</li>`)
-                .join('');
-            
-            stepsList.innerHTML = recipe.steps
-                .map(step => `<li>${step}</li>`)
-                .join('');
+                modalTitle.textContent = recipe.title;
+                modalImage.src = recipe.image;
+                modalImage.alt = recipe.title;
 
-            modal.classList.add('active');
-            modal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-            
-            // Focus management
-            closeModalBtn.focus();
-        }
+                modalIngredients.innerHTML = `<ul>${recipe.ingredients.map(ingredient => 
+                    `<li>${ingredient}</li>`).join('')}</ul>`;
+                
+                modalInstructions.innerHTML = `<ol>${recipe.instructions.map(instruction => 
+                    `<li>${instruction}</li>`).join('')}</ol>`;
 
-        function closeModal() {
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+            });
+        });
+
+        // Close modal
+        closeButton.addEventListener('click', () => {
             modal.classList.remove('active');
             modal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Event Listeners
-        document.querySelectorAll('.food-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const recipe = recipes[card.dataset.id];
-                if (recipe) {
-                    openModal(recipe);
-                }
-            });
-
-            // Keyboard accessibility
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    const recipe = recipes[card.dataset.id];
-                    if (recipe) {
-                        openModal(recipe);
-                    }
-                }
-            });
         });
 
-        closeModalBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
             if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // Keyboard support for modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-
-        // Category filtering with accessibility
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        const foodCards = document.querySelectorAll('.food-card');
-
-        function updateCategories(selectedCategory) {
-            categoryButtons.forEach(btn => {
-                const isSelected = btn.textContent === selectedCategory;
-                btn.classList.toggle('active', isSelected);
-                btn.setAttribute('aria-pressed', isSelected);
-            });
-            
-            foodCards.forEach(card => {
-                const isVisible = selectedCategory === 'အားလုံး' || card.dataset.category === selectedCategory;
-                card.style.display = isVisible ? 'block' : 'none';
-                if (isVisible) {
-                    card.removeAttribute('aria-hidden');
-                } else {
-                    card.setAttribute('aria-hidden', 'true');
-                }
-            });
-        }
-
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                updateCategories(button.textContent);
-            });
-        });
-
-        // Navbar scroll effect
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        let lastScroll = 0;
-        let scrollTimeout;
-
-        function handleScroll() {
-            const currentScroll = window.pageYOffset;
-
-            // Clear the timeout if it exists
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
-
-            // Reset navbar state if at top
-            if (currentScroll <= 0) {
-                navbar.style.transform = 'translateY(0)';
-                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-                lastScroll = 0;
-                return;
-            }
-
-            // Auto-hide navbar when scrolling down, show when scrolling up
-            if (currentScroll > lastScroll && currentScroll > 70) {
-                navbar.style.transform = 'translateY(-100%)';
-            } else {
-                navbar.style.transform = 'translateY(0)';
-                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
-            }
-
-            // Set a timeout to show navbar after user stops scrolling
-            scrollTimeout = setTimeout(() => {
-                navbar.style.transform = 'translateY(0)';
-            }, 1000);
-
-            lastScroll = currentScroll;
-        }
-
-        // Throttle scroll event for better performance
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    handleScroll();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-        // Parallax effect for page header with performance optimization
-        const pageHeader = document.querySelector('.page-header');
-        let parallaxTicking = false;
-
-        function updateParallax() {
-            if (!parallaxTicking) {
-                window.requestAnimationFrame(() => {
-                    const scrolled = window.pageYOffset;
-                    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-                        pageHeader.style.backgroundPositionY = `${scrolled * 0.5}px`;
-                    }
-                    parallaxTicking = false;
-                });
-                parallaxTicking = true;
-            }
-        }
-
-        window.addEventListener('scroll', updateParallax, { passive: true });
-
-        // Handle window resize for responsive layouts
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            if (resizeTimeout) {
-                clearTimeout(resizeTimeout);
-            }
-            resizeTimeout = setTimeout(() => {
-                // Reset any necessary layout calculations
-                AOS.refresh();
-            }, 250);
-        });
-
-        // Add touch support for mobile devices
-        let touchStartY = 0;
-        let touchEndY = 0;
-
-        document.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-
-        document.addEventListener('touchmove', (e) => {
-            if (!modal.classList.contains('active')) return;
-            
-            touchEndY = e.touches[0].clientY;
-            const diff = touchStartY - touchEndY;
-
-            // If swiping down and at top of modal content, or swiping up and at bottom
-            if ((diff < -50 && modal.scrollTop <= 0) || 
-                (diff > 50 && modal.scrollTop + modal.clientHeight >= modal.scrollHeight)) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-
-        document.addEventListener('touchend', () => {
-            const diff = touchStartY - touchEndY;
-            
-            // Close modal on significant downward swipe when at top
-            if (diff < -100 && modal.classList.contains('active') && modal.scrollTop <= 0) {
-                closeModal();
-            }
-        });
-
-        // Handle print events
-        window.addEventListener('beforeprint', () => {
-            // Ensure all content is visible for printing
-            foodCards.forEach(card => {
-                card.style.display = 'block';
-                card.removeAttribute('aria-hidden');
-            });
-        });
-
-        window.addEventListener('afterprint', () => {
-            // Restore category filtering state
-            const activeCategory = Array.from(categoryButtons)
-                .find(btn => btn.classList.contains('active'))?.textContent;
-            if (activeCategory) {
-                updateCategories(activeCategory);
-            }
-        });
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', () => {
-            // Check for reduced motion preference
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                // Disable animations
-                document.documentElement.style.setProperty('--transition-speed', '0s');
-            }
-
-            // Set initial focus if needed
-            const activeNavLink = document.querySelector('.nav-links .active');
-            if (activeNavLink) {
-                activeNavLink.focus();
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
             }
         });
     </script>
