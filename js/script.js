@@ -1,113 +1,87 @@
-/* script.js */
-document.addEventListener('DOMContentLoaded', () => {
-    // Elements
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const navbar = document.querySelector('.navbar');
-    
-    // Mobile menu functionality
-    menuToggle?.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navMenu?.contains(e.target) && !menuToggle?.contains(e.target)) {
-            menuToggle?.classList.remove('active');
-            navMenu?.classList.remove('active');
+// Language switching functionality
+function switchLang(lang) {
+    // Update active language button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === lang) {
+            btn.classList.add('active');
         }
     });
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.querySelector(anchor.getAttribute('href'));
-            
-            if (target) {
-                const headerOffset = navbar.offsetHeight;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-
-                // Close mobile menu if open
-                menuToggle?.classList.remove('active');
-                navMenu?.classList.remove('active');
-            }
-        });
-    });
-
-    // Navbar scroll effect
-    const handleScroll = () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
+    // Update visible content
+    document.querySelectorAll('[data-lang]').forEach(el => {
+        if (el.getAttribute('data-lang') === lang) {
+            el.classList.add('active');
         } else {
-            navbar.classList.remove('scrolled');
+            el.classList.remove('active');
         }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    // Intersection Observer for animations
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observerCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Unobserve after animation
-                observer.unobserve(entry.target);
-            }
-        });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // Observe all elements with fade-in class
-    document.querySelectorAll('.fade-in').forEach(element => {
-        observer.observe(element);
     });
 
-    // Image lazy loading fallback
-    if ('loading' in HTMLImageElement.prototype) {
-        const images = document.querySelectorAll('img[loading="lazy"]');
-        images.forEach(img => {
-            img.src = img.dataset.src;
-        });
-    } else {
-        // Fallback for browsers that don't support lazy loading
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-        document.body.appendChild(script);
-    }
+    // Store language preference
+    localStorage.setItem('preferredLanguage', lang);
+}
 
-    // Initialize any dynamic content
-    const initializePage = () => {
-        // Add fade-in class to appropriate elements
-        document.querySelectorAll('.section-content').forEach(content => {
-            if (!content.classList.contains('fade-in')) {
-                content.classList.add('fade-in');
+// Mobile menu functionality
+function setupMobileMenu() {
+    const menuButton = document.querySelector('.mobile-menu-btn');
+    const closeButton = document.querySelector('.mobile-close-btn');
+    const mobileNav = document.querySelector('.mobile-nav');
+
+    if (menuButton && closeButton && mobileNav) {
+        menuButton.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeButton.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+}
+
+// Smooth scroll functionality
+function setupSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
+    });
+}
 
-        // Initialize page-specific animations
-        const heroContent = document.querySelector('.hero-content');
-        if (heroContent) {
-            heroContent.querySelectorAll('*').forEach((element, index) => {
-                element.style.animationDelay = `${index * 0.2}s`;
-            });
+// Active navigation link
+function setActiveNavLink() {
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
         }
-    };
+    });
+}
 
-    // Run initialization
-    initializePage();
+// Initialize functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Setup mobile menu
+    setupMobileMenu();
+
+    // Setup smooth scroll
+    setupSmoothScroll();
+
+    // Set active navigation link
+    setActiveNavLink();
+
+    // Set initial language
+    const savedLang = localStorage.getItem('preferredLanguage') || 'my';
+    switchLang(savedLang);
 });
