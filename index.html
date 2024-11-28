@@ -3,256 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multilingual Myanmar Website</title>
-    <style>
-        :root {
-            --primary: #4F46E5;
-            --secondary: #4338CA;
-            --text: #1F2937;
-            --bg: #F3F4F6;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            color: var(--text);
-            line-height: 1.5;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: var(--primary);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #E5E7EB;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text);
-        }
-
-        nav a.active {
-            color: var(--primary);
-        }
-
-        .hero {
-            padding: 4rem 0;
-            text-align: center;
-            background-color: var(--bg);
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--secondary);
-        }
-
-        .btn-secondary {
-            background-color: white;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--bg);
-        }
-
-        .section {
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .card img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid #E5E7EB;
-        }
-
-        .social-links {
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            margin: 0 0.5rem;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        /* Language Switcher */
-        .lang-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .lang-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            background-color: var(--bg);
-        }
-
-        .lang-btn.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        [data-lang] {
-            display: none;
-        }
-
-        [data-lang].active {
-            display: block;
-        }
-    </style>
+    <title>Myanmar</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <nav>
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+        <div class="mobile-nav-header">
+            <a href="index.html" class="logo" data-lang="my">မြန်မာနိုင်ငံ</a>
+            <button class="mobile-close-btn" aria-label="Close menu">×</button>
+        </div>
+        
+        <div class="lang-switcher">
+            <button class="lang-btn" data-lang="my" onclick="switchLang('my')">မြန်မာ</button>
+            <button class="lang-btn" data-lang="en" onclick="switchLang('en')">English</button>
+            <button class="lang-btn" data-lang="ru" onclick="switchLang('ru')">Русский</button>
+        </div>
+
+        <ul class="nav-menu">
+            <!-- Myanmar -->
+            <li><a href="index.html" class="active" data-lang="my">ပင်မ</a></li>
+            <li><a href="history.html" data-lang="my">သမိုင်း</a></li>
+            <li><a href="culture.html" data-lang="my">ယဉ်ကျေးမှု</a></li>
+            <li><a href="places.html" data-lang="my">နေရာများ</a></li>
+            <li><a href="food.html" data-lang="my">အစားအစာ</a></li>
+
+            <!-- English -->
+            <li><a href="index.html" class="active" data-lang="en">Home</a></li>
+            <li><a href="history.html" data-lang="en">History</a></li>
+            <li><a href="culture.html" data-lang="en">Culture</a></li>
+            <li><a href="places.html" data-lang="en">Places</a></li>
+            <li><a href="food.html" data-lang="en">Food</a></li>
+
+            <!-- Russian -->
+            <li><a href="index.html" class="active" data-lang="ru">Главная</a></li>
+            <li><a href="history.html" data-lang="ru">История</a></li>
+            <li><a href="culture.html" data-lang="ru">Культура</a></li>
+            <li><a href="places.html" data-lang="ru">Места</a></li>
+            <li><a href="food.html" data-lang="ru">Еда</a></li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container nav-container">
             <a href="index.html" class="logo" data-lang="my">မြန်မာနိုင်ငံ</a>
             <a href="index.html" class="logo" data-lang="en">Myanmar</a>
             <a href="index.html" class="logo" data-lang="ru">Мьянма</a>
 
+            <button class="mobile-menu-btn" aria-label="Open menu">☰</button>
+
             <div class="lang-switcher">
-                <button class="lang-btn active" onclick="switchLang('my')">မြန်မာ</button>
-                <button class="lang-btn" onclick="switchLang('en')">English</button>
-                <button class="lang-btn" onclick="switchLang('ru')">Русский</button>
+                <button class="lang-btn" data-lang="my" onclick="switchLang('my')">မြန်မာ</button>
+                <button class="lang-btn" data-lang="en" onclick="switchLang('en')">English</button>
+                <button class="lang-btn" data-lang="ru" onclick="switchLang('ru')">Русский</button>
             </div>
 
-            <ul>
+            <ul class="nav-menu">
+                <!-- Same navigation items as mobile menu -->
+                <!-- Myanmar -->
                 <li><a href="index.html" class="active" data-lang="my">ပင်မ</a></li>
                 <li><a href="history.html" data-lang="my">သမိုင်း</a></li>
                 <li><a href="culture.html" data-lang="my">ယဉ်ကျေးမှု</a></li>
                 <li><a href="places.html" data-lang="my">နေရာများ</a></li>
                 <li><a href="food.html" data-lang="my">အစားအစာ</a></li>
 
+                <!-- English -->
                 <li><a href="index.html" class="active" data-lang="en">Home</a></li>
                 <li><a href="history.html" data-lang="en">History</a></li>
                 <li><a href="culture.html" data-lang="en">Culture</a></li>
                 <li><a href="places.html" data-lang="en">Places</a></li>
                 <li><a href="food.html" data-lang="en">Food</a></li>
 
+                <!-- Russian -->
                 <li><a href="index.html" class="active" data-lang="ru">Главная</a></li>
                 <li><a href="history.html" data-lang="ru">История</a></li>
                 <li><a href="culture.html" data-lang="ru">Культура</a></li>
                 <li><a href="places.html" data-lang="ru">Места</a></li>
                 <li><a href="food.html" data-lang="ru">Еда</a></li>
             </ul>
-        </nav>
+        </div>
+    </header>
 
-        <section class="hero">
-            <h1 data-lang="my">မြန်မာနိုင်ငံ</h1>
-            <p data-lang="my">ရွှေပြည်တော်မြန်မာ</p>
-            <a href="#discover" class="btn btn-primary" data-lang="my">လေ့လာရန်</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <!-- Myanmar -->
+            <div data-lang="my">
+                <h1>မြန်မာနိုင်ငံ</h1>
+                <p>ရွှေပြည်တော်မြန်မာ</p>
+                <a href="#discover" class="btn btn-primary">လေ့လာရန်</a>
+            </div>
 
-            <h1 data-lang="en">Myanmar</h1>
-            <p data-lang="en">Golden Land of Myanmar</p>
-            <a href="#discover" class="btn btn-primary" data-lang="en">Learn More</a>
+            <!-- English -->
+            <div data-lang="en">
+                <h1>Myanmar</h1>
+                <p>Golden Land of Myanmar</p>
+                <a href="#discover" class="btn btn-primary">Learn More</a>
+            </div>
 
-            <h1 data-lang="ru">Мьянма</h1>
-            <p data-lang="ru">Золотая земля Мьянмы</p>
-            <a href="#discover" class="btn btn-primary" data-lang="ru">Узнать больше</a>
-        </section>
+            <!-- Russian -->
+            <div data-lang="ru">
+                <h1>Мьянма</h1>
+                <p>Золотая земля Мьянмы</p>
+                <a href="#discover" class="btn btn-primary">Узнать больше</a>
+            </div>
+        </div>
+    </section>
 
-        <section id="discover" class="section">
+    <!-- Discover Section -->
+    <section id="discover" class="section">
+        <div class="container">
+            <!-- Section Title -->
             <h2 class="section-title" data-lang="my">လေ့လာစရာများ</h2>
             <h2 class="section-title" data-lang="en">Discover</h2>
             <h2 class="section-title" data-lang="ru">Откройте для себя</h2>
 
+            <!-- Cards Grid -->
             <div class="grid">
                 <!-- History Card -->
                 <div class="card">
                     <img src="/api/placeholder/600/400" alt="Bagan">
                     <div class="card-body">
-                        <h3 data-lang="my">သမိုင်း</h3>
-                        <p data-lang="my">မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</p>
-                        <a href="history.html" class="btn btn-secondary" data-lang="my">ပိုမိုလေ့လာရန်</a>
+                        <!-- Myanmar -->
+                        <div data-lang="my">
+                            <h3>သမိုင်း</h3>
+                            <p>မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</p>
+                            <a href="history.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
+                        </div>
 
-                        <h3 data-lang="en">History</h3>
-                        <p data-lang="en">Myanmar's Historical Heritage</p>
-                        <a href="history.html" class="btn btn-secondary" data-lang="en">Learn More</a>
+                        <!-- English -->
+                        <div data-lang="en">
+                            <h3>History</h3>
+                            <p>Myanmar's Historical Heritage</p>
+                            <a href="history.html" class="btn btn-secondary">Learn More</a>
+                        </div>
 
-                        <h3 data-lang="ru">История</h3>
-                        <p data-lang="ru">Историческое наследие Мьянмы</p>
-                        <a href="history.html" class="btn btn-secondary" data-lang="ru">Узнать больше</a>
+                        <!-- Russian -->
+                        <div data-lang="ru">
+                            <h3>История</h3>
+                            <p>Историческое наследие Мьянмы</p>
+                            <a href="history.html" class="btn btn-secondary">Узнать больше</a>
+                        </div>
                     </div>
                 </div>
 
@@ -260,17 +152,26 @@
                 <div class="card">
                     <img src="/api/placeholder/600/400" alt="Culture">
                     <div class="card-body">
-                        <h3 data-lang="my">ယဉ်ကျေးမှု</h3>
-                        <p data-lang="my">မြန်မာ့ရိုးရာယဉ်ကျေးမှုများ</p>
-                        <a href="culture.html" class="btn btn-secondary" data-lang="my">ပိုမိုလေ့လာရန်</a>
+                        <!-- Myanmar -->
+                        <div data-lang="my">
+                            <h3>ယဉ်ကျေးမှု</h3>
+                            <p>မြန်မာ့ရိုးရာယဉ်ကျေးမှုများ</p>
+                            <a href="culture.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
+                        </div>
 
-                        <h3 data-lang="en">Culture</h3>
-                        <p data-lang="en">Myanmar Traditional Culture</p>
-                        <a href="culture.html" class="btn btn-secondary" data-lang="en">Learn More</a>
+                        <!-- English -->
+                        <div data-lang="en">
+                            <h3>Culture</h3>
+                            <p>Myanmar Traditional Culture</p>
+                            <a href="culture.html" class="btn btn-secondary">Learn More</a>
+                        </div>
 
-                        <h3 data-lang="ru">Культура</h3>
-                        <p data-lang="ru">Традиционная культура Мьянмы</p>
-                        <a href="culture.html" class="btn btn-secondary" data-lang="ru">Узнать больше</a>
+                        <!-- Russian -->
+                        <div data-lang="ru">
+                            <h3>Культура</h3>
+                            <p>Традиционная культура Мьянмы</p>
+                            <a href="culture.html" class="btn btn-secondary">Узнать больше</a>
+                        </div>
                     </div>
                 </div>
 
@@ -278,56 +179,44 @@
                 <div class="card">
                     <img src="/api/placeholder/600/400" alt="Places">
                     <div class="card-body">
-                        <h3 data-lang="my">နေရာများ</h3>
-                        <p data-lang="my">လည်ပတ်လေ့လာစရာနေရာများ</p>
-                        <a href="places.html" class="btn btn-secondary" data-lang="my">ပိုမိုလေ့လာရန်</a>
+                        <!-- Myanmar -->
+                        <div data-lang="my">
+                            <h3>နေရာများ</h3>
+                            <p>လည်ပတ်လေ့လာစရာနေရာများ</p>
+                            <a href="places.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
+                        </div>
 
-                        <h3 data-lang="en">Places</h3>
-                        <p data-lang="en">Places to Visit and Explore</p>
-                        <a href="places.html" class="btn btn-secondary" data-lang="en">Learn More</a>
+                        <!-- English -->
+                        <div data-lang="en">
+                            <h3>Places</h3>
+                            <p>Places to Visit and Explore</p>
+                            <a href="places.html" class="btn btn-secondary">Learn More</a>
+                        </div>
 
-                        <h3 data-lang="ru">Места</h3>
-                        <p data-lang="ru">Места для посещения и изучения</p>
-                        <a href="places.html" class="btn btn-secondary" data-lang="ru">Узнать больше</a>
+                        <!-- Russian -->
+                        <div data-lang="ru">
+                            <h3>Места</h3>
+                            <p>Места для посещения и изучения</p>
+                            <a href="places.html" class="btn btn-secondary">Узнать больше</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
             <p>© 2024</p>
             <div class="social-links">
                 <a href="#" aria-label="Facebook">FB</a>
                 <a href="#" aria-label="Instagram">IG</a>
                 <a href="#" aria-label="Twitter">TW</a>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
-    <script>
-        function switchLang(lang) {
-            // Update active button
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.includes(lang === 'my' ? 'မြန်မာ' : lang === 'en' ? 'English' : 'Русский')) {
-                    btn.classList.add('active');
-                }
-            });
-
-            // Update visible content
-            document.querySelectorAll('[data-lang]').forEach(el => {
-                if (el.getAttribute('data-lang') === lang) {
-                    el.classList.add('active');
-                } else {
-                    el.classList.remove('active');
-                }
-            });
-        }
-
-        // Initialize with Myanmar language
-        document.addEventListener('DOMContentLoaded', () => {
-            switchLang('my');
-        });
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
