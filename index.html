@@ -3,178 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာနိုင်ငံ - ရွှေပြည်တော်</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>မြန်မာနိုင်ငံ - Myanmar Tourism</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Padauk', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: #4A90E2;
+        }
+
+        /* Hero Section */
         .hero {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('/api/placeholder/1920/1080') center/cover;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: white;
             text-align: center;
+            color: white;
+            margin-bottom: 4rem;
         }
 
-        .nav-link {
-            position: relative;
-            padding: 0.5rem 1rem;
-            color: #4B5563;
-            transition: color 0.3s;
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: #D97706;
-            transition: all 0.3s;
-            transform: translateX(-50%);
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 80%;
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: bold;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            color: #D97706;
+        .btn-primary {
+            background: #4A90E2;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #357ABD;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #4A90E2;
+            border: 2px solid #4A90E2;
+        }
+
+        .btn-secondary:hover {
+            background: #4A90E2;
+            color: white;
+        }
+
+        /* Discover Section */
+        #discover {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #4A90E2;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm fixed w-full top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <a href="index.html" class="text-2xl font-bold text-amber-600">မြန်မာနိုင်ငံ</a>
-                
-                <button class="md:hidden text-gray-600 focus:outline-none" id="menuButton">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"></path>
-                    </svg>
-                </button>
-
-                <div class="hidden md:flex space-x-6">
-                    <a href="index.html" class="nav-link active">ပင်မ</a>
-                    <a href="history.html" class="nav-link">သမိုင်း</a>
-                    <a href="culture.html" class="nav-link">ယဉ်ကျေးမှု</a>
-                    <a href="places.html" class="nav-link">နေရာများ</a>
-                    <a href="food.html" class="nav-link">အစားအစာ</a>
-                </div>
-            </div>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
+            <ul>
+                <li><a href="index.html" class="active">ပင်မ</a></li>
+                <li><a href="history.html">သမိုင်း</a></li>
+                <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
+                <li><a href="places.html">နေရာများ</a></li>
+                <li><a href="food.html">အစားအစာ</a></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-5xl font-bold mb-6" data-aos="fade-up">မြန်မာနိုင်ငံ</h1>
-            <p class="text-xl mb-8" data-aos="fade-up" data-aos-delay="100">ရွှေပြည်တော်မြန်မာ</p>
-            <a href="#discover" class="inline-block px-8 py-3 bg-amber-600 text-white rounded-full hover:bg-amber-700 transition-colors duration-300" data-aos="fade-up" data-aos-delay="200">
-                လေ့လာရန်
-            </a>
+        <div class="container" data-aos="fade-up">
+            <h1>မြန်မာနိုင်ငံ</h1>
+            <p>ရွှေပြည်တော်မြန်မာ</p>
+            <a href="#discover" class="btn btn-primary">လေ့လာရန်</a>
         </div>
     </section>
 
-    <!-- Discover Section -->
-    <section id="discover" class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">လေ့လာစရာများ</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- History Card -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="သမိုင်း" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-4">သမိုင်း</h3>
-                        <p class="text-gray-600 mb-6">မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</p>
-                        <a href="history.html" class="inline-flex items-center px-6 py-2 bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200 transition-colors duration-300">
-                            ပိုမိုလေ့လာရန်
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
+    <section id="discover">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">လေ့လာစရာများ</h2>
+            <div class="grid">
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="/api/placeholder/600/400" alt="သမိုင်း" loading="lazy">
+                    <div class="card-body">
+                        <h3>သမိုင်း</h3>
+                        <p>မြန်မာပြည်၏ သမိုင်းအမွေအနှစ်များ</p>
+                        <a href="history.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
                     </div>
                 </div>
 
-                <!-- Culture Card -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
-                    <img src="/api/placeholder/600/400" alt="ယဉ်ကျေးမှု" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-4">ယဉ်ကျေးမှု</h3>
-                        <p class="text-gray-600 mb-6">မြန်မာ့ရိုးရာယဉ်ကျေးမှုများ</p>
-                        <a href="culture.html" class="inline-flex items-center px-6 py-2 bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200 transition-colors duration-300">
-                            ပိုမိုလေ့လာရန်
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="/api/placeholder/600/400" alt="ယဉ်ကျေးမှု" loading="lazy">
+                    <div class="card-body">
+                        <h3>ယဉ်ကျေးမှု</h3>
+                        <p>မြန်မာ့ရိုးရာယဉ်ကျေးမှုများ</p>
+                        <a href="culture.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
                     </div>
                 </div>
 
-                <!-- Places Card -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
-                    <img src="/api/placeholder/600/400" alt="နေရာများ" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-4">နေရာများ</h3>
-                        <p class="text-gray-600 mb-6">လည်ပတ်လေ့လာစရာနေရာများ</p>
-                        <a href="places.html" class="inline-flex items-center px-6 py-2 bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200 transition-colors duration-300">
-                            ပိုမိုလေ့လာရန်
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <img src="/api/placeholder/600/400" alt="နေရာများ" loading="lazy">
+                    <div class="card-body">
+                        <h3>နေရာများ</h3>
+                        <p>လည်ပတ်လေ့လာစရာနေရာများ</p>
+                        <a href="places.html" class="btn btn-secondary">ပိုမိုလေ့လာရန်</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-50 border-t mt-20">
-        <div class="container mx-auto px-4 py-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-gray-600 mb-4 md:mb-0">
-                    © 2024 မြန်မာနိုင်ငံ - အခွင့်အရေးအားလုံး ထိန်းသိမ်းပြီး
-                </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-amber-600 hover:text-white transition-all duration-300">FB</a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-amber-600 hover:text-white transition-all duration-300">IG</a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-amber-600 hover:text-white transition-all duration-300">TW</a>
-                </div>
+    <footer>
+        <div class="container">
+            <p>© 2024 မြန်မာနိုင်ငံ</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Twitter">TW</a>
             </div>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Initialize AOS
         AOS.init({
             duration: 800,
+            easing: 'ease',
             once: true
-        });
-
-        // Mobile menu toggle
-        const menuButton = document.getElementById('menuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        menuButton?.addEventListener('click', () => {
-            mobileMenu?.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!menuButton?.contains(e.target) && !mobileMenu?.contains(e.target)) {
-                mobileMenu?.classList.remove('active');
-            }
         });
     </script>
 </body>
