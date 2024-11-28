@@ -7,206 +7,376 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #DAA520;
+            --primary-color: #B8860B;
             --secondary-color: #8B4513;
-            --background-color: #FFFAF0;
-            --text-color: #2C1810;
-            --header-height: 70px;
-            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --hover-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --accent-color: #DAA520;
+            --text-color: #333;
+            --bg-color: #FFF8DC;
+            --card-bg: rgba(255, 255, 255, 0.95);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: "Padauk", sans-serif;
         }
 
         body {
-            font-family: "Myanmar Text", sans-serif;
-            line-height: 1.6;
-            background-color: var(--background-color);
+            background-color: var(--bg-color);
             color: var(--text-color);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
+            width: 100%;
+            padding: 0 15px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
-        /* Navigation */
-        nav {
-            background-color: rgba(255, 255, 255, 0.98);
+        /* Header Styles */
+        .navbar {
+            background: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
         }
 
-        nav .container {
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: var(--header-height);
+            padding: 1rem 15px;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            background: linear-gradient(135deg, var(--primary-color), #FFC857);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-color);
             text-decoration: none;
+            z-index: 1001;
+        }
+
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 5px 0;
+            transition: 0.3s;
         }
 
         .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: white;
             display: flex;
-            gap: 2rem;
-            list-style: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .nav-links.active {
+            right: 0;
         }
 
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
-            font-weight: 500;
-            transition: var(--hover-transition);
-            position: relative;
-        }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover:after,
-        .nav-links a.active:after {
+            padding: 1rem;
+            display: block;
             width: 100%;
+            text-align: center;
         }
 
-        /* Header */
-        .page-header {
-            height: 70vh;
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(44, 24, 16, 0.8)), url('/api/placeholder/1920/1080');
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: rgba(184, 134, 11, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1920/1080');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             display: flex;
             align-items: center;
+            text-align: center;
             color: white;
-            margin-top: calc(-1 * var(--header-height));
-            position: relative;
+            margin-top: 60px;
         }
 
-        .page-header::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
+        .hero-content {
             width: 100%;
-            height: 150px;
-            background: linear-gradient(to top, var(--background-color), transparent);
-        }
-
-        .page-header .container {
-            position: relative;
-            z-index: 2;
-        }
-
-        .page-header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .page-header p {
-            font-size: 1.5rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        /* Culture Grid */
-        .culture-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 0;
-        }
-
-        .culture-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: var(--hover-transition);
-        }
-
-        .culture-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .culture-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .culture-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .culture-card-body {
-            padding: 1.5rem;
-        }
-
-        .culture-card-body h3 {
-            color: var(--secondary-color);
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-        }
-
-        /* Events Timeline */
-        .events-timeline {
-            max-width: 800px;
-            margin: 4rem auto;
             padding: 2rem;
         }
 
-        .events-timeline h2 {
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
             text-align: center;
-            margin-bottom: 3rem;
             color: var(--secondary-color);
-        }
-
-        .event-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--card-shadow);
-            transition: var(--hover-transition);
+            font-size: 2rem;
+            margin-bottom: 3rem;
             position: relative;
-            border-left: 4px solid var(--primary-color);
+            padding-bottom: 1rem;
         }
 
-        .event-card:hover {
-            transform: translateX(10px);
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent-color);
         }
 
-        .event-date {
+        /* Traditional Arts Grid */
+        .arts-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .art-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .art-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .art-content {
+            padding: 1.5rem;
+        }
+
+        .art-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Festivals Section */
+        .festivals {
+            background: rgba(184, 134, 11, 0.05);
+            padding: 4rem 0;
+        }
+
+        .festival-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .festival-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .festival-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .festival-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .festival-date {
             color: var(--primary-color);
             font-weight: bold;
             margin-bottom: 0.5rem;
+        }
+
+        /* Traditional Dress Section */
+        .dress-section {
+            padding: 4rem 0;
+        }
+
+        .dress-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .dress-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dress-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .dress-content {
+            padding: 1.5rem;
+        }
+
+        /* Music and Dance Section */
+        .performance-section {
+            background: rgba(184, 134, 11, 0.05);
+            padding: 4rem 0;
+        }
+
+        .performance-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .performance-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .performance-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .performance-content {
+            padding: 1.5rem;
+        }
+
+        /* Customs and Traditions */
+        .customs-section {
+            padding: 4rem 0;
+        }
+
+        .customs-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .custom-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Literature Section */
+        .literature-section {
+            background: rgba(184, 134, 11, 0.05);
+            padding: 4rem 0;
+        }
+
+        .literature-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .literature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 4rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
             font-size: 1.2rem;
         }
 
@@ -218,17 +388,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1100;
         }
 
         .modal-content {
-            background: white;
-            margin: 10vh auto;
-            padding: 2rem;
+            background: var(--card-bg);
             width: 90%;
             max-width: 800px;
-            border-radius: 20px;
+            margin: 50px auto;
+            padding: 2rem;
+            border-radius: 15px;
             position: relative;
         }
 
@@ -238,132 +408,282 @@
             top: 1rem;
             font-size: 2rem;
             cursor: pointer;
-            color: var(--text-color);
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 2rem 0;
-            margin-top: 4rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.1);
-            transition: var(--hover-transition);
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary-color);
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .culture-grid {
-                grid-template-columns: 1fr;
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+                padding: 0 30px;
             }
 
-            .page-header h1 {
-                font-size: 2.5rem;
+            .menu-toggle {
+                display: none;
             }
 
             .nav-links {
-                gap: 1rem;
+                position: static;
+                width: auto;
+                height: auto;
+                flex-direction: row;
+                background: none;
+                gap: 2rem;
+            }
+
+            .nav-links a {
+                padding: 0;
+                width: auto;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .arts-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .festival-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .dress-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .performance-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .customs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .literature-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
             }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
             <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <ul class="nav-links">
-                <li><a href="index.html">ပင်မ</a></li>
-                <li><a href="history.html">သမိုင်း</a></li>
-                <li><a href="culture.html" class="active">ယဉ်ကျေးမှု</a></li>
-                <li><a href="places.html">နေရာများ</a></li>
-                <li><a href="food.html">အစားအစာ</a></li>
-            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">ပင်မ</a>
+                <a href="history.html">သမိုင်း</a>
+                <a href="culture.html" class="active">ယဉ်ကျေးမှု</a>
+                <a href="places.html">နေရာများ</a>
+                <a href="food.html">အစားအစာ</a>
+            </div>
         </div>
     </nav>
 
-    <header class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>မြန်မာ့ယဉ်ကျေးမှု</h1>
-            <p>ရိုးရာအနုပညာနှင့် ယဉ်ကျေးမှုအမွေအနှစ်များ</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-aos="fade-up">မြန်မာ့ယဉ်ကျေးမှု</h1>
+            <p data-aos="fade-up" data-aos-delay="100">ရိုးရာအနုပညာနှင့် ယဉ်ကျေးမှုအမွေအနှစ်များ</p>
         </div>
-    </header>
+    </section>
 
-    <main class="container">
-        <div class="culture-grid">
-            <div class="culture-card" data-aos="fade-up">
-                <img src="/api/placeholder/600/400" alt="ရိုးရာအနုပညာ" loading="lazy">
-                <div class="culture-card-body">
-                    <h3>ရိုးရာအနုပညာ</h3>
-                    <p>ပန်းချီ၊ ပန်းပု၊ လက်မှုပညာများ</p>
+    <!-- Traditional Arts Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">ရိုးရာအနုပညာများ</h2>
+            <div class="arts-grid">
+                <div class="art-card" data-aos="fade-up">
+                    <img src="/api/placeholder/600/400" alt="ပန်းချီ">
+                    <div class="art-content">
+                        <h3>ပန်းချီ</h3>
+                        <p>မြန်မာ့ရိုးရာပန်းချီနှင့် ပန်းပုပညာရပ်များ</p>
+                    </div>
+                </div>
+                <div class="art-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="/api/placeholder/600/400" alt="ပန်းထိမ်">
+                    <div class="art-content">
+                        <h3>ပန်းထိမ်</h3>
+                        <p>ရွှေ၊ ငွေပန်းထိမ်လက်မှုပညာ</p>
+                    </div>
+                </div>
+                <div class="art-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="/api/placeholder/600/400" alt="ပန်းပု">
+                    <div class="art-content">
+                        <h3>ပန်းပု</h3>
+                        <p>သစ်သား၊ ကျောက်ပန်းပုလက်ရာများ</p>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="culture-card" data-aos="fade-up" data-aos-delay="100">
-                <img src="/api/placeholder/600/400" alt="ရိုးရာအက" loading="lazy">
-                <div class="culture-card-body">
-                    <h3>ရိုးရာအက</h3>
-                    <p>မြန်မာ့ရိုးရာအကပညာများ</p>
+    <!-- Festivals Section -->
+    <section class="festivals">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">ရိုးရာပွဲတော်များ</h2>
+            <div class="festival-grid">
+                <div class="festival-card" data-aos="fade-up">
+                    <img src="/api/placeholder/600/400" alt="သင်္ကြန်">
+                    <div class="festival-content">
+                        <div class="festival-date">ဧပြီလ</div>
+                        <h3>သင်္ကြန်ပွဲတော်</h3>
+                        <p>မြန်မာ့နှစ်သစ်ကူးပွဲတော်</p>
+                    </div>
+                </div>
+
+                <div class="festival-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="/api/placeholder/600/400" alt="တန်ဆောင်တိုင်">
+                    <div class="festival-content">
+                        <div class="festival-date">နိုဝင်ဘာလ</div>
+                        <h3>တန်ဆောင်တိုင်</h3>
+                        <p>မီးထွန်းပွဲတော်</p>
+                    </div>
+                </div>
+
+                <div class="festival-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="/api/placeholder/600/400" alt="ဝါဆို">
+                    <div class="festival-content">
+                        <div class="festival-date">ဇူလိုင်လ</div>
+                        <h3>ဝါဆိုပွဲတော်</h3>
+                        <p>ဗုဒ္ဓဘာသာဝင်များ၏ ဝါဝင်ပွဲတော်</p>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="culture-card" data-aos="fade-up" data-aos-delay="200">
-                <img src="/api/placeholder/600/400" alt="ရိုးရာဂီတ" loading="lazy">
-                <div class="culture-card-body">
-                    <h3>ရိုးရာဂီတ</h3>
-                    <p>မြန်မာ့ရိုးရာတူရိယာများ</p>
+    <!-- Traditional Dress Section -->
+    <section class="dress-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">ရိုးရာဝတ်စားဆင်ယင်မှု</h2>
+            <div class="dress-grid">
+                <div class="dress-card" data-aos="fade-up">
+                    <img src="/api/placeholder/600/400" alt="အမျိုးသားဝတ်စုံ">
+                    <div class="dress-content">
+                        <h3>အမျိုးသားဝတ်စုံ</h3>
+                        <p>ပုဆိုး၊ တိုက်ပုံ၊ ခေါင်းပေါင်း</p>
+                    </div>
+                </div>
+
+                <div class="dress-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="/api/placeholder/600/400" alt="အမျိုးသမီးဝတ်စုံ">
+                    <div class="dress-content">
+                        <h3>အမျိုးသမီးဝတ်စုံ</h3>
+                        <p>ထဘီ၊ အင်္ကျီ၊ ပတ်လည်ကော်လာ</p>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="events-timeline" data-aos="fade-up">
-            <h2>ယဉ်ကျေးမှုပွဲတော်များ</h2>
-            
-            <div class="event-card">
-                <div class="event-date">သင်္ကြန်ပွဲတော်</div>
-                <p>မြန်မာ့နှစ်သစ်ကူးပွဲတော်</p>
-            </div>
+    <!-- Music and Dance Section -->
+    <section class="performance-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">ရိုးရာအနုပညာဖျော်ဖြေမှု</h2>
+            <div class="performance-grid">
+                <div class="performance-card" data-aos="fade-up">
+                    <img src="/api/placeholder/600/400" alt="ဇာတ်သဘင်">
+                    <div class="performance-content">
+                        <h3>ဇာတ်သဘင်</h3>
+                        <p>မြန်မာ့ရိုးရာဇာတ်သဘင်</p>
+                    </div>
+                </div>
 
-            <div class="event-card">
-                <div class="event-date">တန်ဆောင်တိုင်ပွဲတော်</div>
-                <p>မီးထွန်းပွဲတော်</p>
-            </div>
+                <div class="performance-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="/api/placeholder/600/400" alt="စက်ကွေး">
+                    <div class="performance-content">
+                        <h3>စက်ကွေးအက</h3>
+                        <p>မြန်မာ့ရိုးရာအကပညာ</p>
+                    </div>
+                </div>
 
-            <div class="event-card">
-                <div class="event-date">ဝါဆိုပွဲတော်</div>
-                <p>ဗုဒ္ဓဘာသာဝင်များ၏ ဝါဝင်ပွဲတော်</p>
+                <div class="performance-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="/api/placeholder/600/400" alt="ရိုးရာဂီတ">
+                    <div class="performance-content">
+                        <h3>ရိုးရာဂီတ</h3>
+                        <p>မြန်မာ့ရိုးရာတူရိယာများ</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <div id="cultureModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">×</span>
-            <h2 id="modalTitle"></h2>
-            <div id="modalGallery" class="gallery"></div>
-            <div id="modalDescription"></div>
+    <!-- Customs and Traditions -->
+    <section class="customs-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">ရိုးရာဓလေ့ထုံးတမ်းများ</h2>
+            <div class="customs-grid">
+                <div class="custom-card" data-aos="fade-up">
+                    <h3>လူမှုရေးဓလေ့များ</h3>
+                    <p>ကြီးသူကိုရိုသေခြင်း၊ ငယ်သူကိုသနားခြင်း၊ အချင်းချင်းလေးစားခြင်း</p>
+                </div>
+                <div class="custom-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>ဘာသာရေးဓလေ့များ</h3>
+                    <p>ဘုရားဖူးခြင်း၊ သီလဆောက်တည်ခြင်း၊ ဒါနပြုခြင်း</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Literature Section -->
+    <section class="literature-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">စာပေအနုပညာ</h2>
+            <div class="literature-grid">
+                <div class="literature-card" data-aos="fade-up">
+                    <h3>ရိုးရာပုံပြင်များ</h3>
+                    <p>ဇာတ်ကြီးဆယ်နှစ်ခန်း၊ နိပါတ်တော်များ</p>
+                </div>
+                <div class="literature-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>ခေတ်ပေါ်စာပေ</h3>
+                    <p>ဝတ္ထုတို၊ ကဗျာ၊ ဆောင်းပါးများ</p>
+                </div>
+                <div class="literature-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>ရိုးရာကဗျာ</h3>
+                    <p>လကာၤ၊ ရတု၊ ယာချင်း</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">ဓာတ်ပုံပြခန်း</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-aos="fade-up">
+                    <img src="/api/placeholder/600/400" alt="ရိုးရာအက">
+                </div>
+                <div class="gallery-item" data-aos="fade-up">
+                    <img src="/api/placeholder/600/400" alt="ပွဲတော်များ">
+                </div>
+                <div class="gallery-item" data-aos="fade-up">
+                    <img src="/api/placeholder/600/400" alt="လက်မှုပညာ">
+                </div>
+                <div class="gallery-item" data-aos="fade-up">
+                    <img src="/api/placeholder/600/400" alt="ဝတ်စားဆင်ယင်မှု">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <div class="container">
+        <div class="container footer-content">
             <p>© 2024 မြန်မာနိုင်ငံ</p>
             <div class="social-links">
                 <a href="#" aria-label="Facebook">FB</a>
@@ -373,51 +693,69 @@
         </div>
     </footer>
 
+    <!-- Modal -->
+    <div id="cultureModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">×</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalGallery" class="gallery"></div>
+            <div id="modalDescription"></div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         // Initialize AOS
         AOS.init({
-            duration: 1200,
+            duration: 1000,
             once: true,
-            offset: 100,
-            delay: 100,
-            easing: 'ease-out-cubic'
+            offset: 50
         });
 
         // Modal functionality
         const modal = document.getElementById('cultureModal');
         const closeModal = document.querySelector('.close-modal');
-        const cultureCards = document.querySelectorAll('.culture-card');
+        const galleryItems = document.querySelectorAll('.gallery-item');
 
-        cultureCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('h3').textContent;
-                const description = card.querySelector('p').textContent;
-                const image = card.querySelector('img').src;
-
-                document.getElementById('modalTitle').textContent = title;
-                document.getElementById('modalDescription').textContent = description;
-                document.getElementById('modalGallery').innerHTML = `<img src="${image}" alt="${title}">`;
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.querySelector('img').src;
+                const imgAlt = item.querySelector('img').alt;
                 
+                document.getElementById('modalTitle').textContent = imgAlt;
+                document.getElementById('modalGallery').innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
                 modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
             });
         });
 
         closeModal.addEventListener('click', () => {
             modal.style.display = 'none';
+            document.body.style.overflow = '';
         });
 
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.style.display = 'none';
+                document.body.style.overflow = '';
             }
         });
 
-        // Parallax effect for header
-        const pageHeader = document.querySelector('.page-header');
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            pageHeader.style.backgroundPositionY = `${scrolled * 0.5}px`;
+        // Mobile menu functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
         });
     </script>
 </body>
