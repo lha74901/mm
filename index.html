@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Myanmar | The Golden Land</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Myanmar Guide</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
         :root {
@@ -12,95 +12,112 @@
             --text-color: #333;
             --light-bg: #f8f9fa;
             --dark-bg: #343a40;
+            --header-height: 60px;
+            --bottom-nav-height: 60px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
+            padding-bottom: var(--bottom-nav-height);
         }
 
-        /* Language Selector */
-        .language-selector {
+        /* Mobile Header */
+        .header {
             position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1001;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
             background: white;
-            padding: 0.5rem;
-            border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            flex: 1;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
         }
 
         .language-btn {
-            padding: 0.5rem 1rem;
-            margin: 0 0.2rem;
+            padding: 0.5rem;
             border: none;
             background: var(--light-bg);
+            border-radius: 5px;
+            font-size: 0.875rem;
             cursor: pointer;
-            border-radius: 3px;
-            transition: background-color 0.3s;
         }
 
-        .language-btn:hover,
         .language-btn.active {
             background: var(--primary-color);
             color: white;
         }
 
-        /* Navigation */
-        nav {
-            background: white;
-            padding: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        /* Bottom Navigation */
+        .bottom-nav {
             position: fixed;
-            width: 100%;
-            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--bottom-nav-height);
+            background: white;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             z-index: 1000;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .nav-item {
+            flex: 1;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-menu a {
+            padding: 0.5rem;
             text-decoration: none;
             color: var(--text-color);
-            font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.75rem;
+            gap: 0.25rem;
         }
 
-        .nav-menu a:hover {
+        .nav-item.active {
             color: var(--primary-color);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: var(--header-height);
+            padding: 1rem;
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1920/1080');
+            margin: -1rem;
+            height: 50vh;
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/800/600');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -108,32 +125,68 @@
             justify-content: center;
             text-align: center;
             color: white;
-            padding-top: 70px;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
+            padding: 1rem;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .card p {
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
         }
 
         /* Buttons */
         .btn {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
             text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
 
         .btn-primary {
@@ -144,86 +197,14 @@
         .btn-secondary {
             background: var(--secondary-color);
             color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        /* Sections */
-        .section {
-            padding: 5rem 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--secondary-color);
-        }
-
-        /* Cards Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
         }
 
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .card-body h3 {
+        /* Section Titles */
+        .section-title {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
             color: var(--secondary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-bg);
-            color: white;
-            padding: 3rem 0;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            color: white;
-            text-decoration: none;
         }
 
         /* Language Specific Content */
@@ -235,132 +216,141 @@
             display: block;
         }
 
-        /* Responsive Design */
+        /* Mobile Optimizations */
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
+            .hero {
+                height: 40vh;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .cards-grid {
+                grid-template-columns: 1fr;
             }
 
-            .hero p {
-                font-size: 1.2rem;
+            .btn {
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+
+        /* Pull to Refresh Indicator */
+        .pull-to-refresh {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-bg);
+            transform: translateY(-100%);
+            transition: transform 0.3s;
+        }
+
+        .pull-to-refresh.active {
+            transform: translateY(0);
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Language Selector -->
-    <div class="language-selector">
-        <button class="language-btn" onclick="changeLanguage('en')">English</button>
-        <button class="language-btn" onclick="changeLanguage('ru')">Русский</button>
-    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title" lang="en">Myanmar Guide</div>
+        <div class="header-title" lang="ru">Гид по Мьянме</div>
+        <div class="language-switcher">
+            <button class="language-btn" onclick="changeLanguage('en')">EN</button>
+            <button class="language-btn" onclick="changeLanguage('ru')">RU</button>
+        </div>
+    </header>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <!-- English Navigation -->
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Pull to Refresh Indicator -->
+        <div class="pull-to-refresh">
+            <span lang="en">Release to refresh</span>
+            <span lang="ru">Отпустите для обновления</span>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
             <div lang="en">
-                <a href="index.html" class="logo">Myanmar</a>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="history.html">History</a></li>
-                    <li><a href="culture.html">Culture</a></li>
-                    <li><a href="places.html">Places</a></li>
-                    <li><a href="food.html">Food</a></li>
-                </ul>
+                <h1>Myanmar</h1>
+                <p>The Golden Land</p>
+                <a href="#explore" class="btn btn-primary">Explore Now</a>
             </div>
-
-            <!-- Russian Navigation -->
             <div lang="ru">
-                <a href="index.html" class="logo">Мьянма</a>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="active">Главная</a></li>
-                    <li><a href="history.html">История</a></li>
-                    <li><a href="culture.html">Культура</a></li>
-                    <li><a href="places.html">Места</a></li>
-                    <li><a href="food.html">Кухня</a></li>
-                </ul>
+                <h1>Мьянма</h1>
+                <p>Золотая земля</p>
+                <a href="#explore" class="btn btn-primary">Исследовать</a>
             </div>
-        </div>
-    </nav>
+        </section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <!-- English Hero -->
-        <div class="hero-content" lang="en" data-aos="fade-up">
-            <h1>Myanmar</h1>
-            <p>The Golden Land</p>
-            <a href="#discover" class="btn btn-primary">Discover</a>
-        </div>
+        <!-- Featured Sections -->
+        <section id="explore">
+            <h2 class="section-title" lang="en">Discover Myanmar</h2>
+            <h2 class="section-title" lang="ru">Откройте для себя Мьянму</h2>
 
-        <!-- Russian Hero -->
-        <div class="hero-content" lang="ru" data-aos="fade-up">
-            <h1>Мьянма</h1>
-            <p>Золотая земля</p>
-            <a href="#discover" class="btn btn-primary">Исследовать</a>
-        </div>
-    </section>
-
-    <!-- Discover Section -->
-    <section id="discover" class="section">
-        <div class="container">
-            <!-- English Discover -->
-            <div lang="en">
-                <h2 class="section-title" data-aos="fade-up">Discover More</h2>
-                <div class="grid">
-                    <div class="card" data-aos="fade-up" data-aos-delay="100">
-                        <img src="/api/placeholder/600/400" alt="History">
-                        <div class="card-body">
+            <div class="cards-grid">
+                <!-- History Card -->
+                <div class="card" data-aos="fade-up">
+                    <img src="/api/placeholder/800/600" alt="History">
+                    <div class="card-content">
+                        <div lang="en">
                             <h3>History</h3>
                             <p>Explore the rich historical heritage of Myanmar, from ancient kingdoms to modern times.</p>
                             <a href="history.html" class="btn btn-secondary">Learn More</a>
                         </div>
-                    </div>
-                    <div class="card" data-aos="fade-up" data-aos-delay="200">
-                        <img src="/api/placeholder/600/400" alt="Culture">
-                        <div class="card-body">
-                            <h3>Culture</h3>
-                            <p>Discover the vibrant traditions, festivals, and customs of Myanmar.</p>
-                            <a href="culture.html" class="btn btn-secondary">Learn More</a>
-                        </div>
-                    </div>
-                    <div class="card" data-aos="fade-up" data-aos-delay="300">
-                        <img src="/api/placeholder/600/400" alt="Places">
-                        <div class="card-body">
-                            <h3>Places</h3>
-                            <p>Visit breathtaking temples, pristine beaches, and scenic landscapes.</p>
-                            <a href="places.html" class="btn btn-secondary">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Russian Discover -->
-            <div lang="ru">
-                <h2 class="section-title" data-aos="fade-up">Узнать больше</h2>
-                <div class="grid">
-                    <div class="card" data-aos="fade-up" data-aos-delay="100">
-                        <img src="/api/placeholder/600/400" alt="История">
-                        <div class="card-body">
+                        <div lang="ru">
                             <h3>История</h3>
                             <p>Изучите богатое историческое наследие Мьянмы, от древних королевств до современности.</p>
                             <a href="history.html" class="btn btn-secondary">Подробнее</a>
                         </div>
                     </div>
-                    <div class="card" data-aos="fade-up" data-aos-delay="200">
-                        <img src="/api/placeholder/600/400" alt="Культура">
-                        <div class="card-body">
+                </div>
+
+                <!-- Culture Card -->
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="/api/placeholder/800/600" alt="Culture">
+                    <div class="card-content">
+                        <div lang="en">
+                            <h3>Culture</h3>
+                            <p>Discover the vibrant traditions, festivals, and customs of Myanmar.</p>
+                            <a href="culture.html" class="btn btn-secondary">Learn More</a>
+                        </div>
+                        <div lang="ru">
                             <h3>Культура</h3>
                             <p>Откройте для себя яркие традиции, фестивали и обычаи Мьянмы.</p>
                             <a href="culture.html" class="btn btn-secondary">Подробнее</a>
                         </div>
                     </div>
-                    <div class="card" data-aos="fade-up" data-aos-delay="300">
-                        <img src="/api/placeholder/600/400" alt="Места">
-                        <div class="card-body">
+                </div>
+
+                <!-- Places Card -->
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="/api/placeholder/800/600" alt="Places">
+                    <div class="card-content">
+                        <div lang="en">
+                            <h3>Places</h3>
+                            <p>Visit breathtaking temples, pristine beaches, and scenic landscapes.</p>
+                            <a href="places.html" class="btn btn-secondary">Learn More</a>
+                        </div>
+                        <div lang="ru">
                             <h3>Места</h3>
                             <p>Посетите захватывающие храмы, нетронутые пляжи и живописные ландшафты.</p>
                             <a href="places.html" class="btn btn-secondary">Подробнее</a>
@@ -368,153 +358,93 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <!-- English Footer -->
-                <div lang="en">
-                    <h3>Myanmar</h3>
-                    <p>Explore the history, culture, and tourism of Myanmar.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">Facebook</a>
-                        <a href="#" aria-label="Instagram">Instagram</a>
-                        <a href="#" aria-label="Twitter">Twitter</a>
-                    </div>
-                </div>
-
-                <!-- Russian Footer -->
-                <div lang="ru">
-                    <h3>Мьянма</h3>
-                    <p>Исследуйте историю, культуру и туризм Мьянмы.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">Фейсбук</a>
-                        <a href="#" aria-label="Instagram">Инстаграм</a>
-                        <a href="#" aria-label="Twitter">Твиттер</a>
-                    </div>
-                </div>
-
-                <div class="copyright">
-                    <div lang="en">© 2024 Myanmar - All Rights Reserved</div>
-                    <div lang="ru">© 2024 Мьянма - Все права защищены</div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span lang="en">Home</span>
+            <span lang="ru">Главная</span>
+        </a>
+        <a href="places.html" class="nav-item">
+            <span class="nav-icon">🗺️</span>
+            <span lang="en">Places</span>
+            <span lang="ru">Места</span>
+        </a>
+        <a href="culture.html" class="nav-item">
+            <span class="nav-icon">🎭</span>
+            <span lang="en">Culture</span>
+            <span lang="ru">Культура</span>
+        </a>
+        <a href="food.html" class="nav-item">
+            <span class="nav-icon">🍜</span>
+            <span lang="en">Food</span>
+            <span lang="ru">Кухня</span>
+        </a>
+    </nav>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         // Initialize AOS
         AOS.init({
-            duration: 1000,
-            easing: 'ease-in-out',
-            once: true,
-            mirror: false
+            duration: 800,
+            easing: 'ease-out',
+            once: true
         });
 
         // Language Switcher
         function changeLanguage(lang) {
-            // Hide all language elements
             document.querySelectorAll('[lang]').forEach(elem => {
                 elem.classList.remove('active');
             });
             
-            // Show selected language elements
             document.querySelectorAll(`[lang="${lang}"]`).forEach(elem => {
                 elem.classList.add('active');
             });
 
-            // Update active state of language buttons
             document.querySelectorAll('.language-btn').forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.textContent.includes(lang === 'en' ? 'English' : 'Русский')) {
+                if (btn.textContent.includes(lang.toUpperCase())) {
                     btn.classList.add('active');
                 }
             });
 
-            // Store language preference
             localStorage.setItem('preferredLanguage', lang);
         }
 
-        // Handle smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+        // Pull to Refresh
+        let touchStart = 0;
+        let touchY = 0;
+        const pullIndicator = document.querySelector('.pull-to-refresh');
+
+        document.addEventListener('touchstart', (e) => {
+            touchStart = e.touches[0].clientY;
         });
 
-        // Mobile menu toggle
-        const mobileMenu = () => {
-            const menuBtn = document.createElement('button');
-            menuBtn.className = 'menu-toggle';
-            menuBtn.innerHTML = '☰';
-            menuBtn.style.cssText = `
-                display: none;
-                background: none;
-                border: none;
-                font-size: 1.5rem;
-                cursor: pointer;
-                padding: 0.5rem;
-                color: var(--text-color);
-            `;
+        document.addEventListener('touchmove', (e) => {
+            touchY = e.touches[0].clientY;
+            const pull = touchY - touchStart;
+            
+            if (window.scrollY === 0 && pull > 0) {
+                pullIndicator.classList.add('active');
+                e.preventDefault();
+            }
+        });
 
-            const nav = document.querySelector('.nav-container');
-            nav.appendChild(menuBtn);
+        document.addEventListener('touchend', () => {
+            if (pullIndicator.classList.contains('active')) {
+                pullIndicator.classList.remove('active');
+                location.reload();
+            }
+        });
 
-            menuBtn.addEventListener('click', () => {
-                document.querySelectorAll('.nav-menu').forEach(menu => {
-                    menu.classList.toggle('show');
-                });
-            });
-
-            // Add mobile styles
-            const style = document.createElement('style');
-            style.textContent = `
-                @media (max-width: 768px) {
-                    .menu-toggle {
-                        display: block !important;
-                    }
-                    .nav-menu {
-                        display: none;
-                        position: absolute;
-                        top: 100%;
-                        left: 0;
-                        right: 0;
-                        background: white;
-                        padding: 1rem;
-                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                        flex-direction: column;
-                        gap: 1rem;
-                    }
-                    .nav-menu.show {
-                        display: flex !important;
-                    }
-                    .nav-container {
-                        padding: 1rem;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        };
-
-        // Set initial language based on stored preference or default to English
+        // Set initial language
         document.addEventListener('DOMContentLoaded', () => {
             const storedLang = localStorage.getItem('preferredLanguage') || 'en';
             changeLanguage(storedLang);
-            mobileMenu();
-            
-            // Add active class to current page link
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            document.querySelectorAll(`a[href="${currentPage}"]`).forEach(link => {
-                link.classList.add('active');
-            });
         });
     </script>
 </body>
