@@ -3,243 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>လည်ပတ်စရာနေရာများ - မြန်မာနိုင်ငံ</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>လည်ပတ်စရာနေရာများ - Myanmar Places</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
-        .nav-link {
-            position: relative;
-            padding: 0.5rem 1rem;
-            color: #4B5563;
-            transition: color 0.3s;
+        @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background-color: #D97706;
-            transition: all 0.3s;
-            transform: translateX(-50%);
+        body {
+            font-family: 'Padauk', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
         }
 
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 80%;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            color: #D97706;
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: #4A90E2;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('/api/placeholder/1920/400') center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Category Filters */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .category-filters button {
+            background: none;
+            border: 2px solid #4A90E2;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Padauk', sans-serif;
+            font-size: 1rem;
+            color: #4A90E2;
+            transition: all 0.3s ease;
+        }
+
+        .category-filters button:hover,
+        .category-filters button.active {
+            background: #4A90E2;
+            color: white;
+        }
+
+        /* Places Grid */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
         }
 
         .place-card {
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         .place-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+        }
+
+        .card-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .place-card:hover .card-overlay {
             opacity: 1;
         }
 
-        .card-overlay {
-            background: rgba(0, 0, 0, 0.4);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .place-card:hover .card-image img {
+            transform: scale(1.1);
         }
 
-        .category-filter.active {
-            background-color: #D97706;
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .place-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .place-rating {
+            color: #FFD700;
+            font-size: 1.2rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1100;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #333;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .quick-facts {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .quick-facts h4 {
+            color: #4A90E2;
+            margin-bottom: 1rem;
+        }
+
+        .place-details {
+            margin-top: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
             color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #4A90E2;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .category-filters {
+                gap: 1rem;
+            }
+
+            .category-filters button {
+                padding: 0.5rem 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem auto;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm fixed w-full top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <a href="index.html" class="text-2xl font-bold text-amber-600">မြန်မာနိုင်ငံ</a>
-                
-                <div class="hidden md:flex space-x-6">
-                    <a href="index.html" class="nav-link">ပင်မ</a>
-                    <a href="history.html" class="nav-link">သမိုင်း</a>
-                    <a href="culture.html" class="nav-link">ယဉ်ကျေးမှု</a>
-                    <a href="places.html" class="nav-link active">နေရာများ</a>
-                    <a href="food.html" class="nav-link">အစားအစာ</a>
-                </div>
-
-                <button class="md:hidden text-gray-600 focus:outline-none" id="menuButton">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"></path>
-                    </svg>
-                </button>
-            </div>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
+            <ul>
+                <li><a href="index.html">ပင်မ</a></li>
+                <li><a href="history.html">သမိုင်း</a></li>
+                <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
+                <li><a href="places.html" class="active">နေရာများ</a></li>
+                <li><a href="food.html">အစားအစာ</a></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="bg-amber-50 pt-24 pb-12">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-bold text-amber-900 mb-4" data-aos="fade-up">လည်ပတ်စရာနေရာများ</h1>
-            <p class="text-xl text-amber-700" data-aos="fade-up" data-aos-delay="100">မြန်မာပြည်၏ အလှအပများ</p>
+    <header class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>လည်ပတ်စရာနေရာများ</h1>
+            <p>မြန်မာပြည်၏ အလှအပများ</p>
         </div>
     </header>
 
-    <!-- Category Filters -->
-    <div class="container mx-auto px-4 py-8">
-        <div class="flex flex-wrap gap-4 justify-center" data-aos="fade-up">
-            <button class="category-filter active px-6 py-2 rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors duration-300" data-category="အားလုံး">
-                အားလုံး
-            </button>
-            <button class="category-filter px-6 py-2 rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors duration-300" data-category="စေတီပုထိုးများ">
-                စေတီပုထိုးများ
-            </button>
-            <button class="category-filter px-6 py-2 rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors duration-300" data-category="သဘာဝအလှများ">
-                သဘာဝအလှများ
-            </button>
-            <button class="category-filter px-6 py-2 rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors duration-300" data-category="ယဉ်ကျေးမှုအမွေအနှစ်များ">
-                ယဉ်ကျေးမှုအမွေအနှစ်များ
-            </button>
+    <main class="container">
+        <div class="category-filters" data-aos="fade-up">
+            <button class="active">အားလုံး</button>
+            <button>စေတီပုထိုးများ</button>
+            <button>သဘာဝအလှများ</button>
+            <button>ယဉ်ကျေးမှုအမွေအနှစ်များ</button>
         </div>
-    </div>
 
-    <!-- Places Grid -->
-    <div class="container mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Shwedagon Pagoda -->
-            <div class="place-card bg-white rounded-xl overflow-hidden shadow-lg" data-category="စေတီပုထိုးများ" data-aos="fade-up">
-                <div class="relative">
-                    <img src="/api/placeholder/600/400" alt="ရွှေတိဂုံစေတီတော်" class="w-full h-64 object-cover">
-                    <div class="card-overlay absolute inset-0 flex items-center justify-center">
-                        <span class="text-white text-lg font-medium">ပိုမိုကြည့်ရှုရန်</span>
-                    </div>
+        <div class="places-grid">
+            <div class="place-card" data-aos="fade-up" data-category="စေတီပုထိုးများ" data-id="shwedagon">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="ရွှေတိဂုံစေတီတော်" loading="lazy">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">ရွှေတိဂုံစေတီတော်</h3>
-                    <p class="text-gray-600 mb-4">ရန်ကုန်မြို့ရှိ ထင်ရှားသော ဘုရားစေတီ</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center text-amber-500">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                            </svg>
-                            <span class="ml-1">4.9</span>
-                        </div>
-                        <button class="text-amber-600 hover:text-amber-700 font-medium">အသေးစိတ်ကြည့်ရန်</button>
+                <div class="card-body">
+                    <h3>ရွှေတိဂုံစေတီတော်</h3>
+                    <p>ရန်ကုန်မြို့ရှိ ထင်ရှားသော ဘုရားစေတီ</p>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.9</div>
+                        <button class="btn">အသေးစိတ်ကြည့်ရန်</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Bagan Temples -->
-            <div class="place-card bg-white rounded-xl overflow-hidden shadow-lg" data-category="ယဉ်ကျေးမှုအမွေအနှစ်များ" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative">
-                    <img src="/api/placeholder/600/400" alt="ပုဂံဘုရားများ" class="w-full h-64 object-cover">
-                    <div class="card-overlay absolute inset-0 flex items-center justify-center">
-                        <span class="text-white text-lg font-medium">ပိုမိုကြည့်ရှုရန်</span>
-                    </div>
+            <div class="place-card" data-aos="fade-up" data-aos-delay="100" data-category="ယဉ်ကျေးမှုအမွေအနှစ်များ" data-id="bagan">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="ပုဂံဘုရားများ" loading="lazy">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">ပုဂံဘုရားများ</h3>
-                    <p class="text-gray-600 mb-4">ရှေးဟောင်းဗိသုကာလက်ရာများ</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center text-amber-500">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                            </svg>
-                            <span class="ml-1">4.8</span>
-                        </div>
-                        <button class="text-amber-600 hover:text-amber-700 font-medium">အသေးစိတ်ကြည့်ရန်</button>
+                <div class="card-body">
+                    <h3>ပုဂံဘုရားများ</h3>
+                    <p>ရှေးဟောင်းဗိသုကာလက်ရာများ</p>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.8</div>
+                        <button class="btn">အသေးစိတ်ကြည့်ရန်</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Inle Lake -->
-            <div class="place-card bg-white rounded-xl overflow-hidden shadow-lg" data-category="သဘာဝအလှများ" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative">
-                    <img src="/api/placeholder/600/400" alt="အင်းလေးကန်" class="w-full h-64 object-cover">
-                    <div class="card-overlay absolute inset-0 flex items-center justify-center">
-                        <span class="text-white text-lg font-medium">ပိုမိုကြည့်ရှုရန်</span>
-                    </div>
+            <div class="place-card" data-aos="fade-up" data-aos-delay="200" data-category="သဘာဝအလှများ" data-id="inle">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="အင်းလေးကန်" loading="lazy">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">အင်းလေးကန်</h3>
-                    <p class="text-gray-600 mb-4">ရှမ်းပြည်နယ်ရှိ သဘာဝအလှ</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center text-amber-500">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                            </svg>
-                            <span class="ml-1">4.7</span>
-                        </div>
-                        <button class="text-amber-600 hover:text-amber-700 font-medium">အသေးစိတ်ကြည့်ရန်</button>
+                <div class="card-body">
+                    <h3>အင်းလေးကန်</h3>
+                    <p>ရှမ်းပြည်နယ်ရှိ သဘာဝအလှ</p>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.7</div>
+                        <button class="btn">အသေးစိတ်ကြည့်ရန်</button>
                     </div>
                 </div>
             </div>
         </div>
+    </main>
+
+    <div id="placeModal" class="modal" aria-hidden="true" role="dialog">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close">×</button>
+            <h2 id="modalTitle"></h2>
+            <div id="modalGallery" class="gallery"></div>
+            <div id="quickFacts" class="quick-facts"></div>
+            <div id="placeDetails" class="place-details"></div>
+        </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-50 border-t mt-20">
-        <div class="container mx-auto px-4 py-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-gray-600 mb-4 md:mb-0">
-                    © 2024 မြန်မာနိုင်ငံ - အခွင့်အရေးအားလုံး ထိန်းသိမ်းပြီး
-                </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-amber-600 hover:text-white transition-all duration-300">FB</a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-amber-600 hover:text-white transition-all duration-300">IG</a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-amber-600 hover:text-white transition-all duration-300">TW</a>
-                </div>
+    <footer>
+        <div class="container">
+            <p>© 2024 မြန်မာနိုင်ငံ</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Twitter">TW</a>
             </div>
         </div>
     </footer>
 
-    <!-- Place Modal -->
-    <div id="placeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-        <div class="container mx-auto px-4 h-full flex items-center justify-center">
-            <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
-                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onclick="closeModal()">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-                <div class="p-8">
-                    <div id="modalContent"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Initialize AOS
         AOS.init({
             duration: 800,
+            easing: 'ease',
             once: true
         });
 
         // Category filtering
-        const categoryFilters = document.querySelectorAll('.category-filter');
+        const categoryButtons = document.querySelectorAll('.category-filters button');
         const placeCards = document.querySelectorAll('.place-card');
 
-        categoryFilters.forEach(filter => {
-            filter.addEventListener('click', () => {
-                // Update active filter
-                categoryFilters.forEach(f => f.classList.remove('active'));
-                filter.classList.add('active');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
 
-                const category = filter.dataset.category;
+                const category = button.textContent;
                 
-                // Filter places
                 placeCards.forEach(card => {
                     if (category === 'အားလုံး' || card.dataset.category === category) {
                         card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.5s ease';
                     } else {
                         card.style.display = 'none';
                     }
@@ -247,47 +442,117 @@
             });
         });
 
+        // Place data
+        const placeData = {
+            shwedagon: {
+                title: 'ရွှေတိဂုံစေတီတော်',
+                gallery: [
+                    '/api/placeholder/800/500',
+                    '/api/placeholder/800/500',
+                    '/api/placeholder/800/500'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'ရန်ကုန်မြို့',
+                    'အမြင့်': '၃၂၆ ပေ',
+                    'တည်ဆောက်သည့်နှစ်': 'ခေတ်ဟောင်း',
+                    'လည်ပတ်နိုင်သည့်အချိန်': 'နံနက် ၄ နာရီမှ ည ၁၀ နာရီ'
+                },
+                details: 'ရွှေတိဂုံစေတီတော်သည် မြန်မာနိုင်ငံ၏ အထင်ကရ ဘုရားစေတီတစ်ဆူဖြစ်ပြီး ရန်ကုန်မြို့၏ အမှတ်အသားတစ်ခုလည်း ဖြစ်ပါသည်။'
+            },
+            bagan: {
+                title: 'ပုဂံဘုရားများ',
+                gallery: [
+                    '/api/placeholder/800/500',
+                    '/api/placeholder/800/500',
+                    '/api/placeholder/800/500'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'မန္တလေးတိုင်း',
+                    'ဧရိယာ': '၁၀၄ စတုရန်းကီလိုမီတာ',
+                    'ဘုရားအရေအတွက်': '၂,၂၀၀ ကျော်',
+                    'ခေတ်': '၁၁ ရာစုမှ ၁၃ ရာစု'
+                },
+                details: 'ပုဂံမြို့ဟောင်းသည် မြန်မာ့သမိုင်းတွင် အရေးပါသော နေရာတစ်ခုဖြစ်ပြီး၊ ကမ္ဘာ့အမွေအနှစ်စာရင်းဝင် နေရာတစ်ခုလည်းဖြစ်ပါသည်။'
+            },
+            inle: {
+                title: 'အင်းလေးကန်',
+                gallery: [
+                    '/api/placeholder/800/500',
+                    '/api/placeholder/800/500',
+                    '/api/placeholder/800/500'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'ရှမ်းပြည်နယ်',
+                    'အကျယ်အဝန်း': '၁၁၆ စတုရန်းကီလိုမီတာ',
+                    'ပင်လယ်ရေမျက်နှာပြင်အမြင့်': '၂,၉၀၀ ပေ',
+                    'ထင်ရှားသောအရာများ': 'ခြေထောက်နှင့်လှေလှော်ခြင်း၊ ရေပေါ်ဥယျာဉ်များ'
+                },
+                details: 'အင်းလေးကန်သည် မြန်မာနိုင်ငံ၏ ဒုတိယအကြီးဆုံး သဘာဝရေကန်ကြီးဖြစ်ပြီး၊ ထူးခြားသော ရိုးရာယဉ်ကျေးမှုနှင့် သဘာဝအလှအပများကို တွေ့မြင်နိုင်ပါသည်။'
+            }
+        };
+
         // Modal functionality
         const modal = document.getElementById('placeModal');
-        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalGallery = document.getElementById('modalGallery');
+        const quickFacts = document.getElementById('quickFacts');
+        const placeDetails = document.getElementById('placeDetails');
+        const closeButton = modal.querySelector('.close-modal');
 
-        function openModal(placeData) {
-            modalContent.innerHTML = `
-                <h2 class="text-3xl font-bold mb-4">${placeData.title}</h2>
-                <img src="${placeData.image}" alt="${placeData.title}" class="w-full h-64 object-cover rounded-lg mb-6">
-                <p class="text-gray-600 mb-4">${placeData.description}</p>
-                <div class="flex items-center text-amber-500 mb-4">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                    </svg>
-                    <span class="ml-1">${placeData.rating}</span>
-                </div>
-            `;
-            modal.classList.remove('hidden');
-        }
+        // Open modal
+        document.querySelectorAll('.place-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const placeId = card.dataset.id;
+                const data = placeData[placeId];
 
-        function closeModal() {
-            modal.classList.add('hidden');
-        }
+                modalTitle.textContent = data.title;
+                
+                // Set up gallery
+                modalGallery.innerHTML = data.gallery
+                    .map(src => `<img src="${src}" alt="${data.title}" loading="lazy">`)
+                    .join('');
+                
+                // Set up quick facts
+                quickFacts.innerHTML = `
+                    <h4>အချက်အလက်များ</h4>
+                    <ul>
+                        ${Object.entries(data.quickFacts)
+                            .map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`)
+                            .join('')}
+                    </ul>
+                `;
+                
+                // Set up details
+                placeDetails.innerHTML = `
+                    <h4>အသေးစိတ်</h4>
+                    <p>${data.details}</p>
+                `;
+
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+            });
+        });
+
+        // Close modal
+        closeButton.addEventListener('click', () => {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+        });
 
         // Close modal when clicking outside
-        modal.addEventListener('click', (e) => {
+        window.addEventListener('click', (e) => {
             if (e.target === modal) {
-                closeModal();
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
             }
         });
 
-        // Add click handlers to place cards
-        document.querySelectorAll('.place-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const placeData = {
-                    title: card.querySelector('h3').textContent,
-                    description: card.querySelector('p').textContent,
-                    image: card.querySelector('img').src,
-                    rating: card.querySelector('.text-amber-500 span').textContent
-                };
-                openModal(placeData);
-            });
+        // Keyboard accessibility
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
         });
     </script>
 </body>
