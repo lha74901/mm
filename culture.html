@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာ့ယဉ်ကျေးမှု - Myanmar Culture</title>
+    <title>လည်ပတ်စရာနေရာများ - Myanmar Places</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
         :root {
@@ -34,7 +34,7 @@
             margin: 0 auto;
         }
 
-        /* Header Styles */
+        /* Navigation */
         .navbar {
             background: var(--card-bg);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -56,9 +56,9 @@
             font-weight: bold;
             color: var(--primary-color);
             text-decoration: none;
-            z-index: 1001;
         }
 
+        /* Mobile Menu */
         .menu-toggle {
             display: block;
             cursor: pointer;
@@ -92,81 +92,116 @@
         }
 
         .nav-links a {
-            color: var(--text-color);
             text-decoration: none;
+            color: var(--text-color);
             padding: 1rem;
             display: block;
             width: 100%;
             text-align: center;
+            transition: 0.3s;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--primary-color);
             background: rgba(184, 134, 11, 0.1);
         }
 
         /* Hero Section */
-        .hero {
-            height: 60vh;
+        .page-header {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1920/1080');
             background-size: cover;
             background-position: center;
-            display: flex;
-            align-items: center;
-            text-align: center;
             color: white;
-            margin-top: 60px;
+            text-align: center;
+            padding: 120px 20px 60px;
+            margin-bottom: 2rem;
         }
 
-        .hero-content {
-            width: 100%;
-            padding: 2rem;
-        }
-
-        .hero h1 {
+        .page-header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        .hero p {
+        .page-header p {
             font-size: 1.2rem;
             opacity: 0.9;
         }
 
-        /* Section Styles */
-        .section {
-            padding: 4rem 0;
+        /* Search Bar */
+        .search-section {
+            margin: 2rem 0;
         }
 
-        .section-title {
-            text-align: center;
-            color: var(--secondary-color);
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            position: relative;
-            padding-bottom: 1rem;
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--accent-color);
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            outline: none;
         }
 
-        /* Traditional Arts Grid */
-        .arts-grid {
+        .search-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-button:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Category Filters */
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Places Grid */
+        .places-grid {
             display: grid;
             gap: 2rem;
-            margin-bottom: 4rem;
+            margin: 2rem 0;
         }
 
-        .art-card {
+        .place-card {
             background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
@@ -174,210 +209,86 @@
             transition: transform 0.3s;
         }
 
-        .art-card:hover {
+        .place-card:hover {
             transform: translateY(-5px);
         }
 
-        .art-card img {
-            width: 100%;
+        .card-image {
+            position: relative;
             height: 250px;
-            object-fit: cover;
+            overflow: hidden;
         }
 
-        .art-content {
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .place-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .place-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-body {
             padding: 1.5rem;
         }
 
-        .art-content h3 {
+        .card-body h3 {
             color: var(--secondary-color);
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
 
-        /* Festivals Section */
-        .festivals {
-            background: rgba(184, 134, 11, 0.05);
-            padding: 4rem 0;
-        }
-
-        .festival-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .festival-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .place-info {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        .festival-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .festival-content {
-            padding: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .festival-date {
+        .place-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--primary-color);
             font-weight: bold;
-            margin-bottom: 0.5rem;
         }
 
-        /* Traditional Dress Section */
-        .dress-section {
-            padding: 4rem 0;
-        }
-
-        .dress-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .dress-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .dress-card img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        .dress-content {
-            padding: 1.5rem;
-        }
-
-        /* Music and Dance Section */
-        .performance-section {
-            background: rgba(184, 134, 11, 0.05);
-            padding: 4rem 0;
-        }
-
-        .performance-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .performance-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .performance-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .performance-content {
-            padding: 1.5rem;
-        }
-
-        /* Customs and Traditions */
-        .customs-section {
-            padding: 4rem 0;
-        }
-
-        .customs-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .custom-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .custom-card h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        /* Literature Section */
-        .literature-section {
-            background: rgba(184, 134, 11, 0.05);
-            padding: 4rem 0;
-        }
-
-        .literature-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .literature-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Gallery Section */
-        .gallery-section {
-            padding: 4rem 0;
-        }
-
-        .gallery-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 2rem 0;
-        }
-
-        .footer-content {
+        .card-tags {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
         }
 
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .social-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
+        .tag {
+            background: rgba(184, 134, 11, 0.1);
+            color: var(--primary-color);
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
         }
 
         /* Modal */
@@ -390,6 +301,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
             z-index: 1100;
+            overflow-y: auto;
         }
 
         .modal-content {
@@ -408,6 +320,107 @@
             top: 1rem;
             font-size: 2rem;
             cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .modal-gallery {
+            display: grid;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .quick-facts {
+            background: rgba(184, 134, 11, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .quick-facts h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .quick-facts ul {
+            list-style: none;
+        }
+
+        .quick-facts li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .place-details {
+            margin-top: 1.5rem;
+        }
+
+        .place-details h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Recommended Places */
+        .recommended {
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
         }
 
         /* Responsive Design */
@@ -428,6 +441,7 @@
                 flex-direction: row;
                 background: none;
                 gap: 2rem;
+                box-shadow: none;
             }
 
             .nav-links a {
@@ -435,36 +449,12 @@
                 width: auto;
             }
 
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-
-            .arts-grid {
+            .places-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
 
-            .festival-grid {
+            .modal-gallery {
                 grid-template-columns: repeat(3, 1fr);
-            }
-
-            .dress-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .performance-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .customs-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .literature-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(4, 1fr);
             }
 
             .footer-content {
@@ -475,7 +465,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container nav-container">
             <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
@@ -487,201 +476,182 @@
             <div class="nav-links">
                 <a href="index.html">ပင်မ</a>
                 <a href="history.html">သမိုင်း</a>
-                <a href="culture.html" class="active">ယဉ်ကျေးမှု</a>
-                <a href="places.html">နေရာများ</a>
+                <a href="culture.html">ယဉ်ကျေးမှု</a>
+                <a href="places.html" class="active">နေရာများ</a>
                 <a href="food.html">အစားအစာ</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 data-aos="fade-up">မြန်မာ့ယဉ်ကျေးမှု</h1>
-            <p data-aos="fade-up" data-aos-delay="100">ရိုးရာအနုပညာနှင့် ယဉ်ကျေးမှုအမွေအနှစ်များ</p>
+    <header class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>လည်ပတ်စရာနေရာများ</h1>
+            <p>မြန်မာပြည်၏ အလှအပများ</p>
         </div>
-    </section>
+    </header>
 
-    <!-- Traditional Arts Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">ရိုးရာအနုပညာများ</h2>
-            <div class="arts-grid">
-                <div class="art-card" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="ပန်းချီ">
-                    <div class="art-content">
-                        <h3>ပန်းချီ</h3>
-                        <p>မြန်မာ့ရိုးရာပန်းချီနှင့် ပန်းပုပညာရပ်များ</p>
+    <main class="container">
+        <!-- Search Section -->
+        <section class="search-section" data-aos="fade-up">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="နေရာရှာရန်...">
+                <button class="search-button">ရှာမည်</button>
+            </div>
+        </section>
+
+        <!-- Category Filters -->
+        <div class="category-filters" data-aos="fade-up">
+            <button class="filter-btn active" data-category="all">အားလုံး</button>
+            <button class="filter-btn" data-category="စေတီပုထိုးများ">စေတီပုထိုးများ</button>
+            <button class="filter-btn" data-category="သဘာဝအလှများ">သဘာဝအလှများ</button>
+            <button class="filter-btn" data-category="ယဉ်ကျေးမှုအမွေအနှစ်များ">ယဉ်ကျေးမှုအမွေအနှစ်များ</button>
+            <button class="filter-btn" data-category="ပင်လယ်ကမ်းခြေများ">ပင်လယ်ကမ်းခြေများ</button>
+        </div>
+
+        <!-- Places Grid -->
+        <div class="places-grid">
+            <!-- Shwedagon Pagoda -->
+            <div class="place-card" data-aos="fade-up" data-category="စေတီပုထိုးများ" data-id="shwedagon">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="ရွှေတိဂုံစေတီတော်">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
+                </div>
+                <div class="card-body">
+                    <h3>ရွှေတိဂုံစေတီတော်</h3>
+                    <p>ရန်ကုန်မြို့ရှိ ထင်ရှားသော ဘုရားစေတီ</p>
+                    <div class="card-tags">
+                        <span class="tag">စေတီပုထိုးများ</span>
+                        <span class="tag">ရန်ကုန်</span>
+                    </div>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.9</div>
+                        <button class="view-details">အသေးစိတ်ကြည့်ရန်</button>
                     </div>
                 </div>
-                <div class="art-card" data-aos="fade-up" data-aos-delay="100">
-                    <img src="/api/placeholder/600/400" alt="ပန်းထိမ်">
-                    <div class="art-content">
-                        <h3>ပန်းထိမ်</h3>
-                        <p>ရွှေ၊ ငွေပန်းထိမ်လက်မှုပညာ</p>
+            </div>
+
+            <!-- Bagan -->
+            <div class="place-card" data-aos="fade-up" data-aos-delay="100" data-category="ယဉ်ကျေးမှုအမွေအနှစ်များ" data-id="bagan">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="ပုဂံဘုရားများ">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
+                </div>
+                <div class="card-body">
+                    <h3>ပုဂံဘုရားများ</h3>
+                    <p>ရှေးဟောင်းဗိသုကာလက်ရာများ</p>
+                    <div class="card-tags">
+                        <span class="tag">ယဉ်ကျေးမှုအမွေအနှစ်</span>
+                        <span class="tag">မန္တလေး</span>
+                    </div>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.8</div>
+                        <button class="view-details">အသေးစိတ်ကြည့်ရန်</button>
                     </div>
                 </div>
-                <div class="art-card" data-aos="fade-up" data-aos-delay="200">
-                    <img src="/api/placeholder/600/400" alt="ပန်းပု">
-                    <div class="art-content">
-                        <h3>ပန်းပု</h3>
-                        <p>သစ်သား၊ ကျောက်ပန်းပုလက်ရာများ</p>
+            </div>
+
+            <!-- Inle Lake -->
+            <div class="place-card" data-aos="fade-up" data-aos-delay="200" data-category="သဘာဝအလှများ" data-id="inle">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="အင်းလေးကန်">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
+                </div>
+                <div class="card-body">
+                    <h3>အင်းလေးကန်</h3>
+                    <p>ရှမ်းပြည်နယ်ရှိ သဘာဝအလှ</p>
+                    <div class="card-tags">
+                        <span class="tag">သဘာဝအလှ</span>
+                        <span class="tag">ရှမ်းပြည်နယ်</span>
+                    </div>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.7</div>
+                        <button class="view-details">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ngapali Beach -->
+            <div class="place-card" data-aos="fade-up" data-category="ပင်လယ်ကမ်းခြေများ" data-id="ngapali">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="ငပလီကမ်းခြေ">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
+                </div>
+                <div class="card-body">
+                    <h3>ငပလီကမ်းခြေ</h3>
+                    <p>ရခိုင်ပြည်နယ်ရှိ သဘာဝကမ်းခြေ</p>
+                    <div class="card-tags">
+                        <span class="tag">ပင်လယ်ကမ်းခြေ</span>
+                        <span class="tag">ရခိုင်ပြည်နယ်</span>
+                    </div>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.6</div>
+                        <button class="view-details">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kyaiktiyo Pagoda -->
+            <div class="place-card" data-aos="fade-up" data-category="စေတီပုထိုးများ" data-id="kyaiktiyo">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="ကျိုက်ထီးရိုးစေတီ">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
+                </div>
+                <div class="card-body">
+                    <h3>ကျိုက်ထီးရိုးစေတီ</h3>
+                    <p>ရွှေကျောက်တောင်ပေါ်ရှိ ထင်ရှားသောစေတီ</p>
+                    <div class="card-tags">
+                        <span class="tag">စေတီပုထိုး</span>
+                        <span class="tag">မွန်ပြည်နယ်</span>
+                    </div>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.7</div>
+                        <button class="view-details">အသေးစိတ်ကြည့်ရန်</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mandalay Palace -->
+            <div class="place-card" data-aos="fade-up" data-category="ယဉ်ကျေးမှုအမွေအနှစ်များ" data-id="mandalay">
+                <div class="card-image">
+                    <img src="/api/placeholder/600/400" alt="မန္တလေးနန်းတွင်း">
+                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
+                </div>
+                <div class="card-body">
+                    <h3>မန္တလေးနန်းတွင်း</h3>
+                    <p>နောက်ဆုံးမြန်မာ့မင်းဆက် နန်းတွင်းတော်</p>
+                    <div class="card-tags">
+                        <span class="tag">ယဉ်ကျေးမှုအမွေအနှစ်</span>
+                        <span class="tag">မန္တလေး</span>
+                    </div>
+                    <div class="place-info">
+                        <div class="place-rating">★ 4.5</div>
+                        <button class="view-details">အသေးစိတ်ကြည့်ရန်</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Festivals Section -->
-    <section class="festivals">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">ရိုးရာပွဲတော်များ</h2>
-            <div class="festival-grid">
-                <div class="festival-card" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="သင်္ကြန်">
-                    <div class="festival-content">
-                        <div class="festival-date">ဧပြီလ</div>
-                        <h3>သင်္ကြန်ပွဲတော်</h3>
-                        <p>မြန်မာ့နှစ်သစ်ကူးပွဲတော်</p>
-                    </div>
-                </div>
-
-                <div class="festival-card" data-aos="fade-up" data-aos-delay="100">
-                    <img src="/api/placeholder/600/400" alt="တန်ဆောင်တိုင်">
-                    <div class="festival-content">
-                        <div class="festival-date">နိုဝင်ဘာလ</div>
-                        <h3>တန်ဆောင်တိုင်</h3>
-                        <p>မီးထွန်းပွဲတော်</p>
-                    </div>
-                </div>
-
-                <div class="festival-card" data-aos="fade-up" data-aos-delay="200">
-                    <img src="/api/placeholder/600/400" alt="ဝါဆို">
-                    <div class="festival-content">
-                        <div class="festival-date">ဇူလိုင်လ</div>
-                        <h3>ဝါဆိုပွဲတော်</h3>
-                        <p>ဗုဒ္ဓဘာသာဝင်များ၏ ဝါဝင်ပွဲတော်</p>
-                    </div>
-                </div>
+        <!-- Recommended Section -->
+        <section class="recommended">
+            <h2 class="section-title" data-aos="fade-up">အကြံပြုနေရာများ</h2>
+            <div class="places-grid">
+                <!-- Add recommended places here -->
             </div>
+        </section>
+    </main>
+
+    <!-- Modal for place details -->
+    <div id="placeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">×</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalGallery" class="modal-gallery"></div>
+            <div id="quickFacts" class="quick-facts"></div>
+            <div id="placeDetails" class="place-details"></div>
         </div>
-    </section>
+    </div>
 
-    <!-- Traditional Dress Section -->
-    <section class="dress-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">ရိုးရာဝတ်စားဆင်ယင်မှု</h2>
-            <div class="dress-grid">
-                <div class="dress-card" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="အမျိုးသားဝတ်စုံ">
-                    <div class="dress-content">
-                        <h3>အမျိုးသားဝတ်စုံ</h3>
-                        <p>ပုဆိုး၊ တိုက်ပုံ၊ ခေါင်းပေါင်း</p>
-                    </div>
-                </div>
-
-                <div class="dress-card" data-aos="fade-up" data-aos-delay="100">
-                    <img src="/api/placeholder/600/400" alt="အမျိုးသမီးဝတ်စုံ">
-                    <div class="dress-content">
-                        <h3>အမျိုးသမီးဝတ်စုံ</h3>
-                        <p>ထဘီ၊ အင်္ကျီ၊ ပတ်လည်ကော်လာ</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Music and Dance Section -->
-    <section class="performance-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">ရိုးရာအနုပညာဖျော်ဖြေမှု</h2>
-            <div class="performance-grid">
-                <div class="performance-card" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="ဇာတ်သဘင်">
-                    <div class="performance-content">
-                        <h3>ဇာတ်သဘင်</h3>
-                        <p>မြန်မာ့ရိုးရာဇာတ်သဘင်</p>
-                    </div>
-                </div>
-
-                <div class="performance-card" data-aos="fade-up" data-aos-delay="100">
-                    <img src="/api/placeholder/600/400" alt="စက်ကွေး">
-                    <div class="performance-content">
-                        <h3>စက်ကွေးအက</h3>
-                        <p>မြန်မာ့ရိုးရာအကပညာ</p>
-                    </div>
-                </div>
-
-                <div class="performance-card" data-aos="fade-up" data-aos-delay="200">
-                    <img src="/api/placeholder/600/400" alt="ရိုးရာဂီတ">
-                    <div class="performance-content">
-                        <h3>ရိုးရာဂီတ</h3>
-                        <p>မြန်မာ့ရိုးရာတူရိယာများ</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Customs and Traditions -->
-    <section class="customs-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">ရိုးရာဓလေ့ထုံးတမ်းများ</h2>
-            <div class="customs-grid">
-                <div class="custom-card" data-aos="fade-up">
-                    <h3>လူမှုရေးဓလေ့များ</h3>
-                    <p>ကြီးသူကိုရိုသေခြင်း၊ ငယ်သူကိုသနားခြင်း၊ အချင်းချင်းလေးစားခြင်း</p>
-                </div>
-                <div class="custom-card" data-aos="fade-up" data-aos-delay="100">
-                    <h3>ဘာသာရေးဓလေ့များ</h3>
-                    <p>ဘုရားဖူးခြင်း၊ သီလဆောက်တည်ခြင်း၊ ဒါနပြုခြင်း</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Literature Section -->
-    <section class="literature-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">စာပေအနုပညာ</h2>
-            <div class="literature-grid">
-                <div class="literature-card" data-aos="fade-up">
-                    <h3>ရိုးရာပုံပြင်များ</h3>
-                    <p>ဇာတ်ကြီးဆယ်နှစ်ခန်း၊ နိပါတ်တော်များ</p>
-                </div>
-                <div class="literature-card" data-aos="fade-up" data-aos-delay="100">
-                    <h3>ခေတ်ပေါ်စာပေ</h3>
-                    <p>ဝတ္ထုတို၊ ကဗျာ၊ ဆောင်းပါးများ</p>
-                </div>
-                <div class="literature-card" data-aos="fade-up" data-aos-delay="200">
-                    <h3>ရိုးရာကဗျာ</h3>
-                    <p>လကာၤ၊ ရတု၊ ယာချင်း</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Photo Gallery -->
-    <section class="gallery-section">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">ဓာတ်ပုံပြခန်း</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="ရိုးရာအက">
-                </div>
-                <div class="gallery-item" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="ပွဲတော်များ">
-                </div>
-                <div class="gallery-item" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="လက်မှုပညာ">
-                </div>
-                <div class="gallery-item" data-aos="fade-up">
-                    <img src="/api/placeholder/600/400" alt="ဝတ်စားဆင်ယင်မှု">
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <footer>
         <div class="container footer-content">
             <p>© 2024 မြန်မာနိုင်ငံ</p>
@@ -693,16 +663,6 @@
         </div>
     </footer>
 
-    <!-- Modal -->
-    <div id="cultureModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">×</span>
-            <h2 id="modalTitle"></h2>
-            <div id="modalGallery" class="gallery"></div>
-            <div id="modalDescription"></div>
-        </div>
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         // Initialize AOS
@@ -712,23 +672,200 @@
             offset: 50
         });
 
-        // Modal functionality
-        const modal = document.getElementById('cultureModal');
-        const closeModal = document.querySelector('.close-modal');
-        const galleryItems = document.querySelectorAll('.gallery-item');
+        // Place data
+        const placeData = {
+            shwedagon: {
+                title: 'ရွှေတိဂုံစေတီတော်',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'ရန်ကုန်မြို့',
+                    'အမြင့်': '၃၂၆ ပေ',
+                    'တည်ဆောက်သည့်ခေတ်': 'သက္ကရာဇ် ၅၈၈',
+                    'လည်ပတ်ချိန်': 'နံနက် ၄ နာရီမှ ည ၁၀ နာရီ',
+                    'ဝင်ကြေး': 'နိုင်ငံခြားသား - USD 8'
+                },
+                details: `ရွှေတိဂုံစေတီတော်သည် မြန်မာနိုင်ငံ၏ အထင်ကရဘုရားစေတီတစ်ဆူဖြစ်ပါသည်။ ရန်ကုန်မြို့၏ အမှတ်အသားတစ်ခုဖြစ်ပြီး နိုင်ငံတကာမှ ဧည့်သည်များ လာရောက်လည်ပတ်လေ့ရှိပါသည်။`
+            },
+            bagan: {
+                title: 'ပုဂံဘုရားများ',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'မန္တလေးတိုင်း',
+                    'ဧရိယာ': '၄၀ စတုရန်းကီလိုမီတာ',
+                    'စေတီပုထိုးအရေအတွက်': '၃၀၀၀ ကျော်',
+                    'အကောင်းဆုံးရာသီ': 'နိုဝင်ဘာ - ဖေဖော်ဝါရီ',
+                    'လည်ပတ်ချိန်': 'နံနက် ၅ နာရီမှ ညနေ ၆ နာရီ'
+                },
+                details: `ပုဂံမြို့ဟောင်းသည် မြန်မာ့သမိုင်းတွင် အရေးပါသော နေရာတစ်ခုဖြစ်ပါသည်။ ကမ္ဘာ့အမွေအနှစ်စာရင်းဝင် ဘုရားပုထိုးပေါင်း ၃၀၀၀ ကျော်ရှိပြီး ရှေးခေတ်ဗိသုကာလက်ရာများကို လေ့လာနိုင်ပါသည်။`
+            },
+            inle: {
+                title: 'အင်းလေးကန်',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'ရှမ်းပြည်နယ်',
+                    'အကျယ်အဝန်း': '၁၁၆ စတုရန်းကီလိုမီတာ',
+                    'ရေအနက်': '၁၂ ပေ',
+                    'အကောင်းဆုံးရာသီ': 'အောက်တိုဘာ - ဖေဖော်ဝါရီ',
+                    'လုပ်ဆောင်နိုင်သည့်အရာများ': 'လှေစီးခြင်း၊ ငါးဖမ်းခြင်း၊ စျေးဝယ်ခြင်း'
+                },
+                details: `အင်းလေးကန်သည် မြန်မာနိုင်ငံ၏ ဒုတိယအကြီးဆုံး သဘာဝရေကန်ကြီးဖြစ်ပါသည်။ ရိုးရာလက်မှုပညာများ၊ ရေပေါ်ဈေးများနှင့် ဥယျာဉ်များဖြင့် ထင်ရှားပါသည်။`
+            },
+            ngapali: {
+                title: 'ငပလီကမ်းခြေ',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'ရခိုင်ပြည်နယ်',
+                    'ကမ်းခြေအရှည်': '၇ ကီလိုမီတာ',
+                    'အကောင်းဆုံးရာသီ': 'အောက်တိုဘာ - မေ',
+                    'လုပ်ဆောင်နိုင်သည့်အရာများ': 'ရေကူးခြင်း၊ နေဝင်ချိန်ကြည့်ခြင်း၊ ရွက်လှေစီးခြင်း'
+                },
+                details: `ငပလီကမ်းခြေသည် မြန်မာနိုင်ငံ၏ အလှပဆုံးကမ်းခြေများထဲမှ တစ်ခုဖြစ်ပါသည်။ ဖြူဖွေးသောသဲသောင်ခြေများ၊ ကြည်လင်သောရေပြင်နှင့် ငါးဖမ်းလုပ်ငန်းများဖြင့် ထင်ရှားပါသည်။`
+            },
+            kyaiktiyo: {
+                title: 'ကျိုက်ထီးရိုးစေတီ',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'မွန်ပြည်နယ်',
+                    'အမြင့်': 'ပင်လယ်ရေမျက်နှာပြင်အထက် ၃၆၁၅ ပေ',
+                    'တည်ဆောက်သည့်ခေတ်': 'ဘီစီ ၅၈၈',
+                    'လည်ပတ်ချိန်': '၂၄ နာရီ',
+                    'လမ်းပန်းဆက်သွယ်ရေး': 'ကားဖြင့် သွားနိုင်'
+                },
+                details: `ကျိုက်ထီးရိုးစေတီသည် ထင်ရှားသော ဘုရားဖူးနေရာတစ်ခုဖြစ်ပါသည်။ ရွှေကျောက်တုံးပေါ်တွင် တည်ထားသော ဤစေတီသည် အံ့ဖွယ်ရာတစ်ခုဖြစ်ပါသည်။`
+            },
+            mandalay: {
+                title: 'မန္တလေးနန်းတွင်း',
+                images: [
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600',
+                    '/api/placeholder/800/600'
+                ],
+                quickFacts: {
+                    'တည်နေရာ': 'မန္တလေးမြို့',
+                    'တည်ဆောက်သည့်နှစ်': '၁၈၅၇',
+                    'ဧရိယာ': '၂ စတုရန်းကီလိုမီတာ',
+                    'လည်ပတ်ချိန်': 'နံနက် ၇:၃၀ မှ ညနေ ၄:၃၀',
+                    'ဝင်ကြေး': 'နိုင်ငံခြားသား - USD 10'
+                },
+                details: `မန္တလေးနန်းတွင်းသည် နောက်ဆုံးမြန်မာ့မင်းဆက်၏ နန်းတော်ဖြစ်ပါသည်။ ရှေးဟောင်းအဆောက်အအုံများ၊ ပြတိုက်များနှင့် ယဉ်ကျေးမှုအမွေအနှစ်များကို လေ့လာနိုင်ပါသည်။`
+            }
+        };
 
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const imgSrc = item.querySelector('img').src;
-                const imgAlt = item.querySelector('img').alt;
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-button');
+        const placeCards = document.querySelectorAll('.place-card');
+
+        function searchPlaces(searchTerm) {
+            placeCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+
+                if (title.includes(searchTerm) || description.includes(searchTerm) || tags.some(tag => tag.includes(searchTerm))) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        searchButton.addEventListener('click', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            searchPlaces(searchTerm);
+        });
+
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                const searchTerm = searchInput.value.toLowerCase();
+                searchPlaces(searchTerm);
+            }
+        });
+
+        // Category filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const category = button.dataset.category;
                 
-                document.getElementById('modalTitle').textContent = imgAlt;
-                document.getElementById('modalGallery').innerHTML = `<img src="${imgSrc}" alt="${imgAlt}">`;
-                modal.style.display = 'block';
-                document.body.style.overflow = 'hidden';
+                placeCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
             });
         });
 
+        // Modal functionality
+        const modal = document.getElementById('placeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalGallery = document.getElementById('modalGallery');
+        const quickFacts = document.getElementById('quickFacts');
+        const placeDetails = document.getElementById('placeDetails');
+        const closeModal = document.querySelector('.close-modal');
+
+        function openModal(placeId) {
+            const place = placeData[placeId];
+            if (!place) return;
+
+            modalTitle.textContent = place.title;
+            
+            // Set up gallery
+            modalGallery.innerHTML = place.images.map(src => 
+                `<img src="${src}" alt="${place.title}" loading="lazy">`
+            ).join('');
+
+            // Set up quick facts
+            quickFacts.innerHTML = '<h3>အချက်အလက်များ</h3><ul>' + 
+                Object.entries(place.quickFacts)
+                    .map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`)
+                    .join('') + 
+                '</ul>';
+
+            // Set up details
+            placeDetails.innerHTML = `<h3>အသေးစိတ်အချက်အလက်</h3><p>${place.details}</p>`;
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Add click event to all place cards
+        document.querySelectorAll('.place-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const placeId = card.dataset.id;
+                openModal(placeId);
+            });
+        });
+
+        // Close modal events
         closeModal.addEventListener('click', () => {
             modal.style.display = 'none';
             document.body.style.overflow = '';
