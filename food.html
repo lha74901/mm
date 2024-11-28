@@ -6,144 +6,178 @@
     <title>မြန်မာ့အစားအစာ - Myanmar Food</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
-        
+        :root {
+            --primary-color: #B8860B;
+            --secondary-color: #8B4513;
+            --accent-color: #DAA520;
+            --text-color: #333;
+            --bg-color: #FFF8DC;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: "Padauk", sans-serif;
         }
 
         body {
-            font-family: 'Padauk', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
-            color: #333;
         }
 
         .container {
-            max-width: 1200px;
+            width: 100%;
+            padding: 0 15px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
-        /* Navigation */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1rem 0;
+        /* Navigation Styles */
+        .navbar {
+            background: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        nav .container {
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 15px;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #4A90E2;
+            color: var(--primary-color);
             text-decoration: none;
         }
 
-        nav ul {
+        /* Mobile Menu */
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: white;
             display: flex;
-            list-style: none;
-            gap: 2rem;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
         }
 
-        nav a {
+        .nav-links.active {
+            right: 0;
+        }
+
+        .nav-links a {
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            color: var(--text-color);
+            padding: 1rem;
+            display: block;
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
         }
 
-        nav a:hover, nav a.active {
-            color: #4A90E2;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: rgba(184, 134, 11, 0.1);
         }
 
         /* Page Header */
         .page-header {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                        url('/api/placeholder/1920/400') center/cover;
-            height: 400px;
-            display: flex;
-            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
             color: white;
-            margin-top: 70px;
             text-align: center;
+            padding: 120px 20px 60px;
+            margin-bottom: 2rem;
         }
 
         .page-header h1 {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
 
         /* Food Categories */
         .food-categories {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 3rem 0;
             flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
         }
 
-        .food-categories button {
-            background: none;
-            border: none;
+        .category-btn {
             padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--primary-color);
             cursor: pointer;
-            font-family: 'Padauk', sans-serif;
-            font-size: 1.1rem;
-            color: #666;
-            transition: color 0.3s ease;
-            position: relative;
+            transition: 0.3s;
+            font-size: 1rem;
         }
 
-        .food-categories button:hover,
-        .food-categories button.active {
-            color: #4A90E2;
-        }
-
-        .food-categories button.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #4A90E2;
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
         }
 
         /* Food Grid */
         .food-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
-            padding: 2rem 0;
+            margin: 2rem 0;
         }
 
         .food-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
             cursor: pointer;
         }
 
         .food-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
         }
 
         .card-image {
             position: relative;
-            height: 200px;
+            height: 250px;
             overflow: hidden;
         }
 
@@ -151,7 +185,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s;
         }
 
         .card-overlay {
@@ -166,7 +200,7 @@
             justify-content: center;
             color: white;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: 0.3s;
         }
 
         .food-card:hover .card-overlay {
@@ -182,43 +216,48 @@
         }
 
         .card-body h3 {
-            margin-bottom: 0.5rem;
-            color: #333;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
         /* Food Facts */
         .food-facts {
-            padding: 4rem 0;
-            background: #f8f9fa;
-            margin-top: 4rem;
+            background: rgba(184, 134, 11, 0.05);
+            padding: 3rem 0;
+            margin: 3rem 0;
         }
 
         .food-facts h2 {
             text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
         }
 
         .fact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
 
         .fact-card {
-            text-align: center;
+            background: var(--card-bg);
             padding: 2rem;
-            background: white;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .fact-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
 
-        /* Modal */
+        .fact-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Recipe Modal */
         .modal {
             display: none;
             position: fixed;
@@ -231,29 +270,14 @@
             overflow-y: auto;
         }
 
-        .modal.active {
-            display: block;
-        }
-
         .modal-content {
-            background: white;
+            background: var(--card-bg);
             width: 90%;
             max-width: 800px;
-            margin: 2rem auto;
+            margin: 50px auto;
             padding: 2rem;
             border-radius: 15px;
             position: relative;
-        }
-
-        .modal-content .close {
-            position: absolute;
-            right: 1rem;
-            top: 1rem;
-            font-size: 2rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: #333;
         }
 
         .recipe-details {
@@ -261,8 +285,8 @@
         }
 
         .recipe-details h4 {
-            color: #4A90E2;
-            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem;
         }
 
         /* Footer */
@@ -270,67 +294,86 @@
             background: #333;
             color: white;
             padding: 2rem 0;
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
 
-        footer .container {
+        .footer-content {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            gap: 1rem;
+            text-align: center;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .social-links a {
             color: white;
             text-decoration: none;
-            transition: color 0.3s ease;
+            padding: 0.5rem;
+            transition: 0.3s;
         }
 
-        .social-links a:hover {
-            color: #4A90E2;
-        }
-
-        @media (max-width: 768px) {
-            .food-categories {
-                gap: 1rem;
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+                padding: 0 30px;
             }
 
-            .food-categories button {
-                padding: 0.5rem 1rem;
-                font-size: 1rem;
+            .menu-toggle {
+                display: none;
             }
 
-            .page-header h1 {
-                font-size: 2.5rem;
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                flex-direction: row;
+                background: none;
+                gap: 2rem;
+                box-shadow: none;
             }
 
-            nav ul {
-                gap: 1rem;
+            .nav-links a {
+                padding: 0;
+                width: auto;
             }
 
-            .modal-content {
-                width: 95%;
-                margin: 1rem auto;
-                padding: 1rem;
+            .food-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .fact-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
             }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
+    <nav class="navbar">
+        <div class="container nav-container">
             <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <ul>
-                <li><a href="index.html">ပင်မ</a></li>
-                <li><a href="history.html">သမိုင်း</a></li>
-                <li><a href="culture.html">ယဉ်ကျေးမှု</a></li>
-                <li><a href="places.html">နေရာများ</a></li>
-                <li><a href="food.html" class="active">အစားအစာ</a></li>
-            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">ပင်မ</a>
+                <a href="history.html">သမိုင်း</a>
+                <a href="culture.html">ယဉ်ကျေးမှု</a>
+                <a href="places.html">နေရာများ</a>
+                <a href="food.html" class="active">အစားအစာ</a>
+            </div>
         </div>
     </nav>
 
@@ -342,95 +385,98 @@
     </header>
 
     <main class="container">
+        <!-- Food Categories -->
         <div class="food-categories" data-aos="fade-up">
-            <button class="active">အားလုံး</button>
-            <button>မနက်စာ</button>
-            <button>နေ့လည်စာ</button>
-            <button>ညစာ</button>
-            <button>အသုပ်များ</button>
-            <button>အချိုများ</button>
+            <button class="category-btn active" data-category="all">အားလုံး</button>
+            <button class="category-btn" data-category="မနက်စာ">မနက်စာ</button>
+            <button class="category-btn" data-category="နေ့လည်စာ">နေ့လည်စာ</button>
+            <button class="category-btn" data-category="ညစာ">ညစာ</button>
+            <button class="category-btn" data-category="အသုပ်များ">အသုပ်များ</button>
+            <button class="category-btn" data-category="အချိုများ">အချိုများ</button>
         </div>
 
+        <!-- Food Grid -->
         <div class="food-grid">
+            <!-- Mohinga -->
             <div class="food-card" data-aos="fade-up" data-category="မနက်စာ" data-id="mohinga">
                 <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="မုန့်ဟင်းခါး" loading="lazy">
+                    <img src="/api/placeholder/600/400" alt="မုန့်ဟင်းခါး">
                     <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
                 <div class="card-body">
                     <h3>မုန့်ဟင်းခါး</h3>
                     <p>မြန်မာ့ရိုးရာ နံနက်စာ</p>
-                    <button class="btn btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
                 </div>
             </div>
 
+            <!-- Lahpet Thoke -->
             <div class="food-card" data-aos="fade-up" data-aos-delay="100" data-category="အသုပ်များ" data-id="lapheto">
                 <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="လက်ဖက်သုပ်" loading="lazy">
+                    <img src="/api/placeholder/600/400" alt="လက်ဖက်သုပ်">
                     <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
                 <div class="card-body">
                     <h3>လက်ဖက်သုပ်</h3>
                     <p>မြန်မာ့ရိုးရာ သွပ်စရာ</p>
-                    <button class="btn btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
                 </div>
             </div>
 
+            <!-- Mohinbar -->
             <div class="food-card" data-aos="fade-up" data-aos-delay="200" data-category="နေ့လည်စာ" data-id="mohingabar">
                 <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="မိုဟင်းဘွား" loading="lazy">
+                    <img src="/api/placeholder/600/400" alt="မိုဟင်းဘွား">
                     <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
                 </div>
                 <div class="card-body">
                     <h3>မိုဟင်းဘွား</h3>
                     <p>မြန်မာ့ရိုးရာ နွေးထွေးစရာ</p>
-                    <button class="btn btn-secondary">အသေးစိတ်ကြည့်ရန်</button>
                 </div>
             </div>
         </div>
 
+        <!-- Food Facts -->
         <section class="food-facts" data-aos="fade-up">
             <h2>မြန်မာအစားအစာ အကြောင်း</h2>
             <div class="fact-grid">
-                <div class="fact-card">
-                    <div class="fact-icon" role="img" aria-label="အရသာ">🌶️</div>
-                    <h3>အရသာ</h3>
-                    <p>ချဉ်၊ ငန်၊ စပ်၊ ချို စသည့် အရသာပေါင်းစပ်မှု</p>
-                </div>
-
                 <div class="fact-card">
                     <div class="fact-icon" role="img" aria-label="ထမင်းဝိုင်း">🍚</div>
                     <h3>ထမင်းဝိုင်း</h3>
                     <p>ဟင်းလျာများစွာဖြင့် စုံလင်စွာ သုံးဆောင်ခြင်း</p>
                 </div>
-
                 <div class="fact-card">
                     <div class="fact-icon" role="img" aria-label="ရာသီအလိုက်">🥗</div>
                     <h3>ရာသီအလိုက်</h3>
                     <p>ရာသီပေါ်အစားအစာများ စုံလင်စွာရှိခြင်း</p>
                 </div>
+                <div class="fact-card">
+                    <div class="fact-icon" role="img" aria-label="အရသာ">🌶️</div>
+                    <h3>အရသာ</h3>
+                    <p>ချဉ်၊ ငန်၊ စပ်၊ ချို စသည့် အရသာပေါင်းစပ်မှု</p>
+                </div>                
             </div>
         </section>
     </main>
 
+    <!-- Recipe Modal -->
     <div id="recipeModal" class="modal" aria-hidden="true" role="dialog">
         <div class="modal-content">
-            <button class="close" aria-label="Close">×</button>
+            <span class="close-modal">×</span>
             <h2 id="modalTitle"></h2>
             <div class="card-image">
-                <img id="modalImage" alt="" loading="lazy">
+                <img id="modalImage" src="" alt="" loading="lazy">
             </div>
             <div class="recipe-details">
                 <h4>ပါဝင်ပစ္စည်းများ</h4>
-                <div id="modalIngredients"></div>
+                <ul id="ingredients"></ul>
                 <h4>ပြုလုပ်ပုံအဆင့်ဆင့်</h4>
-                <div id="modalInstructions"></div>
+                <div id="instructions"></div>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <div class="container">
+        <div class="container footer-content">
             <p>© 2024 မြန်မာနိုင်ငံ - အခွင့်အရေးအားလုံး ထိန်းသိမ်းပြီး</p>
             <div class="social-links">
                 <a href="#" aria-label="Facebook">FB</a>
@@ -442,14 +488,78 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+        // Initialize AOS
         AOS.init({
-            duration: 800,
-            easing: 'ease',
-            once: true
+            duration: 1000,
+            once: true,
+            offset: 50
         });
 
-        // Food category filtering
-        const categoryButtons = document.querySelectorAll('.food-categories button');
+        // Recipe data
+        const recipeData = {
+            mohinga: {
+                title: 'မုန့်ဟင်းခါး',
+                image: '/api/placeholder/800/600',
+                ingredients: [
+                    'ငါးကြင်း',
+                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူ',
+                    'ငရုတ်သီး',
+                    'နနွင်း',
+                    'ပဲကြာဇံ',
+                    'ဘူးသီး',
+                    'ငါးပိ',
+                    'ဆား'
+                ],
+                instructions: `
+                    1. ငါးကြင်းကို သန့်စင်ပြီး ဆားနယ်ထားပါ
+                    2. ကြက်သွန်နီ၊ ကြက်သွန်ဖြူတို့ကို ဆီသတ်ပါ
+                    3. ငါးကြင်းကို ထည့်ကြော်ပါ
+                    4. ရေထည့်ပြီး ပဲကြာဇံ၊ ဘူးသီးတို့ထည့်ပါ
+                    5. အရသာမှန်အောင် ငါးပိ၊ ဆားထည့်ပါ
+                `
+            },
+            lapheto: {
+                title: 'လက်ဖက်သုပ်',
+                image: '/api/placeholder/800/600',
+                ingredients: [
+                    'လက်ဖက်စိမ်း',
+                    'ပဲကြော်',
+                    'ကြက်သွန်ကြော်',
+                    'ငရုတ်သီး',
+                    'နှမ်းဆီ',
+                    'ဆား'
+                ],
+                instructions: `
+                    1. လက်ဖက်စိမ်းကို ရေစစ်ထားပါ
+                    2. ပဲကြော်၊ ကြက်သွန်ကြော်တို့ကို ထည့်ပါ
+                    3. ငရုတ်သီးနှင့် ဆားထည့်ပါ
+                    4. နှမ်းဆီလေးထည့်ပြီး နယ်ပါ
+                `
+            },
+            mohingabar: {
+                title: 'မိုဟင်းဘွား',
+                image: '/api/placeholder/800/600',
+                ingredients: [
+                    'အမဲသား',
+                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူ',
+                    'ချင်း',
+                    'ဂျင်း',
+                    'ငရုတ်သီး',
+                    'မဆလာ',
+                    'ဆား'
+                ],
+                instructions: `
+                    1. အမဲသားကို ရေနွေးဖြင့် ပြုတ်ထားပါ
+                    2. ကြက်သွန်နီ၊ ကြက်သွန်ဖြူတို့ကို ဆီသတ်ပါ
+                    3. ချင်း၊ ဂျင်း၊ ငရုတ်သီးထည့်ပါ
+                    4. အမဲသားထည့်ပြီး မဆလာထည့်ပါ
+                    5. ဆားထည့်၍ အရသာမှန်အောင် ချက်ပါ
+                `
+            }
+        };
+
+        // Category filtering
+        const categoryButtons = document.querySelectorAll('.category-btn');
         const foodCards = document.querySelectorAll('.food-card');
 
         categoryButtons.forEach(button => {
@@ -459,10 +569,10 @@
                 // Add active class to clicked button
                 button.classList.add('active');
 
-                const category = button.textContent;
+                const category = button.dataset.category;
                 
                 foodCards.forEach(card => {
-                    if (category === 'အားလုံး' || card.dataset.category === category) {
+                    if (category === 'all' || card.dataset.category === category) {
                         card.style.display = 'block';
                     } else {
                         card.style.display = 'none';
@@ -475,102 +585,66 @@
         const modal = document.getElementById('recipeModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalImage = document.getElementById('modalImage');
-        const modalIngredients = document.getElementById('modalIngredients');
-        const modalInstructions = document.getElementById('modalInstructions');
-        const closeButton = modal.querySelector('.close');
+        const ingredients = document.getElementById('ingredients');
+        const instructions = document.getElementById('instructions');
+        const closeModal = document.querySelector('.close-modal');
 
-        // Recipe data
-        const recipes = {
-            mohinga: {
-                title: 'မုန့်ဟင်းခါး',
-                image: '/api/placeholder/800/400',
-                ingredients: [
-                    'ငါးရံ့',
-                    'ဂျုံမုန့်ညက်',
-                    'ကြက်သွန်နီ',
-                    'ကြက်သွန်ဖြူ',
-                    'ငါးပိ',
-                    'နနွင်းမုန့်',
-                    'ငရုတ်သီး',
-                    'ဆား'
-                ],
-                instructions: [
-                    'ငါးရံ့ကို သန့်စင်၍ ပြုတ်ပါ',
-                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူတို့ကို ဆီသတ်ပါ',
-                    'ငါးပိရည်နှင့် ဟင်းချက်ရည်ကို ရောပါ',
-                    'ဂျုံမုန့်ညက်ကို ထည့်၍ မွှေပါ',
-                    'လိုအပ်သလို အရသာမှည့်ပါ'
-                ]
-            },
-            lapheto: {
-                title: 'လက်ဖက်သုပ်',
-                image: '/api/placeholder/800/400',
-                ingredients: [
-                    'လက်ဖက်စိမ်း',
-                    'ပဲကြော်',
-                    'ပေါင်းတော်ကြော်',
-                    'ဆီ',
-                    'ဆား'
-                ],
-                instructions: [
-                    'လက်ဖက်စိမ်းကို သန့်စင်ပါ',
-                    'ပဲကြော်၊ ပေါင်းတော်ကြော်တို့ကို ထည့်ပါ',
-                    'ဆီ၊ ဆားထည့်၍ မွှေပါ'
-                ]
-            },
-            mohingabar: {
-                title: 'မိုဟင်းဘွား',
-                image: '/api/placeholder/800/400',
-                ingredients: [
-                    'နွားသား',
-                    'အာလူး',
-                    'ကြက်သွန်နီ',
-                    'ကြက်သွန်ဖြူ',
-                    'ဟင်းခတ်အမွှေးအကြိုင်များ'
-                ],
-                instructions: [
-                    'နွားသားကို သန့်စင်၍ ပြုတ်ပါ',
-                    'အာလူးကို အတုံးလေးများဖြစ်အောင် လှီးပါ',
-                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူတို့ကို ဆီသတ်ပါ',
-                    'ဟင်းခတ်အမွှေးအကြိုင်များထည့်၍ ချက်ပါ'
-                ]
-            }
-        };
+        function openModal(recipeId) {
+            const recipe = recipeData[recipeId];
+            if (!recipe) return;
 
-        // Open modal
-        foodCards.forEach(card => {
+            modalTitle.textContent = recipe.title;
+            modalImage.src = recipe.image;
+            modalImage.alt = recipe.title;
+            
+            ingredients.innerHTML = recipe.ingredients
+                .map(ingredient => `<li>${ingredient}</li>`)
+                .join('');
+
+            instructions.innerHTML = recipe.instructions;
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Add click event to all food cards
+        document.querySelectorAll('.food-card').forEach(card => {
             card.addEventListener('click', () => {
                 const recipeId = card.dataset.id;
-                const recipe = recipes[recipeId];
-
-                modalTitle.textContent = recipe.title;
-                modalImage.src = recipe.image;
-                modalImage.alt = recipe.title;
-
-                modalIngredients.innerHTML = `<ul>${recipe.ingredients.map(ingredient => 
-                    `<li>${ingredient}</li>`).join('')}</ul>`;
-                
-                modalInstructions.innerHTML = `<ol>${recipe.instructions.map(instruction => 
-                    `<li>${instruction}</li>`).join('')}</ol>`;
-
-                modal.classList.add('active');
-                modal.setAttribute('aria-hidden', 'false');
+                openModal(recipeId);
             });
         });
 
-        // Close modal
-        closeButton.addEventListener('click', () => {
-            modal.classList.remove('active');
-            modal.setAttribute('aria-hidden', 'true');
+        // Close modal events
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
         });
 
-        // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.classList.remove('active');
-                modal.setAttribute('aria-hidden', 'true');
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
             }
+        });
+
+        // Mobile menu functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
         });
     </script>
 </body>
 </html>
+                    
