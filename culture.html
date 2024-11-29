@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>မြန်မာ့သမိုင်း</title>
+    <title>မြန်မာ့ယဉ်ကျေးမှု - Myanmar Culture</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
@@ -29,7 +29,7 @@
             color: var(--text-color);
             background-color: var(--light-gold);
             overflow-x: hidden;
-            padding-bottom: 80px; /* Space for bottom nav */
+            padding-bottom: 80px;
         }
 
         /* Navigation */
@@ -43,130 +43,80 @@
             padding: 1rem;
         }
 
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 80%;
-            height: 100vh;
-            background: var(--deep-maroon);
-            padding: 2rem 1.5rem;
-            transition: left 0.3s ease;
-            z-index: 100;
-            overflow-y: auto;
+        /* Culture Categories */
+        .culture-category {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        .mobile-menu.active {
-            left: 0;
+        .culture-category:hover {
+            transform: translateY(-5px);
         }
 
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 90;
-        }
-
-        .mobile-menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-menu a {
-            display: block;
-            color: white;
-            padding: 1rem 0;
-            font-size: 1.25rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Language Switcher */
-        .language-switcher {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 0.75rem;
+        .category-header {
             display: flex;
-            justify-content: center;
+            align-items: center;
             gap: 1rem;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 40;
+            margin-bottom: 1rem;
         }
 
-        .language-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            background: var(--deep-maroon);
-            color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            min-width: 80px;
-        }
-
-        .language-btn:active {
-            transform: scale(0.95);
-        }
-
-        .language-btn.active-lang {
+        .category-icon {
+            width: 48px;
+            height: 48px;
             background: var(--primary-gold);
-        }
-
-        /* Hero Section */
-        .hero-section {
-            margin-top: 60px;
-            padding: 4rem 1.5rem;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                        url('/api/placeholder/800/600');
-            background-size: cover;
-            background-position: center;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
+            font-size: 1.5rem;
         }
 
-        /* Cards */
-        .dynasty-card {
+        /* Traditional Arts Section */
+        .arts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .art-card {
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            margin: 1.5rem 0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .dynasty-card img {
+        .art-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
         }
 
-        .card-content {
+        .art-content {
             padding: 1.5rem;
         }
 
-        /* Timeline */
-        .timeline-section {
-            padding: 2rem 1rem;
+        /* Festival Timeline */
+        .festival-timeline {
+            position: relative;
+            padding: 2rem 0;
         }
 
-        .timeline-item {
+        .festival-item {
             background: white;
-            padding: 1.5rem;
-            margin: 1rem 0;
             border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             position: relative;
         }
 
-        .timeline-item::before {
+        .festival-item::before {
             content: '';
             position: absolute;
             left: 0;
@@ -177,385 +127,330 @@
             border-radius: 4px 0 0 4px;
         }
 
-        /* Section Headers */
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 2.5rem 0 1.5rem;
-            color: var(--deep-maroon);
+        /* Traditional Clothing */
+        .clothing-showcase {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 0.75rem;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 30;
-        }
-
-        .bottom-nav a {
-            text-align: center;
-            color: var(--deep-maroon);
-            text-decoration: none;
-            font-size: 0.875rem;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .bottom-nav a.active {
-            color: var(--primary-gold);
-            background: rgba(184, 134, 11, 0.1);
-        }
-
-        /* Scroll Progress */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--primary-gold);
-            transform-origin: 0 50%;
-            transform: scaleX(0);
-            z-index: 60;
-        }
-
-        /* Heritage Section */
-        .heritage-section {
-            padding: 2rem 1rem;
-        }
-
-        .heritage-card {
+        .clothing-card {
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            margin: 1.5rem 0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .heritage-card img {
+        .clothing-card img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
         }
 
-        .heritage-content {
+        .clothing-content {
             padding: 1.5rem;
-        }
-
-        /* Loading Animation */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--light-gold);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.3s ease;
-        }
-
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
         }
 
         /* Media Queries */
         @media (min-width: 768px) {
-            body {
-                padding-bottom: 0;
+            .arts-grid, .clothing-showcase {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .mobile-menu, .bottom-nav {
-                display: none;
-            }
-
-            .language-switcher {
-                position: fixed;
-                top: 1rem;
-                right: 1rem;
-                bottom: auto;
-                left: auto;
-                background: transparent;
-                box-shadow: none;
-                padding: 0;
-            }
-
-            .dynasty-card, .heritage-card {
-                margin: 1rem;
-            }
-
-            .timeline-item {
-                width: 70%;
-                margin: 2rem auto;
+            .culture-category {
+                margin: 1.5rem;
             }
         }
 
-        @media (max-width: 360px) {
-            .language-btn {
-                padding: 0.75rem 1rem;
-                min-width: 60px;
-                font-size: 0.875rem;
+        @media (min-width: 1024px) {
+            .arts-grid, .clothing-showcase {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-    </div>
-
-    <!-- Scroll Progress -->
-    <div class="scroll-progress" id="scrollProgress"></div>
-
     <!-- Navigation -->
     <nav class="nav-container">
         <div class="flex justify-between items-center">
-            <button class="text-white text-2xl p-2" id="menuBtn" aria-label="Menu">☰</button>
-            <h1 class="text-white text-xl font-bold" data-my="မြန်မာ့သမိုင်း" data-en="Myanmar History" data-ru="История Мьянмы">မြန်မာ့သမိုင်း</h1>
+            <a href="index.html" class="text-white text-xl">
+                <span data-my="← မြန်မာ့သမိုင်း" data-en="← Myanmar History" data-ru="← История Мьянмы">← မြန်မာ့သမိုင်း</span>
+            </a>
+            <h1 class="text-white text-xl font-bold" data-my="ယဉ်ကျေးမှု" data-en="Culture" data-ru="Культура">ယဉ်ကျေးမှု</h1>
             <div class="w-10"></div>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#home" data-my="ပင်မ" data-en="Home" data-ru="Главная">ပင်မ</a>
-        <a href="#history" data-my="သမိုင်း" data-en="History" data-ru="История">သမိုင်း</a>
-        <a href="#heritage" data-my="အမွေအနှစ်" data-en="Heritage" data-ru="Наследие">အမွေအနှစ်</a>
-        <a href="#culture" data-my="ယဉ်ကျေးမှု" data-en="Culture" data-ru="Культура">ယဉ်ကျေးမှု</a>
-    </div>
-    <div class="mobile-menu-overlay" id="menuOverlay"></div>
+    <main class="container mx-auto px-4 mt-20">
+        <!-- Introduction -->
+        <section class="culture-category">
+            <div class="category-header">
+                <div class="category-icon">🏛️</div>
+                <h2 class="text-2xl font-bold" data-my="မြန်မာ့ယဉ်ကျေးမှု" data-en="Myanmar Culture" data-ru="Культура Мьянмы">မြန်မာ့ယဉ်ကျေးမှု</h2>
+            </div>
+            <p class="mb-4" data-my="မြန်မာ့ယဉ်ကျေးမှုသည် ရှေးဟောင်းဓလေ့ထုံးတမ်းများ၊ အနုပညာနှင့် ယုံကြည်မှုများဖြင့် ကြွယ်ဝလျက်ရှိပါသည်။" 
+               data-en="Myanmar culture is rich with ancient traditions, arts, and beliefs that have been preserved through generations." 
+               data-ru="Культура Мьянмы богата древними традициями, искусством и верованиями, сохранившимися на протяжении поколений.">
+               မြန်မာ့ယဉ်ကျေးမှုသည် ရှေးဟောင်းဓလေ့ထုံးတမ်းများ၊ အနုပညာနှင့် ယုံကြည်မှုများဖြင့် ကြွယ်ဝလျက်ရှိပါသည်။
+            </p>
+        </section>
 
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-        <button class="language-btn active-lang" onclick="changeLanguage('my')" id="my-btn">MY</button>
-        <button class="language-btn" onclick="changeLanguage('en')" id="en-btn">EN</button>
-        <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn">RU</button>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero-section" id="home">
-        <h1 class="text-4xl font-bold mb-4" data-my="မြန်မာ့သမိုင်း အမွေအနှစ်များ" data-en="Myanmar Historical Heritage" data-ru="Историческое наследие Мьянмы">မြန်မာ့သမိုင်း အမွေအနှစ်များ</h1>
-        <p class="text-xl" data-my="အတိတ်မှ ပစ္စုပ္ပန်သို့" data-en="From Past to Present" data-ru="От прошлого к настоящему">အတိတ်မှ ပစ္စုပ္ပန်သို့</p>
-    </section>
-
-    <main class="container mx-auto px-4">
-        <!-- Dynasties Section -->
-        <section id="history">
-            <h2 class="section-title" data-my="ထင်ရှားသော ခေတ်များ" data-en="Notable Eras" data-ru="Выдающиеся эпохи">ထင်ရှားသော ခေတ်များ</h2>
-            
-            <div class="dynasty-card">
-                <img src="/api/placeholder/600/400" alt="ပုဂံခေတ်">
-                <div class="card-content">
-                    <h3 class="text-xl font-bold mb-3" data-my="ပုဂံခေတ်" data-en="Bagan Era" data-ru="Эпоха Баган">ပုဂံခေတ်</h3>
-                    <p data-my="ဗိသုကာလက်ရာများ ထွန်းကားခဲ့သော ခေတ်" data-en="Era of architectural brilliance" data-ru="Эпоха архитектурного величия">ဗိသုကာလက်ရာများ ထွန်းကားခဲ့သော ခေတ်</p>
-                </div>
+        <!-- Traditional Arts -->
+        <section class="culture-category">
+            <div class="category-header">
+                <div class="category-icon">🎨</div>
+                <h2 class="text-2xl font-bold" data-my="ရိုးရာအနုပညာ" data-en="Traditional Arts" data-ru="Традиционное искусство">ရိုးရာအနုပညာ</h2>
             </div>
 
-            <div class="dynasty-card">
-                <img src="/api/placeholder/600/400" alt="အင်းဝခေတ်">
-                <div class="card-content">
-                    <h3 class="text-xl font-bold mb-3" data-my="အင်းဝခေတ်" data-en="Inwa Era" data-ru="Эпоха Инва">အင်းဝခေတ်</h3>
-                    <p data-my="စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်" data-en="Era of literary excellence" data-ru="Эпоха литературного совершенства">စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်</p>
+            <div class="arts-grid">
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="ပန်းချီ">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ပန်းချီပညာ" data-en="Painting" data-ru="Живопись">ပန်းချီပညာ</h3>
+                        <p data-my="ရိုးရာပန်းချီဆေးရေးချက်များနှင့် နံရံဆေးရေးချက်များ" data-en="Traditional paintings and murals" data-ru="Традиционные картины и фрески">
+                            ရိုးရာပန်းချီဆေးရေးချက်များနှင့် နံရံဆေးရေးချက်များ
+                        </p>
+                    </div>
+                </div>
+
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="ပန်းပု">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ပန်းပုပညာ" data-en="Sculpture" data-ru="Скульптура">ပန်းပုပညာ</h3>
+                        <p data-my="ရိုးရာပန်းပုလက်ရာများ" data-en="Traditional sculpture and carving" data-ru="Традиционная скульптура и резьба">
+                            ရိုးရာပန်းပုလက်ရာများ
+                        </p>
+                    </div>
+                </div>
+
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="ပန်းထိမ်">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ပန်းထိမ်ပညာ" data-en="Metalwork" data-ru="Металлообработка">ပန်းထိမ်ပညာ</h3>
+                        <p data-my="ရွှေ၊ ငွေ လက်ရာများ" data-en="Gold and silver craftsmanship" data-ru="Изделия из золота и серебра">
+                            ရွှေ၊ ငွေ လက်ရာများ
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Heritage Section -->
-        <section id="heritage" class="heritage-section">
-            <h2 class="section-title" data-my="ယဉ်ကျေးမှုအမွေအနှစ်များ" data-en="Cultural Heritage" data-ru="Культурное наследие">ယဉ်ကျေးမှုအမွေအနှ<div class="heritage-card">
-                <img src="/api/placeholder/600/400" alt="ရွှေတိဂုံစေတီတော်">
-                <div class="heritage-content">
-                    <h3 class="text-xl font-bold mb-3" data-my="ရွှေတိဂုံစေတီတော်" data-en="Shwedagon Pagoda" data-ru="Пагода Шведагон">ရွှေတိဂုံစေတီတော်</h3>
-                    <p data-my="မြန်မာနိုင်ငံ၏ အထင်ကရ ဘုရားစေတီတော်" data-en="Myanmar's most sacred Buddhist pagoda" data-ru="Самая священная буддийская пагода Мьянмы">မြန်မာနိုင်ငံ၏ အထင်ကရ ဘုရားစေတီတော်</p>
-                </div>
+        <!-- Festivals -->
+        <section class="culture-category">
+            <div class="category-header">
+                <div class="category-icon">🎉</div>
+                <h2 class="text-2xl font-bold" data-my="ပွဲတော်များ" data-en="Festivals" data-ru="Фестивали">ပွဲတော်များ</h2>
             </div>
 
-            <div class="heritage-card">
-                <img src="/api/placeholder/600/400" alt="ပုဂံဘုရားများ">
-                <div class="heritage-content">
-                    <h3 class="text-xl font-bold mb-3" data-my="ပုဂံဘုရားများ" data-en="Bagan Temples" data-ru="Храмы Багана">ပုဂံဘုရားများ</h3>
-                    <p data-my="ကမ္ဘာ့အမွေအနှစ် စာရင်းဝင် ရှေးဟောင်းဘုရားများ" data-en="UNESCO World Heritage ancient temples" data-ru="Древние храмы Всемирного наследия ЮНЕСКО">ကမ္ဘာ့အမွေအနှစ် စာရင်းဝင် ရှေးဟောင်းဘုရားများ</p>
+            <div class="festival-timeline">
+                <div class="festival-item">
+                    <h3 class="text-xl font-bold mb-2" data-my="သင်္ကြန်ပွဲတော်" data-en="Thingyan Festival" data-ru="Фестиваль Тинджан">သင်္ကြန်ပွဲတော်</h3>
+                    <p data-my="မြန်မာ့နှစ်သစ်ကူးပွဲတော်" data-en="Myanmar New Year Water Festival" data-ru="Водный фестиваль Нового года Мьянмы">
+                        မြန်မာ့နှစ်သစ်ကူးပွဲတော်
+                    </p>
+                </div>
+
+                <div class="festival-item">
+                    <h3 class="text-xl font-bold mb-2" data-my="တန်ဆောင်တိုင်ပွဲတော်" data-en="Tazaungdaing Festival" data-ru="Фестиваль Тазаундайн">တန်ဆောင်တိုင်ပွဲတော်</h3>
+                    <p data-my="မီးထွန်းပွဲတော်" data-en="Festival of Lights" data-ru="Фестиваль огней">
+                        မီးထွန်းပွဲတော်
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Timeline Section -->
-        <section id="timeline" class="timeline-section">
-            <h2 class="section-title" data-my="သမိုင်းမှတ်တိုင်များ" data-en="Historical Timeline" data-ru="Историческая хронология">သမိုင်းမှတ်တိုင်များ</h2>
-            
-            <div class="timeline-item">
-                <h3 class="font-bold mb-2" data-my="ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)" data-en="Bagan Era (1044-1287)" data-ru="Эпоха Баган (1044-1287)">ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)</h3>
-                <p data-my="ပထမမြန်မာနိုင်ငံတော်" data-en="First Myanmar Empire" data-ru="Первая империя Мьянмы">ပထမမြန်မာနိုင်ငံတော်</p>
+        <!-- Traditional Clothing -->
+        <section class="culture-category">
+            <div class="category-header">
+                <div class="category-icon">👘</div>
+                <h2 class="text-2xl font-bold" data-my="ရိုးရာဝတ်စားဆင်ယင်မှု" data-en="Traditional Clothing" data-ru="Традиционная одежда">ရိုးရာဝတ်စားဆင်ယင်မှု</h2>
             </div>
 
-            <div class="timeline-item">
-                <h3 class="font-bold mb-2" data-my="အင်းဝခေတ် (၁၃၆၄-၁၅၅၅)" data-en="Inwa Era (1364-1555)" data-ru="Эпоха Инва (1364-1555)">အင်းဝခေတ် (၁၃၆၄-၁၅၅၅)</h3>
-                <p data-my="စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်" data-en="Era of literary excellence" data-ru="Эпоха литературного совершенства">စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်</p>
+            <div class="clothing-showcase">
+                <div class="clothing-card">
+                    <img src="/api/placeholder/600/400" alt="လွှာချည်">
+                    <div class="clothing-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="လွှာချည်" data-en="Longyi" data-ru="Лонджи">လွှာချည်</h3>
+                        <p data-my="အမျိုးသား၊ အမျိုးသမီး ဝတ်ဆင်သော ရိုးရာဝတ်စုံ" data-en="Traditional garment worn by both men and women" data-ru="Традиционная одежда для мужчин и женщин">
+                            အမျိုးသား၊ အမျိုးသမီး ဝတ်ဆင်သော ရိုးရာဝတ်စုံ
+                        </p>
+                    </div>
+                </div>
+
+                <div class="clothing-card">
+                    <img src="/api/placeholder/600/400" alt="တိုင်းရင်းသားဝတ်စုံ">
+                    <div class="clothing-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="တိုင်းရင်းသား<h3 class="text-xl font-bold mb-2" data-my="တိုင်းရင်းသားဝတ်စုံများ" data-en="Ethnic Costumes" data-ru="Этнические костюмы">တိုင်းရင်းသားဝတ်စုံများ</h3>
+                        <p data-my="မြန်မာပြည်ရှိ တိုင်းရင်းသားများ၏ ရိုးရာဝတ်စုံများ" data-en="Traditional costumes of Myanmar's ethnic groups" data-ru="Традиционные костюмы этнических групп Мьянмы">
+                            မြန်မာပြည်ရှိ တိုင်းရင်းသားများ၏ ရိုးရာဝတ်စုံများ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music and Dance -->
+        <section class="culture-category">
+            <div class="category-header">
+                <div class="category-icon">🎭</div>
+                <h2 class="text-2xl font-bold" data-my="အကနှင့်ဂီတ" data-en="Music and Dance" data-ru="Музыка и танцы">အကနှင့်ဂီတ</h2>
+            </div>
+
+            <div class="arts-grid">
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="ဇာတ်သဘင်">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ဇာတ်သဘင်" data-en="Traditional Theatre" data-ru="Традиционный театр">ဇာတ်သဘင်</h3>
+                        <p data-my="ရိုးရာဇာတ်သဘင်နှင့် အကပညာများ" data-en="Traditional theatre and dance performances" data-ru="Традиционные театральные и танцевальные представления">
+                            ရိုးရာဇာတ်သဘင်နှင့် အကပညာများ
+                        </p>
+                    </div>
+                </div>
+
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="စောင်းတီး">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ရိုးရာဂီတ" data-en="Traditional Music" data-ru="Традиционная музыка">ရိုးရာဂီတ</h3>
+                        <p data-my="ရိုးရာတူရိယာများနှင့် သီချင်းများ" data-en="Traditional instruments and songs" data-ru="Традиционные инструменты и песни">
+                            ရိုးရာတူရိယာများနှင့် သီချင်းများ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customs and Traditions -->
+        <section class="culture-category">
+            <div class="category-header">
+                <div class="category-icon">🏮</div>
+                <h2 class="text-2xl font-bold" data-my="ဓလေ့ထုံးတမ်းများ" data-en="Customs and Traditions" data-ru="Обычаи и традиции">ဓလေ့ထုံးတမ်းများ</h2>
+            </div>
+
+            <div class="arts-grid">
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="နာမည်ပေးပွဲ">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="အခမ်းအနားများ" data-en="Ceremonies" data-ru="Церемонии">အခမ်းအနားများ</h3>
+                        <p data-my="မွေးဖွားခြင်း၊ နာမည်ပေးခြင်း၊ နားသွင်းခြင်းစသော အခမ်းအနားများ" data-en="Birth, naming, and ear-piercing ceremonies" data-ru="Церемонии рождения, имянаречения и прокалывания ушей">
+                            မွေးဖွားခြင်း၊ နာမည်ပေးခြင်း၊ နားသွင်းခြင်းစသော အခမ်းအနားများ
+                        </p>
+                    </div>
+                </div>
+
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="ရှင်ပြုပွဲ">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ရှင်ပြုပွဲ" data-en="Shinbyu Ceremony" data-ru="Церемония Шинбью">ရှင်ပြုပွဲ</h3>
+                        <p data-my="လူငယ်များ သံဃာ့ဘဝသို့ ဝင်ရောက်ခြင်း အခမ်းအနား" data-en="Novitiation ceremony for young boys" data-ru="Церемония посвящения для мальчиков">
+                            လူငယ်များ သံဃာ့ဘဝသို့ ဝင်ရောက်ခြင်း အခမ်းအနား
+                        </p>
+                    </div>
+                </div>
+
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="မင်္ဂလာဆောင်">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="မင်္ဂလာဆောင်" data-en="Traditional Wedding" data-ru="Традиционная свадьба">မင်္ဂလာဆောင်</h3>
+                        <p data-my="ရိုးရာမင်္ဂလာဆောင် အခမ်းအနားများ" data-en="Traditional wedding ceremonies" data-ru="Традиционные свадебные церемонии">
+                            ရိုးရာမင်္ဂလာဆောင် အခမ်းအနားများ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Traditional Games -->
+        <section class="culture-category">
+            <div class="category-header">
+                <div class="category-icon">🎮</div>
+                <h2 class="text-2xl font-bold" data-my="ရိုးရာကစားနည်းများ" data-en="Traditional Games" data-ru="Традиционные игры">ရိုးရာကစားနည်းများ</h2>
+            </div>
+
+            <div class="arts-grid">
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="ခြင်းလုံး">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ခြင်းလုံး" data-en="Chinlone" data-ru="Чинлон">ခြင်းလုံး</h3>
+                        <p data-my="အဖွဲ့လိုက်ကစားသော ရိုးရာခြင်းလုံးကစားနည်း" data-en="Traditional cane ball game played in teams" data-ru="Традиционная игра в плетеный мяч">
+                            အဖွဲ့လိုက်ကစားသော ရိုးရာခြင်းလုံးကစားနည်း
+                        </p>
+                    </div>
+                </div>
+
+                <div class="art-card">
+                    <img src="/api/placeholder/600/400" alt="သရပုန်း">
+                    <div class="art-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="သရပုန်း" data-en="Htopan" data-ru="Хтопан">သရပုန်း</h3>
+                        <p data-my="ကလေးများကစားသော ရိုးရာကစားနည်း" data-en="Traditional children's game" data-ru="Традиционная детская игра">
+                            ကလေးများကစားသော ရိုးရာကစားနည်း
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <a href="#home" class="active">
+    <div class="bottom-nav fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around p-4">
+        <a href="index.html" class="text-center">
             <span data-my="ပင်မ" data-en="Home" data-ru="Главная">ပင်မ</span>
         </a>
-        <a href="#history">
+        <a href="history.html" class="text-center">
             <span data-my="သမိုင်း" data-en="History" data-ru="История">သမိုင်း</span>
         </a>
-        <a href="#heritage">
-            <span data-my="အမွေအနှစ်" data-en="Heritage" data-ru="Наследие">အမွေအနှစ်</span>
-        </a>
-        <a href="#culture">
+        <a href="#" class="text-center text-primary-gold">
             <span data-my="ယဉ်ကျေးမှု" data-en="Culture" data-ru="Культура">ယဉ်ကျေးမှု</span>
+        </a>
+        <a href="places.html" class="text-center">
+            <span data-my="နေရာများ" data-en="Places" data-ru="Места">နေရာများ</span>
         </a>
     </div>
 
     <script>
-        // Mobile menu functionality
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const scrollProgress = document.getElementById('scrollProgress');
-        const loadingOverlay = document.getElementById('loadingOverlay');
-
-        // Handle menu interactions
-        menuBtn.addEventListener('click', toggleMenu);
-        menuOverlay.addEventListener('click', closeMenu);
-
-        function toggleMenu() {
-            mobileMenu.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        }
-
-        function closeMenu() {
-            mobileMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Language switching
+        // Language switching functionality
         function changeLanguage(lang) {
-            document.querySelectorAll('.language-btn').forEach(btn => {
-                btn.classList.remove('active-lang');
-            });
-            document.getElementById(lang + '-btn').classList.add('active-lang');
-
             document.querySelectorAll(`[data-${lang}]`).forEach(element => {
                 element.textContent = element.getAttribute(`data-${lang}`);
             });
-
             document.documentElement.lang = lang;
             localStorage.setItem('selectedLanguage', lang);
         }
 
-        // Scroll handling
-        let lastScrollY = window.scrollY;
-        let ticking = false;
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    // Update scroll progress
-                    const windowHeight = document.documentElement.clientHeight;
-                    const documentHeight = document.documentElement.scrollHeight - windowHeight;
-                    const scrolled = window.scrollY / documentHeight;
-                    scrollProgress.style.transform = `scaleX(${scrolled})`;
-
-                    // Handle navigation visibility
-                    const currentScrollY = window.scrollY;
-                    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                        document.querySelector('.bottom-nav').style.transform = 'translateY(100%)';
-                    } else {
-                        document.querySelector('.bottom-nav').style.transform = 'translateY(0)';
-                    }
-                    lastScrollY = currentScrollY;
-                    ticking = false;
-                });
-                ticking = true;
-            }
+        // Initialize with saved language preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'my';
+            changeLanguage(savedLanguage);
         });
 
-        // Smooth scrolling
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                closeMenu();
-                
                 const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    const headerOffset = 60;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-
-                    // Update active state in bottom navigation
-                    document.querySelectorAll('.bottom-nav a').forEach(link => {
-                        link.classList.toggle('active', link.getAttribute('href') === targetId);
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
 
-        // Handle loading
-        window.addEventListener('load', () => {
-            loadingOverlay.classList.add('hidden');
-            setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-            }, 300);
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLanguage = localStorage.getItem('selectedLanguage') || 'my';
-            changeLanguage(savedLanguage);
-
-            // Set initial active section
-            const observerOptions = {
-                threshold: 0.5
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        document.querySelectorAll('.bottom-nav a').forEach(link => {
-                            const href = link.getAttribute('href');
-                            link.classList.toggle('active', href === '#' + entry.target.id);
-                        });
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('section').forEach(section => {
-                observer.observe(section);
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
             });
+        }, {
+            threshold: 0.1
         });
 
-        // Handle orientation changes
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                window.scrollTo(0, window.scrollY);
-            }, 100);
+        document.querySelectorAll('.culture-category').forEach(category => {
+            observer.observe(category);
         });
     </script>
 </body>
