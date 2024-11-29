@@ -15,6 +15,9 @@
             --accent-gold: #FFD700;
             --light-gold: #FFF8DC;
             --text-color: #333;
+            --spice-red: #D35400;
+            --curry-yellow: #F39C12;
+            --leaf-green: #27AE60;
         }
 
         * {
@@ -43,132 +46,6 @@
             background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
             padding: 1rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
-                        url('images/historyhead.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 6rem 2rem;
-            margin: -1.5rem -1rem 2rem;
-            position: relative;
-            text-align: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Timeline Section */
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: var(--primary-gold);
-            top: 0;
-        }
-
-        .timeline-item {
-            position: relative;
-            width: 45%;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-gold);
-            border-radius: 50%;
-            top: 50%;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 55%;
-        }
-
-        .timeline-item:nth-child(odd)::before {
-            right: -60px;
-            transform: translateY(-50%);
-        }
-
-        .timeline-item:nth-child(even)::before {
-            left: -60px;
-            transform: translateY(-50%);
-        }
-
-        /* Dynasty Cards */
-        .dynasty-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-        }
-
-        .dynasty-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .dynasty-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .dynasty-card:hover .dynasty-image {
-            transform: scale(1.05);
-        }
-
-        .dynasty-content {
-            padding: 1.5rem;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.95), white);
-        }
-
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin: 4rem 0 2rem;
-            position: relative;
-        }
-
-        .section-header::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--primary-gold);
         }
 
         /* Language Switcher */
@@ -246,6 +123,231 @@
                 opacity: 1;
             }
         }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
+                        url('/api/placeholder/1920/600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 2rem;
+            margin: -1.5rem -1rem 2rem;
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Food Categories */
+        .category-header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2.5rem 0 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--deep-maroon));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
+        }
+
+        /* Food Grid Layout */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+
+        /* Food Card */
+        .food-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .food-image-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 66.67%; /* 3:2 Aspect Ratio */
+        }
+
+        .food-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .food-card:hover .food-image {
+            transform: scale(1.05);
+        }
+
+        .food-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95), white);
+        }
+
+        .food-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-gold);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
+            z-index: 10;
+        }
+
+        /* Recipe Details */
+        .recipe-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .recipe-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(184, 134, 11, 0.1);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: var(--primary-gold);
+            transition: all 0.3s ease;
+        }
+
+        .recipe-tag:hover {
+            background: rgba(184, 134, 11, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 30;
+            transition: transform 0.3s ease;
+        }
+
+        .bottom-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-nav a.active {
+            color: var(--primary-gold);
+            background: rgba(184, 134, 11, 0.1);
+            font-weight: bold;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .language-switcher {
+                flex-direction: row;
+                top: auto;
+                bottom: 80px;
+                left: 1rem;
+                right: 1rem;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.95);
+            }
+
+            .language-btn {
+                flex: 1;
+                min-width: auto;
+                padding: 0.5rem;
+            }
+
+            .language-btn .lang-label {
+                display: none;
+            }
+
+            .language-btn .lang-code {
+                font-size: 1rem;
+                opacity: 1;
+            }
+
+            .food-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .category-header {
+                margin: 1.5rem -1rem;
+                border-radius: 0;
+            }
 
             .hero-section {
                 padding: 4rem 1rem;
