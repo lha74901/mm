@@ -12,6 +12,8 @@
             --primary-gold: #B8860B;
             --deep-maroon: #800000;
             --accent-gold: #FFD700;
+            --light-gold: #FFF8DC;
+            --text-color: #333;
         }
 
         * {
@@ -24,11 +26,13 @@
         body {
             font-family: 'Padauk', system-ui, sans-serif;
             line-height: 1.6;
-            background: #FFF8E7;
+            color: var(--text-color);
+            background-color: var(--light-gold);
             overflow-x: hidden;
+            padding-bottom: 80px; /* Space for bottom nav */
         }
 
-        /* Mobile-First Navigation */
+        /* Navigation */
         .nav-container {
             position: fixed;
             top: 0;
@@ -36,7 +40,7 @@
             right: 0;
             z-index: 50;
             background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
-            padding: 0.75rem;
+            padding: 1rem;
         }
 
         .mobile-menu {
@@ -46,9 +50,10 @@
             width: 80%;
             height: 100vh;
             background: var(--deep-maroon);
-            padding: 2rem;
+            padding: 2rem 1.5rem;
             transition: left 0.3s ease;
             z-index: 100;
+            overflow-y: auto;
         }
 
         .mobile-menu.active {
@@ -81,7 +86,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Language Switcher for Mobile */
+        /* Language Switcher */
         .language-switcher {
             position: fixed;
             bottom: 0;
@@ -90,37 +95,51 @@
             background: rgba(255, 255, 255, 0.95);
             padding: 0.75rem;
             display: flex;
-            justify-content: space-around;
-            gap: 0.5rem;
+            justify-content: center;
+            gap: 1rem;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             z-index: 40;
         }
 
         .language-btn {
-            flex: 1;
-            padding: 0.75rem;
+            padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 8px;
             background: var(--deep-maroon);
             color: white;
             font-size: 1rem;
             font-weight: bold;
-            transition: all 0.3s;
-            max-width: 100px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+
+        .language-btn:active {
+            transform: scale(0.95);
         }
 
         .language-btn.active-lang {
             background: var(--primary-gold);
-            transform: scale(1.05);
         }
 
-        /* Mobile-Optimized Cards */
+        /* Hero Section */
+        .hero-section {
+            margin-top: 60px;
+            padding: 4rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url('/api/placeholder/800/600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* Cards */
         .dynasty-card {
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .dynasty-card img {
@@ -130,27 +149,32 @@
         }
 
         .card-content {
-            padding: 1.25rem;
+            padding: 1.5rem;
         }
 
-        /* Mobile Timeline */
+        /* Timeline */
+        .timeline-section {
+            padding: 2rem 1rem;
+        }
+
         .timeline-item {
             background: white;
-            padding: 1.25rem;
+            padding: 1.5rem;
             margin: 1rem 0;
             border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             position: relative;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -1rem;
-            top: 50%;
-            width: 1rem;
-            height: 2px;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
             background: var(--primary-gold);
+            border-radius: 4px 0 0 4px;
         }
 
         /* Section Headers */
@@ -158,36 +182,11 @@
             font-size: 1.75rem;
             font-weight: bold;
             text-align: center;
-            margin: 2rem 0 1.5rem;
+            margin: 2.5rem 0 1.5rem;
             color: var(--deep-maroon);
         }
 
-        /* Main Content Area */
-        main {
-            margin-top: 4rem;
-            padding-bottom: 5rem; /* Space for fixed bottom language switcher */
-        }
-
-        /* Hero Section */
-        .hero-section {
-            position: relative;
-            padding: 4rem 1rem 2rem;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                        url('/api/placeholder/800/400');
-            background-size: cover;
-            background-position: center;
-            color: white;
-        }
-
-        /* Touch-friendly Buttons */
-        .touch-button {
-            min-height: 44px;
-            min-width: 44px;
-            padding: 0.75rem 1rem;
-        }
-
-        /* Bottom Navigation Bar */
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -206,26 +205,78 @@
             color: var(--deep-maroon);
             text-decoration: none;
             font-size: 0.875rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
         .bottom-nav a.active {
             color: var(--primary-gold);
+            background: rgba(184, 134, 11, 0.1);
         }
 
-        /* Scroll Indicator */
+        /* Scroll Progress */
         .scroll-progress {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 3px;
-            background: linear-gradient(to right, var(--primary-gold), var(--accent-gold));
+            background: var(--primary-gold);
             transform-origin: 0 50%;
             transform: scaleX(0);
             z-index: 60;
         }
 
+        /* Heritage Section */
+        .heritage-section {
+            padding: 2rem 1rem;
+        }
+
+        .heritage-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .heritage-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .heritage-content {
+            padding: 1.5rem;
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--light-gold);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Media Queries */
         @media (min-width: 768px) {
+            body {
+                padding-bottom: 0;
+            }
+
             .mobile-menu, .bottom-nav {
                 display: none;
             }
@@ -238,25 +289,43 @@
                 left: auto;
                 background: transparent;
                 box-shadow: none;
+                padding: 0;
             }
 
-            main {
-                margin-top: 5rem;
-                padding: 0 2rem;
+            .dynasty-card, .heritage-card {
+                margin: 1rem;
+            }
+
+            .timeline-item {
+                width: 70%;
+                margin: 2rem auto;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .language-btn {
+                padding: 0.75rem 1rem;
+                min-width: 60px;
+                font-size: 0.875rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Scroll Progress Indicator -->
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Scroll Progress -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Mobile Navigation -->
+    <!-- Navigation -->
     <nav class="nav-container">
         <div class="flex justify-between items-center">
-            <button class="text-white text-2xl touch-button" id="menuBtn">☰</button>
+            <button class="text-white text-2xl p-2" id="menuBtn" aria-label="Menu">☰</button>
             <h1 class="text-white text-xl font-bold" data-my="မြန်မာ့သမိုင်း" data-en="Myanmar History" data-ru="История Мьянмы">မြန်မာ့သမိုင်း</h1>
-            <div class="w-8"></div>
+            <div class="w-10"></div>
         </div>
     </nav>
 
@@ -278,11 +347,11 @@
 
     <!-- Hero Section -->
     <section class="hero-section" id="home">
-        <h1 class="text-3xl font-bold mb-4" data-my="မြန်မာ့သမိုင်း အမွေအနှစ်များ" data-en="Myanmar Historical Heritage" data-ru="Историческое наследие Мьянмы">မြန်မာ့သမိုင်း အမွေအနှစ်များ</h1>
-        <p class="text-lg" data-my="အတိတ်မှ ပစ္စုပ္ပန်သို့" data-en="From Past to Present" data-ru="От прошлого к настоящему">အတိတ်မှ ပစ္စုပ္ပန်သို့</p>
+        <h1 class="text-4xl font-bold mb-4" data-my="မြန်မာ့သမိုင်း အမွေအနှစ်များ" data-en="Myanmar Historical Heritage" data-ru="Историческое наследие Мьянмы">မြန်မာ့သမိုင်း အမွေအနှစ်များ</h1>
+        <p class="text-xl" data-my="အတိတ်မှ ပစ္စုပ္ပန်သို့" data-en="From Past to Present" data-ru="От прошлого к настоящему">အတိတ်မှ ပစ္စုပ္ပန်သို့</p>
     </section>
 
-    <main>
+    <main class="container mx-auto px-4">
         <!-- Dynasties Section -->
         <section id="history">
             <h2 class="section-title" data-my="ထင်ရှားသော ခေတ်များ" data-en="Notable Eras" data-ru="Выдающиеся эпохи">ထင်ရှားသော ခေတ်များ</h2>
@@ -290,24 +359,52 @@
             <div class="dynasty-card">
                 <img src="/api/placeholder/600/400" alt="ပုဂံခေတ်">
                 <div class="card-content">
-                    <h3 class="text-xl font-bold mb-2" data-my="ပုဂံခေတ်" data-en="Bagan Era" data-ru="Эпоха Баган">ပုဂံခေတ်</h3>
+                    <h3 class="text-xl font-bold mb-3" data-my="ပုဂံခေတ်" data-en="Bagan Era" data-ru="Эпоха Баган">ပုဂံခေတ်</h3>
                     <p data-my="ဗိသုကာလက်ရာများ ထွန်းကားခဲ့သော ခေတ်" data-en="Era of architectural brilliance" data-ru="Эпоха архитектурного величия">ဗိသုကာလက်ရာများ ထွန်းကားခဲ့သော ခေတ်</p>
                 </div>
             </div>
 
-            <!-- More dynasty cards... -->
+            <div class="dynasty-card">
+                <img src="/api/placeholder/600/400" alt="အင်းဝခေတ်">
+                <div class="card-content">
+                    <h3 class="text-xl font-bold mb-3" data-my="အင်းဝခေတ်" data-en="Inwa Era" data-ru="Эпоха Инва">အင်းဝခေတ်</h3>
+                    <p data-my="စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်" data-en="Era of literary excellence" data-ru="Эпоха литературного совершенства">စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Heritage Section -->
+        <section id="heritage" class="heritage-section">
+            <h2 class="section-title" data-my="ယဉ်ကျေးမှုအမွေအနှစ်များ" data-en="Cultural Heritage" data-ru="Культурное наследие">ယဉ်ကျေးမှုအမွေအနှ<div class="heritage-card">
+                <img src="/api/placeholder/600/400" alt="ရွှေတိဂုံစေတီတော်">
+                <div class="heritage-content">
+                    <h3 class="text-xl font-bold mb-3" data-my="ရွှေတိဂုံစေတီတော်" data-en="Shwedagon Pagoda" data-ru="Пагода Шведагон">ရွှေတိဂုံစေတီတော်</h3>
+                    <p data-my="မြန်မာနိုင်ငံ၏ အထင်ကရ ဘုရားစေတီတော်" data-en="Myanmar's most sacred Buddhist pagoda" data-ru="Самая священная буддийская пагода Мьянмы">မြန်မာနိုင်ငံ၏ အထင်ကရ ဘုရားစေတီတော်</p>
+                </div>
+            </div>
+
+            <div class="heritage-card">
+                <img src="/api/placeholder/600/400" alt="ပုဂံဘုရားများ">
+                <div class="heritage-content">
+                    <h3 class="text-xl font-bold mb-3" data-my="ပုဂံဘုရားများ" data-en="Bagan Temples" data-ru="Храмы Багана">ပုဂံဘုရားများ</h3>
+                    <p data-my="ကမ္ဘာ့အမွေအနှစ် စာရင်းဝင် ရှေးဟောင်းဘုရားများ" data-en="UNESCO World Heritage ancient temples" data-ru="Древние храмы Всемирного наследия ЮНЕСКО">ကမ္ဘာ့အမွေအနှစ် စာရင်းဝင် ရှေးဟောင်းဘုရားများ</p>
+                </div>
+            </div>
         </section>
 
         <!-- Timeline Section -->
-        <section id="timeline">
+        <section id="timeline" class="timeline-section">
             <h2 class="section-title" data-my="သမိုင်းမှတ်တိုင်များ" data-en="Historical Timeline" data-ru="Историческая хронология">သမိုင်းမှတ်တိုင်များ</h2>
             
             <div class="timeline-item">
-                <h3 class="font-bold" data-my="ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)" data-en="Bagan Era (1044-1287)" data-ru="Эпоха Баган (1044-1287)">ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)</h3>
+                <h3 class="font-bold mb-2" data-my="ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)" data-en="Bagan Era (1044-1287)" data-ru="Эпоха Баган (1044-1287)">ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)</h3>
                 <p data-my="ပထမမြန်မာနိုင်ငံတော်" data-en="First Myanmar Empire" data-ru="Первая империя Мьянмы">ပထမမြန်မာနိုင်ငံတော်</p>
             </div>
 
-            <!-- More timeline items... -->
+            <div class="timeline-item">
+                <h3 class="font-bold mb-2" data-my="အင်းဝခေတ် (၁၃၆၄-၁၅၅၅)" data-en="Inwa Era (1364-1555)" data-ru="Эпоха Инва (1364-1555)">အင်းဝခေတ် (၁၃၆၄-၁၅၅၅)</h3>
+                <p data-my="စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်" data-en="Era of literary excellence" data-ru="Эпоха литературного совершенства">စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်</p>
+            </div>
         </section>
     </main>
 
@@ -333,7 +430,9 @@
         const mobileMenu = document.getElementById('mobileMenu');
         const menuOverlay = document.getElementById('menuOverlay');
         const scrollProgress = document.getElementById('scrollProgress');
+        const loadingOverlay = document.getElementById('loadingOverlay');
 
+        // Handle menu interactions
         menuBtn.addEventListener('click', toggleMenu);
         menuOverlay.addEventListener('click', closeMenu);
 
@@ -356,7 +455,6 @@
             });
             document.getElementById(lang + '-btn').classList.add('active-lang');
 
-            document.querySelectorAll(`[data-${lang}
             document.querySelectorAll(`[data-${lang}]`).forEach(element => {
                 element.textContent = element.getAttribute(`data-${lang}`);
             });
@@ -365,39 +463,34 @@
             localStorage.setItem('selectedLanguage', lang);
         }
 
-        // Scroll Progress Indicator
+        // Scroll handling
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
         window.addEventListener('scroll', () => {
-            const windowHeight = document.documentElement.clientHeight;
-            const documentHeight = document.documentElement.scrollHeight - windowHeight;
-            const scrolled = window.scrollY / documentHeight;
-            scrollProgress.style.transform = `scaleX(${scrolled})`;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    // Update scroll progress
+                    const windowHeight = document.documentElement.clientHeight;
+                    const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                    const scrolled = window.scrollY / documentHeight;
+                    scrollProgress.style.transform = `scaleX(${scrolled})`;
+
+                    // Handle navigation visibility
+                    const currentScrollY = window.scrollY;
+                    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                        document.querySelector('.bottom-nav').style.transform = 'translateY(100%)';
+                    } else {
+                        document.querySelector('.bottom-nav').style.transform = 'translateY(0)';
+                    }
+                    lastScrollY = currentScrollY;
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
 
-        // Bottom Navigation Active State
-        const sections = document.querySelectorAll('section');
-        const bottomNavLinks = document.querySelectorAll('.bottom-nav a');
-
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    bottomNavLinks.forEach(link => {
-                        if (link.getAttribute('href') === '#' + entry.target.id) {
-                            link.classList.add('active');
-                        } else {
-                            link.classList.remove('active');
-                        }
-                    });
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => observer.observe(section));
-
-        // Smooth Scrolling
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -415,54 +508,54 @@
                         top: offsetPosition,
                         behavior: 'smooth'
                     });
+
+                    // Update active state in bottom navigation
+                    document.querySelectorAll('.bottom-nav a').forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === targetId);
+                    });
                 }
             });
         });
 
-        // Touch Events for Better Mobile Experience
-        let touchStartY = 0;
-        let touchEndY = 0;
-
-        document.addEventListener('touchstart', e => {
-            touchStartY = e.touches[0].clientY;
-        }, false);
-
-        document.addEventListener('touchend', e => {
-            touchEndY = e.changedTouches[0].clientY;
-            handleSwipe();
-        }, false);
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const languageSwitcher = document.querySelector('.language-switcher');
-            const bottomNav = document.querySelector('.bottom-nav');
-            
-            if (touchStartY - touchEndY > swipeThreshold) {
-                // Swipe Up - Show navigation
-                languageSwitcher.style.transform = 'translateY(0)';
-                bottomNav.style.transform = 'translateY(0)';
-            } else if (touchEndY - touchStartY > swipeThreshold) {
-                // Swipe Down - Hide navigation
-                languageSwitcher.style.transform = 'translateY(100%)';
-                bottomNav.style.transform = 'translateY(100%)';
-            }
-        }
+        // Handle loading
+        window.addEventListener('load', () => {
+            loadingOverlay.classList.add('hidden');
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 300);
+        });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             const savedLanguage = localStorage.getItem('selectedLanguage') || 'my';
             changeLanguage(savedLanguage);
-            
-            // Add loading animation class
-            document.body.classList.add('loaded');
+
+            // Set initial active section
+            const observerOptions = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.bottom-nav a').forEach(link => {
+                            const href = link.getAttribute('href');
+                            link.classList.toggle('active', href === '#' + entry.target.id);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
         });
 
-        // Handle device orientation changes
+        // Handle orientation changes
         window.addEventListener('orientationchange', () => {
-            // Delay execution to ensure proper rendering
             setTimeout(() => {
                 window.scrollTo(0, window.scrollY);
-            }, 300);
+            }, 100);
         });
     </script>
 </body>
