@@ -315,20 +315,18 @@
         /* Media Queries */
        @media (max-width: 768px) {
             .language-switcher {
-                position: fixed;
-                top: 0.5rem; /* Keep at top with small padding */
-                right: 0.5rem;
-                display: flex;
                 flex-direction: row;
-                gap: 0.25rem; /* Reduce gap for mobile */
-                padding: 0.5rem;
-                background: transparent;
+                top: auto;
+                bottom: 80px;
+                left: 1rem;
+                right: 1rem;
+                justify-content: center;
             }
 
             .language-btn {
-                padding: 0.4rem 0.6rem; /* Smaller padding for mobile */
-                min-width: 40px; /* Smaller width for mobile */
-                font-size: 0.875rem; /* Slightly smaller font */
+                flex: 1;
+                min-width: auto;
+                padding: 0.5rem;
             }
 
             .language-btn .lang-label {
