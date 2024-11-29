@@ -2,649 +2,621 @@
 <html lang="my">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာ့အစားအစာ - Myanmar Food</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Discover Myanmar's traditional cuisine, regional specialties, and culinary heritage">
+    <title>မြန်မာ့အစားအစာ - Myanmar Cuisine</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
+
         :root {
-            --primary-color: #B8860B;
-            --secondary-color: #8B4513;
-            --accent-color: #DAA520;
+            --primary-gold: #B8860B;
+            --deep-maroon: #800000;
+            --accent-gold: #FFD700;
+            --light-gold: #FFF8DC;
             --text-color: #333;
-            --bg-color: #FFF8DC;
-            --card-bg: rgba(255, 255, 255, 0.95);
+            --spice-red: #D35400;
+            --curry-yellow: #F39C12;
+            --leaf-green: #27AE60;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Padauk", sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Padauk', system-ui, sans-serif;
             line-height: 1.6;
-        }
-
-        .container {
-            width: 100%;
-            padding: 0 15px;
-            margin: 0 auto;
-        }
-
-        /* Navigation Styles */
-        .navbar {
-            background: var(--card-bg);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 15px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        /* Mobile Menu */
-        .menu-toggle {
-            display: block;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background: var(--primary-color);
-            margin: 5px 0;
-            transition: 0.3s;
-        }
-
-        .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            height: 100vh;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-
-        .nav-links.active {
-            right: 0;
-        }
-
-        .nav-links a {
-            text-decoration: none;
             color: var(--text-color);
+            background-color: var(--light-gold);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
             padding: 1rem;
-            display: block;
-            width: 100%;
-            text-align: center;
-            transition: 0.3s;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary-color);
-            background: rgba(184, 134, 11, 0.1);
-        }
-
-        /* Page Header */
-        .page-header {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 120px 20px 60px;
-            margin-bottom: 2rem;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* Food Categories */
-        .food-categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
-            justify-content: center;
-        }
-
-        .category-btn {
-            padding: 0.5rem 1.5rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 25px;
-            background: transparent;
-            color: var(--primary-color);
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1rem;
-        }
-
-        .category-btn:hover,
-        .category-btn.active {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* Food Grid */
-        .food-grid {
-            display: grid;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
+        /* Food Card Styles */
         .food-card {
-            background: var(--card-bg);
-            border-radius: 15px;
+            background: white;
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .food-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .card-image {
-            position: relative;
+        .food-image {
+            width: 100%;
             height: 250px;
-            overflow: hidden;
-        }
-
-        .card-image img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
         }
 
-        .card-overlay {
+        .food-card:hover .food-image {
+            transform: scale(1.05);
+        }
+
+        .food-content {
+            padding: 1.5rem;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95), white);
+        }
+
+        .food-tag {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            top: 1rem;
+            right: 1rem;
+            background: var(--spice-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(211, 84, 0, 0.3);
+            z-index: 10;
+        }
+
+        /* Category Headers */
+        .category-header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, var(--curry-yellow), var(--spice-red));
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        .food-card:hover .card-overlay {
-            opacity: 1;
-        }
-
-        .food-card:hover .card-image img {
-            transform: scale(1.1);
-        }
-
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .card-body h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
             font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
         }
 
-        /* Food Facts */
-        .food-facts {
-            background: rgba(184, 134, 11, 0.05);
-            padding: 3rem 0;
-            margin: 3rem 0;
+        /* Recipe Details */
+        .recipe-details {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            font-size: 0.875rem;
+            color: #666;
         }
 
-        .food-facts h2 {
-            text-align: center;
-            color: var(--secondary-color);
-            margin-bottom: 2rem;
+        .recipe-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(243, 156, 18, 0.1);
+            border-radius: 12px;
+            color: var(--curry-yellow);
         }
 
-        .fact-grid {
+        /* Food Grid Layout */
+        .food-grid {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            padding: 1rem 0;
         }
 
-        .fact-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url('/api/placeholder/1920/600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .fact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .fact-card h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Recipe Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1100;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            width: 90%;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 2rem;
-            border-radius: 15px;
+            margin: -1.5rem -1rem 2rem;
             position: relative;
         }
 
-        .recipe-details {
-            margin-top: 2rem;
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
-        .recipe-details h4 {
-            color: var(--secondary-color);
-            margin: 1.5rem 0 1rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
-
-        .footer-content {
+        /* Region Pills */
+        .region-pills {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            overflow-x: auto;
             gap: 1rem;
-            text-align: center;
+            padding: 1rem;
+            margin: 1rem -1rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
+        .region-pills::-webkit-scrollbar {
+            display: none;
         }
 
-        .social-links a {
+        .region-pill {
+            padding: 0.5rem 1.5rem;
+            background: white;
+            border: 2px solid var(--curry-yellow);
+            border-radius: 25px;
+            color: var(--curry-yellow);
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .region-pill.active {
+            background: var(--curry-yellow);
             color: white;
-            text-decoration: none;
-            padding: 0.5rem;
-            transition: 0.3s;
         }
 
-        /* Responsive Design */
-        @media (min-width: 768px) {
-            .container {
-                max-width: 1200px;
-                padding: 0 30px;
-            }
-
-            .menu-toggle {
-                display: none;
-            }
-
-            .nav-links {
-                position: static;
-                width: auto;
-                height: auto;
-                flex-direction: row;
-                background: none;
-                gap: 2rem;
-                box-shadow: none;
-            }
-
-            .nav-links a {
-                padding: 0;
-                width: auto;
-            }
-
+        /* Media Queries */
+        @media (max-width: 768px) {
             .food-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
-            .fact-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .hero-section {
+                padding: 4rem 1rem;
             }
 
-            .footer-content {
-                flex-direction: row;
-                justify-content: space-between;
+            .category-header {
+                margin: 1.5rem -1rem;
+                border-radius: 0;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">မြန်မာနိုင်ငံ</a>
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="nav-links">
-                <a href="index.html">ပင်မ</a>
-                <a href="history.html">သမိုင်း</a>
-                <a href="culture.html">ယဉ်ကျေးမှု</a>
-                <a href="places.html">နေရာများ</a>
-                <a href="food.html" class="active">အစားအစာ</a>
-            </div>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="text-white text-xl">
+                <span data-my="← မြန်မာ့သမိုင်း" data-en="← Myanmar History" data-ru="← История Мьянмы">← မြန်မာ့သမိုင်း</span>
+            </a>
+            <h1 class="text-white text-xl font-bold" data-my="အစားအစာ" data-en="Food" data-ru="Кухня">အစားအစာ</h1>
+            <div class="w-10"></div>
         </div>
     </nav>
 
-    <header class="page-header">
-        <div class="container" data-aos="fade-up">
-            <h1>မြန်မာ့အစားအစာ</h1>
-            <p>အရသာရှိသော ရိုးရာအစားအစာများ</p>
-        </div>
-    </header>
-
-    <main class="container">
-        <!-- Food Categories -->
-        <div class="food-categories" data-aos="fade-up">
-            <button class="category-btn active" data-category="all">အားလုံး</button>
-            <button class="category-btn" data-category="မနက်စာ">မနက်စာ</button>
-            <button class="category-btn" data-category="နေ့လည်စာ">နေ့လည်စာ</button>
-            <button class="category-btn" data-category="ညစာ">ညစာ</button>
-            <button class="category-btn" data-category="အသုပ်များ">အသုပ်များ</button>
-            <button class="category-btn" data-category="အချိုများ">အချိုများ</button>
-        </div>
-
-        <!-- Food Grid -->
-        <div class="food-grid">
-            <!-- Mohinga -->
-            <div class="food-card" data-aos="fade-up" data-category="မနက်စာ" data-id="mohinga">
-                <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="မုန့်ဟင်းခါး">
-                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
-                </div>
-                <div class="card-body">
-                    <h3>မုန့်ဟင်းခါး</h3>
-                    <p>မြန်မာ့ရိုးရာ နံနက်စာ</p>
-                </div>
-            </div>
-
-            <!-- Lahpet Thoke -->
-            <div class="food-card" data-aos="fade-up" data-aos-delay="100" data-category="အသုပ်များ" data-id="lapheto">
-                <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="လက်ဖက်သုပ်">
-                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
-                </div>
-                <div class="card-body">
-                    <h3>လက်ဖက်သုပ်</h3>
-                    <p>မြန်မာ့ရိုးရာ သွပ်စရာ</p>
-                </div>
-            </div>
-
-            <!-- Mohinbar -->
-            <div class="food-card" data-aos="fade-up" data-aos-delay="200" data-category="နေ့လည်စာ" data-id="mohingabar">
-                <div class="card-image">
-                    <img src="/api/placeholder/600/400" alt="မိုဟင်းဘွား">
-                    <div class="card-overlay">ပိုမိုကြည့်ရှုရန်</div>
-                </div>
-                <div class="card-body">
-                    <h3>မိုဟင်းဘွား</h3>
-                    <p>မြန်မာ့ရိုးရာ နွေးထွေးစရာ</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Food Facts -->
-        <section class="food-facts" data-aos="fade-up">
-            <h2>မြန်မာအစားအစာ အကြောင်း</h2>
-            <div class="fact-grid">
-                <div class="fact-card">
-                    <div class="fact-icon" role="img" aria-label="ထမင်းဝိုင်း">🍚</div>
-                    <h3>ထမင်းဝိုင်း</h3>
-                    <p>ဟင်းလျာများစွာဖြင့် စုံလင်စွာ သုံးဆောင်ခြင်း</p>
-                </div>
-                <div class="fact-card">
-                    <div class="fact-icon" role="img" aria-label="ရာသီအလိုက်">🥗</div>
-                    <h3>ရာသီအလိုက်</h3>
-                    <p>ရာသီပေါ်အစားအစာများ စုံလင်စွာရှိခြင်း</p>
-                </div>
-                <div class="fact-card">
-                    <div class="fact-icon" role="img" aria-label="အရသာ">🌶️</div>
-                    <h3>အရသာ</h3>
-                    <p>ချဉ်၊ ငန်၊ စပ်၊ ချို စသည့် အရသာပေါင်းစပ်မှု</p>
-                </div>                
-            </div>
-        </section>
-    </main>
-
-    <!-- Recipe Modal -->
-    <div id="recipeModal" class="modal" aria-hidden="true" role="dialog">
-        <div class="modal-content">
-            <span class="close-modal">×</span>
-            <h2 id="modalTitle"></h2>
-            <div class="card-image">
-                <img id="modalImage" src="" alt="" loading="lazy">
-            </div>
-            <div class="recipe-details">
-                <h4>ပါဝင်ပစ္စည်းများ</h4>
-                <ul id="ingredients"></ul>
-                <h4>ပြုလုပ်ပုံအဆင့်ဆင့်</h4>
-                <div id="instructions"></div>
-            </div>
-        </div>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="language-btn" onclick="changeLanguage('my')" id="my-btn" title="မြန်မာဘာသာ">
+            <span class="lang-label">မြန်မာ</span>
+            <span class="lang-code">MY</span>
+        </button>
+        <button class="language-btn" onclick="changeLanguage('en')" id="en-btn" title="English">
+            <span class="lang-label">English</span>
+            <span class="lang-code">EN</span>
+        </button>
+        <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn" title="Русский">
+            <span class="lang-label">Русский</span>
+            <span class="lang-code">RU</span>
+        </button>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-content">
-            <p>© 2024 မြန်မာနိုင်ငံ - အခွင့်အရေးအားလုံး ထိန်းသိမ်းပြီး</p>
-            <div class="social-links">
-                <a href="#" aria-label="Facebook">FB</a>
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="Twitter">TW</a>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="text-4xl font-bold mb-4" data-my="မြန်မာ့အစားအစာများ" data-en="Myanmar Cuisine" data-ru="Кухня Мьянмы">
+                    မြန်မာ့အစားအစာများ
+                </h1>
+                <p class="text-xl opacity-90" data-my="ထမင်းနှင့်တွဲဖက်စားသုံးသော ဟင်းလျာများ၊ မုန့်မျိုးစုံနှင့် အမွေအနှစ်များ" 
+                   data-en="Traditional dishes, snacks, and culinary heritage" 
+                   data-ru="Традиционные блюда, закуски и кулинарное наследие">
+                    ထမင်းနှင့်တွဲဖက်စားသုံးသော ဟင်းလျာများ၊ မုန့်မျိုးစုံနှင့် အမွေအနှစ်များ
+                </p>
             </div>
-        </div>
-    </footer>
+        </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        <!-- Traditional Main Dishes -->
+        <section>
+            <div class="category-header">
+                <div class="category-icon">🍚</div>
+                <h2 class="text-2xl font-bold" data-my="ထမင်းဟင်းလျာများ" data-en="Traditional Main Dishes" data-ru="Традиционные основные блюда">
+                    ထမင်းဟင်းလျာများ
+                </h2>
+            </div>
+
+            <div class="food-grid">
+                <div class="food-card">
+                    <span class="food-tag" data-my="အမျိုးသား ဟင်းလျာ" data-en="National Dish" data-ru="Национальное блюдо">
+                        အမျိုးသား ဟင်းလျာ
+                    </span>
+                    <img src="/api/placeholder/600/400" alt="မုန့်ဟင်းခါး" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="မုန့်ဟင်းခါး" data-en="Mohinga" data-ru="Монинга">မုန့်ဟင်းခါး</h3>
+                        <p data-my="ငါးရည်၊ ကြက်သွန်၊ ငါးပိ၊ ငရုတ်သီးတို့ဖြင့် ချက်ပြုတ်ထားသော မနက်စာ" 
+                           data-en="Fish soup with rice noodles, crispy fritters, and aromatic herbs" 
+                           data-ru="Рыбный суп с рисовой лапшой, хрустящими пончиками и ароматными травами">
+                            ငါးရည်၊ ကြက်သွန်၊ ငါးပိ၊ ငရုတ်သီးတို့ဖြင့် ချက်ပြုတ်ထားသော မနက်စာ
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="နံနက်စာ" data-en="Breakfast" data-ru="Завтрак">နံနက်စာ</span>
+                            </span>
+                            <span class="recipe-tag">
+                                <span data-my="အစဉ်အလာ" data-en="Traditional" data-ru="Традиционное">အစဉ်အလာ</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card">
+                    <img src="/api/placeholder/600/400" alt="သန်ပွဲကြီး" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="သန်ပွဲကြီး" data-en="Shan-style Rice" data-ru="Рис по-шански">သန်ပွဲကြီး</h3>
+                        <p data-my="ရှမ်းရိုးရာ ထမင်းနှင့် ငါးကြော်၊ ပဲပုပ်ကြော်တို့ဖြင့် တွဲဖက်စားသုံးသော အစားအစာ" 
+                           data-en="Shan-style rice with crispy fish, peanuts, and fermented soybeans" 
+                           data-ru="Рис по-шански с хрустящей рыбой, арахисом и ферментированными соевыми бобами">
+                            ရှမ်းရိုးရာ ထမင်းနှင့် ငါးကြော်၊ ပဲပုပ်ကြော်တို့ဖြင့် တွဲဖက်စားသုံးသော အစားအစာ
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="ရှမ်းအစားအစာ" data-en="Shan Cuisine" data-ru="Шанская кухня">ရှမ်းအစားအစာ</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Traditional Salads -->
+        <section>
+            <div class="category-header">
+                <div class="category-icon">🥗</div>
+                <h2 class="text-2xl font-bold" data-my="အရသာရှိသော သုပ်များ" data-en="Traditional Salads" data-ru="Традиционные салаты">အရသာရှိသော သုပ်များ</h2>
+            </div>
+
+            <div class="food-grid">
+                <div class="food-card">
+                    <img src="/api/placeholder/600/400" alt="လက်ဖက်သုပ်" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="လက်ဖက်သုပ်" data-en="Lahpet Thoke" data-ru="Лапхет Тхоук">လက်ဖက်သုပ်</h3>
+                        <p data-my="ချဉ်ဖတ်လက်ဖက်၊ ပဲကြော်၊ ပေါက်ပေါက်ကြော်၊ ငရုတ်သီး၊ ကြက်သွန်ဖြူနှင့် အခြားပါဝင်ပစ္စည်းများဖြင့် သုပ်ထားသော အစားအစာ" 
+                           data-en="Fermented tea leaf salad with fried peas, peanuts, garlic, and sesame seeds" 
+                           data-ru="Салат из ферментированных чайных листьев с жареным горохом, арахисом, чесноком и кунжутом">
+                            ချဉ်ဖတ်လက်ဖက်၊ ပဲကြော်၊ ပေါက်ပေါက်ကြော်၊ ငရုတ်သီး၊ ကြက်သွန်ဖြူနှင့် အခြားပါဝင်ပစ္စည်းများဖြင့် သုပ်ထားသော အစားအစာ
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="အမျိုးသားအစားအစာ" data-en="National Dish" data-ru="Национальное блюдо">အမျိုးသားအစားအစာ</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card">
+                    <img src="/api/placeholder/600/400" alt="တံခါးရွက်သုပ်" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="တံခါးရွက်သုပ်" data-en="Pennywort Salad" data-ru="Салат из центеллы">တံခါးရွက်သုပ်</h3>
+                        <p data-my="တံခါးရွက်၊ ပဲမှုန့်၊ ငရုတ်သီး၊ ကြက်သွန်နီ၊ နှမ်းဆီတို့ဖြင့် သုပ်ထားသော အစားအစာ" 
+                           data-en="Fresh pennywort leaves mixed with peanuts, chili, onions, and sesame oil" 
+                           data-ru="Свежие листья центеллы с арахисом, перцем чили, луком и кунжутным маслом">
+                            တံခါးရွက်၊ ပဲမှုန့်၊ ငရုတ်သီး၊ ကြက်သွန်နီ၊ နှမ်းဆီတို့ဖြင့် သုပ်ထားသော အစားအစာ
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="အသားစားမဟုတ်" data-en="Vegetarian" data-ru="Вегетарианский">အသားစားမဟုတ်</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card">
+                    <img src="/api/placeholder/600/400" alt="ရွှေပဲသီးသုပ်" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ရွှေပဲသီးသုပ်" data-en="Shwe Yin Aye" data-ru="Шве Йин Айе">ရွှေပဲသီးသုပ်</h3>
+                        <p data-my="ပဲသီး၊ စေးစောင့်၊ နို့၊ ထန်းလျက်တို့ဖြင့် ပြုလုပ်ထားသော အချိုပွဲ" 
+                           data-en="Sweet coconut cream drink with jellies, tapioca, and palm sugar" 
+                           data-ru="Сладкий напиток с кокосовыми сливками, желе, тапиокой и пальмовым сахаром">
+                            ပဲသီး၊ စေးစောင့်၊ နို့၊ ထန်းလျက်တို့ဖြင့် ပြုလုပ်ထားသော အချိုပွဲ
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="အချိုပွဲ" data-en="Dessert" data-ru="Десерт">အချိုပွဲ</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Traditional Snacks -->
+        <section>
+            <div class="category-header">
+                <div class="category-icon">🍪</div>
+                <h2 class="text-2xl font-bold" data-my="မုန့်များ" data-en="Traditional Snacks" data-ru="Традиционные закуски">မုန့်များ</h2>
+            </div>
+
+            <div class="food-grid">
+                <div class="food-card">
+                    <img src="/api/placeholder/600/400" alt="မုန့်လက်သုတ်" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="မုန့်လက်သုတ်" data-en="Mont Let Saung" data-ru="Монт Лет Саунг">မုန့်လက်သုတ်</h3>
+                        <p data-my="ဆန်မှုန့်ဖြင့် ပြုလုပ်ထားသော မုန့်နှင့် ထန်းလျက်ရည်" 
+                           data-en="Rice flour dumplings with palm sugar syrup" 
+                           data-ru="Рисовые клецки с пальмовым сиропом">
+                            ဆန်မှုန့်ဖြင့် ပြုလုပ်ထားသော မုန့်နှင့် ထန်းလျက်ရည်
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="လမ်းဘေးမုန့်" data-en="Street Food" data-ru="Уличная еда">လမ်းဘေးမုန့်</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card">
+                    <img src="/api/placeholder/600/400" alt="စွပ်ပြူစူး" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="စွပ်ပြူစူး" data-en="Shwe Htamin" data-ru="Шве Хтамин">စွပ်ပြူစူး</h3>
+                        <p data-my="ထမင်းနှင့် ဆီချက်ကြက်သား သို့မဟုတ် ဝက်သားတို့ဖြင့် ပြုလုပ်ထားသော အစားအစာ" 
+                           data-en="Golden rice with chicken or pork curry" 
+                           data-ru="Золотистый рис с куриным или свиным карри">
+                            ထမင်းနှင့် ဆီချက်ကြက်သား သို့မဟုတ် ဝက်သားတို့ဖြင့် ပြုလုပ်ထားသော အစားအစာ
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="နေ့လည်စာ" data-en="Lunch" data-ru="Обед">နေ့လည်စာ</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Traditional Curries -->
+        <section>
+            <div class="category-header">
+                <div class="category-icon">🍲</div>
+                <h2 class="text-2xl font-bold" data-my="ဟင်းလျာများ" data-en="Traditional Curries" data-ru="Традиционные карри">ဟင်းလျာများ</h2>
+            </div>
+
+            <div class="food-grid">
+                <div class="food-card">
+                    <img src="/api/placeholder/600/400" alt="ပုဇွန်ဟင်း" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ပုဇွန်ဟင်း" data-en="Prawn Curry" data-ru="Карри с креветками">ပုဇွန်ဟင်း</h3>
+                        <p data-my="ပုဇွန်၊ ငါးပိ၊ ငရုတ်သီး၊ ကြက်သွန်နီတို့ဖြင့် ချက်ပြုတ်ထားသော ဟင်းလျာ" 
+                           data-en="Prawns cooked with shrimp paste, chili, and onions" 
+                           data-ru="Креветки, приготовленные с креветочной пастой, чили и луком">
+                            ပုဇွန်၊ ငါးပိ၊ ငရုတ်သီး၊ ကြက်သွန်နီတို့ဖြင့် ချက်ပြုတ်ထားသော ဟင်းလျာ
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="ပင်လယ်စာ" data-en="Seafood" data-ru="Морепродукты">ပင်လယ်စာ</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card">
+                    <img src="/api/placeholder/600/400" alt="ဝက်သားဟင်း" class="food-image">
+                    <div class="food-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ဝက်သားဟင်း" data-en="Pork Curry" data-ru="Свиное карри">ဝက်သားဟင်း</h3>
+                        <p data-my="ဝက်သား၊ မစလာ၊ ကြက်သွန်နီ၊ ငရုတ်သီးတို့ဖြင့် ချက်ပြုတ်ထားသော ဟင်းလျာ" 
+                           data-en="Pork curry with masala spices and onions" 
+                           data-ru="Свинина карри со специями масала и луком">
+                            ဝက်သား၊ မစလာ၊ ကြက်သွန်နီ၊ ငရုတ်သီးတို့ဖြင့် ချက်ပြုတ်ထားသော ဟင်းလျာ
+                        </p>
+                        <div class="recipe-details">
+                            <span class="recipe-tag">
+                                <span data-my="အသားဟင်း" data-en="Meat Curry" data-ru="Мясное карри">အသားဟင်း</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="index.html">
+                <span data-my="ပင်မ" data-en="Home" data-ru="Главная">ပင်မ</span>
+            </a>
+            <a href="history.html">
+                <span data-my="သမိုင်း" data-en="History" data-ru="История">သမိုင်း</span>
+            </a>
+            <a href="culture.html">
+                <span data-my="ယဉ်ကျေးမှု" data-en="Culture" data-ru="Культура">ယဉ်ကျေးမှု</span>
+            </a>
+            <a href="places.html">
+                <span data-my="နေရာများ" data-en="Places" data-ru="Места">နေရာများ</span>
+                </a>
+            <a href="#" class="active">
+                <span data-my="အစားအစာ" data-en="Food" data-ru="Кухня">အစားအစာ</span>
+            </a>
+        </div>
+    </main>
+
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 50
+        // Language switching functionality
+        function changeLanguage(lang) {
+            // Update active button states
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active-lang');
+            });
+            document.getElementById(lang + '-btn').classList.add('active-lang');
+
+            // Update all translatable content
+            document.querySelectorAll('[data-my], [data-en], [data-ru]').forEach(element => {
+                const translation = element.getAttribute(`data-${lang}`);
+                if (translation) {
+                    element.textContent = translation;
+                }
+            });
+
+            // Set document language code
+            const langCodes = {
+                my: 'my',
+                en: 'en',
+                ru: 'ru'
+            };
+            document.documentElement.lang = langCodes[lang];
+            
+            // Store language preference
+            localStorage.setItem('selectedLanguage', lang);
+
+            // Update page title based on language
+            const titles = {
+                my: "မြန်မာ့အစားအစာ - Myanmar Cuisine",
+                en: "Myanmar Cuisine - Traditional Food and Delicacies",
+                ru: "Кухня Мьянмы - Традиционные блюда и деликатесы"
+            };
+            document.title = titles[lang];
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, {
+            threshold: 0.1
         });
 
-        // Recipe data
-        const recipeData = {
-            mohinga: {
-                title: 'မုန့်ဟင်းခါး',
-                image: '/api/placeholder/800/600',
-                ingredients: [
-                    'ငါးကြင်း',
-                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူ',
-                    'ငရုတ်သီး',
-                    'နနွင်း',
-                    'ပဲကြာဇံ',
-                    'ဘူးသီး',
-                    'ငါးပိ',
-                    'ဆား'
-                ],
-                instructions: `
-                    1. ငါးကြင်းကို သန့်စင်ပြီး ဆားနယ်ထားပါ
-                    2. ကြက်သွန်နီ၊ ကြက်သွန်ဖြူတို့ကို ဆီသတ်ပါ
-                    3. ငါးကြင်းကို ထည့်ကြော်ပါ
-                    4. ရေထည့်ပြီး ပဲကြာဇံ၊ ဘူးသီးတို့ထည့်ပါ
-                    5. အရသာမှန်အောင် ငါးပိ၊ ဆားထည့်ပါ
-                `
-            },
-            lapheto: {
-                title: 'လက်ဖက်သုပ်',
-                image: '/api/placeholder/800/600',
-                ingredients: [
-                    'လက်ဖက်စိမ်း',
-                    'ပဲကြော်',
-                    'ကြက်သွန်ကြော်',
-                    'ငရုတ်သီး',
-                    'နှမ်းဆီ',
-                    'ဆား'
-                ],
-                instructions: `
-                    1. လက်ဖက်စိမ်းကို ရေစစ်ထားပါ
-                    2. ပဲကြော်၊ ကြက်သွန်ကြော်တို့ကို ထည့်ပါ
-                    3. ငရုတ်သီးနှင့် ဆားထည့်ပါ
-                    4. နှမ်းဆီလေးထည့်ပြီး နယ်ပါ
-                `
-            },
-            mohingabar: {
-                title: 'မိုဟင်းဘွား',
-                image: '/api/placeholder/800/600',
-                ingredients: [
-                    'အမဲသား',
-                    'ကြက်သွန်နီ၊ ကြက်သွန်ဖြူ',
-                    'ချင်း',
-                    'ဂျင်း',
-                    'ငရုတ်သီး',
-                    'မဆလာ',
-                    'ဆား'
-                ],
-                instructions: `
-                    1. အမဲသားကို ရေနွေးဖြင့် ပြုတ်ထားပါ
-                    2. ကြက်သွန်နီ၊ ကြက်သွန်ဖြူတို့ကို ဆီသတ်ပါ
-                    3. ချင်း၊ ဂျင်း၊ ငရုတ်သီးထည့်ပါ
-                    4. အမဲသားထည့်ပြီး မဆလာထည့်ပါ
-                    5. ဆားထည့်၍ အရသာမှန်အောင် ချက်ပါ
-                `
+        // Observe all food cards and sections for animations
+        document.querySelectorAll('.food-card, .category-header').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Image loading optimization
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.food-image');
+            let loadedImages = 0;
+
+            function imageLoaded() {
+                loadedImages++;
+                if (loadedImages === images.length) {
+                    document.body.classList.add('images-loaded');
+                }
             }
-        };
 
-        // Category filtering
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        const foodCards = document.querySelectorAll('.food-card');
+            images.forEach(img => {
+                if (img.complete) {
+                    imageLoaded();
+                } else {
+                    img.addEventListener('load', imageLoaded);
+                }
+            });
 
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                button.classList.add('active');
+            // Initialize with saved language preference
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'my';
+            changeLanguage(savedLanguage);
+        });
 
-                const category = button.dataset.category;
-                
-                foodCards.forEach(card => {
-                    if (category === 'all' || card.dataset.category === category) {
-                        card.style.display = 'block';
+        // Handle scroll-based navigation visibility
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const currentScrollY = window.scrollY;
+                    
+                    // Show/hide bottom navigation based on scroll direction
+                    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                        document.querySelector('.bottom-nav').style.transform = 'translateY(100%)';
                     } else {
-                        card.style.display = 'none';
+                        document.querySelector('.bottom-nav').style.transform = 'translateY(0)';
+                    }
+
+                    lastScrollY = currentScrollY;
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Additional animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add fade-in animation to food cards
+            const foodCards = document.querySelectorAll('.food-card');
+            foodCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in');
+            });
+
+            // Add hover effect for food images
+            foodCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const img = card.querySelector('.food-image');
+                    if (img) {
+                        img.style.transform = 'scale(1.05)';
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    const img = card.querySelector('.food-image');
+                    if (img) {
+                        img.style.transform = 'scale(1)';
                     }
                 });
             });
         });
 
-        // Modal functionality
-        const modal = document.getElementById('recipeModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalImage = document.getElementById('modalImage');
-        const ingredients = document.getElementById('ingredients');
-        const instructions = document.getElementById('instructions');
-        const closeModal = document.querySelector('.close-modal');
-
-        function openModal(recipeId) {
-            const recipe = recipeData[recipeId];
-            if (!recipe) return;
-
-            modalTitle.textContent = recipe.title;
-            modalImage.src = recipe.image;
-            modalImage.alt = recipe.title;
-            
-            ingredients.innerHTML = recipe.ingredients
-                .map(ingredient => `<li>${ingredient}</li>`)
-                .join('');
-
-            instructions.innerHTML = recipe.instructions;
-
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Add click event to all food cards
-        document.querySelectorAll('.food-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const recipeId = card.dataset.id;
-                openModal(recipeId);
-            });
-        });
-
-        // Close modal events
-        closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = '';
-            }
-        });
-
-        // Mobile menu functionality
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-        });
-
-        // Close mobile menu when clicking links
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                document.body.style.overflow = '';
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
     </script>
 </body>
 </html>
-                    
