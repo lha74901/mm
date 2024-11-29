@@ -33,13 +33,129 @@
             padding-bottom: 80px;
         }
 
-        /* Place Card Styles */
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
+            padding: 1rem;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 80px;
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 40;
+            background: white;
+            padding: 0.75rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .language-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--deep-maroon);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .language-btn .lang-label {
+            font-size: 0.9rem;
+        }
+
+        .language-btn .lang-code {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .language-btn:hover {
+            background: var(--primary-gold);
+            transform: translateY(-2px);
+        }
+
+        .language-btn.active-lang {
+            background: var(--primary-gold);
+            box-shadow: 0 2px 10px rgba(184, 134, 11, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
+            color: white;
+            padding: 3rem 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Region Navigation */
+        .region-nav {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 1rem 0 2rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .region-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .region-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary-gold);
+            border-radius: 25px;
+            color: var(--primary-gold);
+            background: transparent;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .region-btn:hover {
+            background: var(--primary-gold);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .region-btn.active {
+            background: var(--primary-gold);
+            color: white;
+            box-shadow: 0 2px 10px rgba(184, 134, 11, 0.3);
+        }
+
+        /* Place Cards */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+
         .place-card {
             background: white;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
         }
 
@@ -61,6 +177,7 @@
 
         .place-content {
             padding: 1.5rem;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95), white);
         }
 
         .place-tag {
@@ -73,96 +190,142 @@
             border-radius: 20px;
             font-size: 0.875rem;
             font-weight: bold;
-        }
-
-        /* Region Navigation */
-        .region-nav {
-            display: flex;
-            overflow-x: auto;
-            gap: 1rem;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .region-nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .region-btn {
-            padding: 0.75rem 1.5rem;
-            background: white;
-            border: 2px solid var(--primary-gold);
-            border-radius: 25px;
-            color: var(--primary-gold);
-            white-space: nowrap;
-            transition: all 0.3s ease;
-        }
-
-        .region-btn.active {
-            background: var(--primary-gold);
-            color: white;
+            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
+            z-index: 10;
         }
 
         /* Category Headers */
         .category-header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin: 2rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary-gold);
         }
 
         .category-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-gold);
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(to bottom right, var(--primary-gold), var(--deep-maroon));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.25rem;
-        }
-
-        /* Grid Layout */
-        .places-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 1rem;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
         }
 
         /* Location Details */
         .location-details {
             display: flex;
-            gap: 0.5rem;
             align-items: center;
-            color: #666;
-            font-size: 0.875rem;
+            gap: 0.5rem;
             margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            color: #666;
         }
 
         .location-icon {
             color: var(--primary-gold);
         }
 
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 30;
+        }
+
+        .bottom-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-nav a.active {
+            color: var(--primary-gold);
+            background: rgba(184, 134, 11, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
         /* Media Queries */
         @media (max-width: 768px) {
+            .language-switcher {
+                flex-direction: row;
+                top: auto;
+                bottom: 80px;
+                left: 1rem;
+                right: 1rem;
+                justify-content: center;
+            }
+
+            .language-btn {
+                flex: 1;
+                min-width: auto;
+                padding: 0.5rem;
+            }
+
+            .language-btn .lang-label {
+                display: none;
+            }
+
+            .language-btn .lang-code {
+                font-size: 1rem;
+                opacity: 1;
+            }
+
             .places-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
 
-            .place-card {
-                margin: 0 0.5rem;
+            .region-nav {
+                margin: 1rem -1rem;
+                padding: 1rem;
+                border-radius: 0;
+            }
+
+            .category-header {
+                margin: 1.5rem -1rem;
+                border-radius: 0;
+            }
+
+            .hero-section {
+                margin: -1.5rem -1rem 1rem;
+                border-radius: 0;
             }
         }
-
-        /* Navigation and Language Switcher styles from culture.html */
-        [Previous styles for nav-container, language-switcher, bottom-nav, etc.]
     </style>
 </head>
 <body>
@@ -193,24 +356,32 @@
         </button>
     </div>
 
+    <!-- Main Content -->
     <main class="container mx-auto px-4 pt-24">
-        <!-- Introduction -->
-        <section class="text-center mb-8">
-            <h2 class="text-3xl font-bold mb-4" data-my="မြန်မာပြည်၏ အထင်ကရနေရာများ" data-en="Notable Places in Myanmar" data-ru="Знаменитые места Мьянмы">မြန်မာပြည်၏ အထင်ကရနေရာများ</h2>
-            <p class="text-lg" data-my="ရှေးဟောင်းနန်းတော်များ၊ စေတီပုထိုးများ၊ သဘာဝအလှအပများ" data-en="Ancient palaces, pagodas, and natural wonders" data-ru="Древние дворцы, пагоды и природные чудеса">ရှေးဟောင်းနန်းတော်များ၊ စေတီပုထိုးများ၊ သဘာဝအလှအပများ</p>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4" data-my="မြန်မာပြည်၏ အထင်ကရနေရာများ" data-en="Notable Places in Myanmar" data-ru="Знаменитые места Мьянмы">
+                မြန်မာပြည်၏ အထင်ကရနေရာများ
+            </h1>
+            <p class="text-lg opacity-90" data-my="ရှေးဟောင်းနန်းတော်များ၊ စေတီပုထိုးများ၊ သဘာဝအလှအပများ" data-en="Ancient palaces, pagodas, and natural wonders" data-ru="Древние дворцы, пагоды и природные чудеса">
+                ရှေးဟောင်းနန်းတော်များ၊ စေတီပုထိုးများ၊ သဘာဝအလှအပများ
+            </p>
         </section>
 
         <!-- Region Navigation -->
-        <div class="region-nav">
-            <button class="region-btn active" data-region="all" data-my="အားလုံး" data-en="All" data-ru="Все">အားလုံး</button>
-            <button class="region-btn" data-region="central" data-my="အလယ်ပိုင်း" data-en="Central" data-ru="Центральный">အလယ်ပိုင်း</button>
-            <button class="region-btn" data-region="southern" data-my="တောင်ပိုင်း" data-en="Southern" data-ru="Южный">တောင်ပိုင်း</button>
-            <button class="region-btn" data-region="northern" data-my="မြောက်ပိုင်း" data-en="Northern" data-ru="Северный">မြောက်ပိုင်း</button>
-            <button class="region-btn" data-region="eastern" data-my="အရှေ့ပိုင်း" data-en="Eastern" data-ru="Восточный">အရှေ့ပိုင်း</button>
-        </div>
+        <nav class="region-nav" aria-label="Region filter">
+            <div class="flex gap-4 overflow-x-auto py-2 px-4">
+                <button class="region-btn active" data-region="all" data-my="အားလုံး" data-en="All" data-ru="Все">အားလုံး</button>
+                <button class="region-btn" data-region="central" data-my="အလယ်ပိုင်း" data-en="Central" data-ru="Центральный">အလယ်ပိုင်း</button>
+                <button class="region-btn" data-region="southern" data-my="တောင်ပိုင်း" data-en="Southern" data-ru="Южный">တောင်ပိုင်း</button>
+                <button class="region-btn" data-region="northern" data-my="မြောက်ပိုင်း" data-en="Northern" data-ru="Северный">မြောက်ပိုင်း</button>
+                <button class="region-btn" data-region="eastern" data-my="အရှေ့ပိုင်း" data-en="Eastern" data-ru="Восточный">အရှေ့ပိုင်း</button>
+            </div>
+        </nav>
 
-        <!-- Ancient Cities -->
-        <section>
+        <!-- Places Sections -->
+        <section class="place-categories">
+            <!-- Ancient Cities -->
             <div class="category-header">
                 <div class="category-icon">🏛️</div>
                 <h2 class="text-2xl font-bold" data-my="ရှေးဟောင်းမြို့တော်များ" data-en="Ancient Cities" data-ru="Древние города">ရှေးဟောင်းမြို့တော်များ</h2>
@@ -234,15 +405,27 @@
                     </div>
                 </div>
 
-                <!-- More ancient cities... -->
+                <div class="place-card" data-region="central">
+                    <img src="/api/placeholder/600/400" alt="အင်းဝမြို့ဟောင်း" class="place-image">
+                    <div class="place-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="အင်းဝမြို့ဟောင်း" data-en="Ancient Inwa" data-ru="Древняя Инва">အင်းဝမြို့ဟောင်း</h3>
+                        <p data-my="နန်းတော်အကြွင်းအကျန်များ၊ ရှေးဟောင်းစေတီများနှင့် ရေှးဟောင်းသုတေသနနယ်မြေ" 
+                           data-en="Historical site with palace ruins, ancient temples and archaeological zone" 
+                           data-ru="Исторический объект с руинами дворца, древними храмами и археологической зоной">
+                            နန်းတော်အကြွင်းအကျန်များ၊ ရှေးဟောင်းစေတီများနှင့် ရေှးဟောင်းသုတေသနယ်မြေ
+                        </p>
+                        <div class="location-details">
+                            <span class="location-icon">📍</span>
+                            <span data-my="မန္တလေးတိုင်း" data-en="Mandalay Region" data-ru="Мандалайский регион">မန္တလေးတိုင်း</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <!-- Famous Temples and Pagodas -->
-        <section>
+            <!-- Famous Temples -->
             <div class="category-header">
                 <div class="category-icon">🕍</div>
-                <h2 class="text-2xl font-bold" data-my="ထင်ရှားသော ဘုရားစေတီများ" data-en="Famous Temples and Pagodas" data-ru="Знаменитые храмы и пагоды">ထင်ရှားသော ဘုရားစေတီများ</h2>
+                <h2 class="text-2xl font-bold" data-my="ထင်ရှားသော ဘုရားစေတီများ" data-en="Famous Temples" data-ru="Знаменитые храмы">ထင်ရှားသော ဘုရားစေတီများ</h2>
             </div>
 
             <div class="places-grid">
@@ -262,35 +445,31 @@
                     </div>
                 </div>
 
-                <!-- More temples and pagodas... -->
+                <div class="place-card" data-region="central">
+                    <img src="/api/placeholder/600/400" alt="မဟာမုနိ" class="place-image">
+                    <div class="place-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="မဟာမုနိဘုရား" data-en="Mahamuni Buddha Temple" data-ru="Храм Махамуни Будды">မဟာမုနိဘုရား</h3>
+                        <p data-my="ရှေးဟောင်းဗုဒ္ဓရုပ်ပွားတော်နှင့် သမိုင်းဝင်ဘုရား" 
+                           data-en="Historic temple with ancient Buddha image" 
+                           data-ru="Исторический храм с древним изображением Будды">
+                            ရှေးဟောင်းဗုဒ္ဓရုပ်ပွားတော်နှင့် သမိုင်းဝင်ဘုရား
+                        </p>
+                        <div class="location-details">
+                            <span class="location-icon">📍</span>
+                            <span data-my="မန္တလေးမြို့" data-en="Mandalay" data-ru="Мандалай">မန္တလေးမြို့</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <!-- Natural Landmarks -->
-        <section>
+            <!-- Natural Landmarks -->
             <div class="category-header">
                 <div class="category-icon">🏔️</div>
                 <h2 class="text-2xl font-bold" data-my="သဘာဝအလှအပများ" data-en="Natural Landmarks" data-ru="Природные достопримечательности">သဘာဝအလှအပများ</h2>
             </div>
 
             <div class="places-grid">
-                <div class="place-card" data-region="northern">
-                    <img src="/api/placeholder/600/400" alt="ဖူးခက်တောင်" class="place-image">
-                    <div class="place-content">
-                        <h3 class="text-xl font-bold mb-2" data-my="ဖူးခက်တောင်" data-en="Phukhat Mountain" data-ru="Гора Пхукхат">ဖူးခက်တောင်</h3>
-                        <p data-my="နှင်းဖုံးလွှမ်းသော တောင်ထွတ်များနှင့် သဘာဝရှုခင်းများ" 
-                           data-en="Snow-capped peaks and natural scenery" 
-                           data-ru="Заснеженные вершины и природные пейзажи">
-                            နှင်းဖုံးလွှမ်းသော တောင်ထွတ်များနှင့် သဘာဝရှုခင်းများ
-                        </p>
-                        <div class="location-details">
-                            <span class="location-icon">📍</span>
-                            <span data-my="ကချင်ပြည်နယ်" data-en="Kachin State" data-ru="Штат Качин">ကချင်ပြည်နယ်</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="place-card" data-region="central">
+                <div class="place-card" data-region="eastern">
                     <img src="/api/placeholder/600/400" alt="အင်းလေးကန်" class="place-image">
                     <div class="place-content">
                         <h3 class="text-xl font-bold mb-2" data-my="အင်းလေးကန်" data-en="Inle Lake" data-ru="Озеро Инле">အင်းလေးကန်</h3>
@@ -306,102 +485,18 @@
                     </div>
                 </div>
 
-                <div class="place-card" data-region="southern">
-                    <img src="/api/placeholder/600/400" alt="ငွေတောင်" class="place-image">
+                <div class="place-card" data-region="northern">
+                    <img src="/api/placeholder/600/400" alt="ခေါင်လန်ဖူး" class="place-image">
                     <div class="place-content">
-                        <h3 class="text-xl font-bold mb-2" data-my="ငွေတောင်" data-en="Mount Victoria" data-ru="Гора Виктория">ငွေတောင်</h3>
-                        <p data-my="မြင့်မားသော တောင်ထွတ်နှင့် ရှားပါးငှက်မျိုးစိတ်များ တွေ့ရှိရာ နေရာ" 
-                           data-en="Highest peak in the region and home to rare bird species" 
-                           data-ru="Самая высокая вершина региона и место обитания редких видов птиц">
-                            မြင့်မားသော တောင်ထွတ်နှင့် ရှားပါးငှက်မျိုးစိတ်များ တွေ့ရှိရာ နေရာ
+                        <h3 class="text-xl font-bold mb-2" data-my="ခေါင်လန်ဖူးတောင်" data-en="Mount Khakaborazi" data-ru="Гора Какаборази">ခေါင်လန်ဖူးတောင်</h3>
+                        <p data-my="မြန်မာနိုင်ငံ၏ အမြင့်ဆုံးတောင်ထွတ်" 
+                           data-en="Myanmar's highest mountain peak" 
+                           data-ru="Самая высокая горная вершина Мьянмы">
+                            မြန်မာနိုင်ငံ၏ အမြင့်ဆုံးတောင်ထွတ်
                         </p>
                         <div class="location-details">
                             <span class="location-icon">📍</span>
-                            <span data-my="ချင်းပြည်နယ်" data-en="Chin State" data-ru="Штат Чин">ချင်းပြည်နယ်</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Royal Palaces -->
-        <section>
-            <div class="category-header">
-                <div class="category-icon">👑</div>
-                <h2 class="text-2xl font-bold" data-my="နန်းတော်များ" data-en="Royal Palaces" data-ru="Королевские дворцы">နန်းတော်များ</h2>
-            </div>
-
-            <div class="places-grid">
-                <div class="place-card" data-region="central">
-                    <img src="/api/placeholder/600/400" alt="မန္တလေးနန်းတော်" class="place-image">
-                    <div class="place-content">
-                        <h3 class="text-xl font-bold mb-2" data-my="မန္တလေးနန်းတော်" data-en="Mandalay Palace" data-ru="Мандалайский дворец">မန္တလေးနန်းတော်</h3>
-                        <p data-my="နောက်ဆုံးမြန်မာဘုရင်များ၏ နန်းတော်" 
-                           data-en="Last royal palace of Myanmar's monarchy" 
-                           data-ru="Последний королевский дворец монархии Мьянмы">
-                            နောက်ဆုံးမြန်မာဘုရင်များ၏ နန်းတော်
-                        </p>
-                        <div class="location-details">
-                            <span class="location-icon">📍</span>
-                            <span data-my="မန္တလေးမြို့" data-en="Mandalay City" data-ru="Город Мандалай">မန္တလေးမြို့</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="place-card" data-region="southern">
-                    <img src="/api/placeholder/600/400" alt="ဘုရားသုံးဆူနန်းတော်" class="place-image">
-                    <div class="place-content">
-                        <h3 class="text-xl font-bold mb-2" data-my="ဘုရားသုံးဆူနန်းတော်" data-en="Three Pagodas Palace" data-ru="Дворец трех пагод">ဘုရားသုံးဆူနန်းတော်</h3>
-                        <p data-my="ရှေးဟောင်းနန်းတော်နှင့် ဘုရားသုံးဆူ" 
-                           data-en="Ancient palace complex with three historic pagodas" 
-                           data-ru="Древний дворцовый комплекс с тремя историческими пагодами">
-                            ရှေးဟောင်းနန်းတော်နှင့် ဘုရားသုံးဆူ
-                        </p>
-                        <div class="location-details">
-                            <span class="location-icon">📍</span>
-                            <span data-my="ကရင်ပြည်နယ်" data-en="Kayin State" data-ru="Штат Карен">ကရင်ပြည်နယ်</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Modern Cities -->
-        <section>
-            <div class="category-header">
-                <div class="category-icon">🌆</div>
-                <h2 class="text-2xl font-bold" data-my="ခေတ်သစ်မြို့ကြီးများ" data-en="Modern Cities" data-ru="Современные города">ခေတ်သစ်မြို့ကြီးများ</h2>
-            </div>
-
-            <div class="places-grid">
-                <div class="place-card" data-region="central">
-                    <img src="/api/placeholder/600/400" alt="ရန်ကုန်မြို့" class="place-image">
-                    <div class="place-content">
-                        <h3 class="text-xl font-bold mb-2" data-my="ရန်ကုန်မြို့" data-en="Yangon City" data-ru="Город Янгон">ရန်ကုန်မြို့</h3>
-                        <p data-my="စီးပွားရေးမြို့တော်နှင့် ရှေးဟောင်းအဆောက်အအုံများ" 
-                           data-en="Economic capital with colonial architecture" 
-                           data-ru="Экономическая столица с колониальной архитектурой">
-                            စီးပွားရေးမြို့တော်နှင့် ရှေးဟောင်းအဆောက်အအုံများ
-                        </p>
-                        <div class="location-details">
-                            <span class="location-icon">📍</span>
-                            <span data-my="ရန်ကုန်တိုင်း" data-en="Yangon Region" data-ru="Янгонский регион">ရန်ကုန်တိုင်း</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="place-card" data-region="central">
-                    <img src="/api/placeholder/600/400" alt="နေပြည်တော်" class="place-image">
-                    <div class="place-content">
-                        <h3 class="text-xl font-bold mb-2" data-my="နေပြည်တော်" data-en="Naypyidaw" data-ru="Нейпьидо">နေပြည်တော်</h3>
-                        <p data-my="မြန်မာနိုင်ငံ၏ မြို့တော်သစ်" 
-                           data-en="Myanmar's modern capital city" 
-                           data-ru="Современная столица Мьянмы">
-                            မြန်မာနိုင်ငံ၏ မြို့တော်သစ်
-                        </p>
-                        <div class="location-details">
-                            <span class="location-icon">📍</span>
-                            <span data-my="နေပြည်တော်" data-en="Naypyidaw Union Territory" data-ru="Союзная территория Нейпьидо">နေပြည်တော်</span>
+                            <span data-my="ကချင်ပြည်နယ်" data-en="Kachin State" data-ru="Штат Качин">ကချင်ပြည်နယ်</span>
                         </div>
                     </div>
                 </div>
@@ -483,7 +578,6 @@
             document.querySelectorAll('.region-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     filterByRegion(btn.dataset.region);
                 });
@@ -500,25 +594,44 @@
                 threshold: 0.1
             });
 
-            // Observe all place cards for scroll animations
-            document.querySelectorAll('.place-card').forEach(card => {
-                observer.observe(card);
+            // Observe all cards and sections for animations
+            document.querySelectorAll('.place-card, .category-header').forEach(element => {
+                observer.observe(element);
             });
         });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+        // Handle mobile swipe for region navigation
+        const regionNav = document.querySelector('.region-nav');
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        regionNav.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        }, false);
+
+        regionNav.addEventListener('touchmove', e => {
+            // Allow horizontal scrolling
+        }, false);
+
+        regionNav.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const currentActive = document.querySelector('.region-btn.active');
+            const buttons = Array.from(document.querySelectorAll('.region-btn'));
+            const currentIndex = buttons.indexOf(currentActive);
+
+            if (touchEndX < touchStartX - swipeThreshold && currentIndex < buttons.length - 1) {
+                // Swipe left - next region
+                buttons[currentIndex + 1].click();
+            } else if (touchEndX > touchStartX + swipeThreshold && currentIndex > 0) {
+                // Swipe right - previous region
+                buttons[currentIndex - 1].click();
+            }
+        }
 
         // Image loading optimization
         document.addEventListener('DOMContentLoaded', () => {
@@ -541,39 +654,42 @@
             });
         });
 
-        // Handle region filtering on mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-        const regionNav = document.querySelector('.region-nav');
+        // Handle scroll-based navigation visibility
+        let lastScrollY = window.scrollY;
+        let ticking = false;
 
-        regionNav.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-        }, false);
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const currentScrollY = window.scrollY;
+                    
+                    // Show/hide bottom navigation based on scroll direction
+                    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                        document.querySelector('.bottom-nav').style.transform = 'translateY(100%)';
+                    } else {
+                        document.querySelector('.bottom-nav').style.transform = 'translateY(0)';
+                    }
 
-        regionNav.addEventListener('touchmove', e => {
-            e.preventDefault(); // Prevent vertical scroll while swiping
-        }, false);
-
-        regionNav.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].clientX;
-            handleSwipe();
-        }, false);
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const currentActive = document.querySelector('.region-btn.active');
-            const buttons = Array.from(document.querySelectorAll('.region-btn'));
-            const currentIndex = buttons.indexOf(currentActive);
-
-            if (touchEndX < touchStartX - swipeThreshold && currentIndex < buttons.length - 1) {
-                // Swipe left
-                buttons[currentIndex + 1].click();
-            } else if (touchEndX > touchStartX + swipeThreshold && currentIndex > 0) {
-                // Swipe right
-                buttons[currentIndex - 1].click();
+                    lastScrollY = currentScrollY;
+                    ticking = false;
+                });
+                ticking = true;
             }
-        }
+        });
     </script>
 </body>
 </html>
