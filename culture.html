@@ -2,8 +2,8 @@
 <html lang="my">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာ့သမိုင်း - ယဉ်ကျေးမှုအမွေအနှစ်</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>မြန်မာ့သမိုင်း</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap');
@@ -11,409 +11,458 @@
         :root {
             --primary-gold: #B8860B;
             --deep-maroon: #800000;
-            --royal-green: #006400;
             --accent-gold: #FFD700;
-            --light-gold: #FFF8DC;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Padauk', system-ui, sans-serif;
-            line-height: 1.8;
-            color: #333;
-            background-color: var(--light-gold);
+            line-height: 1.6;
+            background: #FFF8E7;
+            overflow-x: hidden;
         }
 
-        .myanmar-pattern {
-            background-image: linear-gradient(45deg, var(--primary-gold) 25%, transparent 25%),
-                            linear-gradient(-45deg, var(--primary-gold) 25%, transparent 25%),
-                            linear-gradient(45deg, transparent 75%, var(--primary-gold) 75%),
-                            linear-gradient(-45deg, transparent 75%, var(--primary-gold) 75%);
-            background-size: 20px 20px;
-            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-            opacity: 0.1;
-        }
-
+        /* Mobile-First Navigation */
         .nav-container {
-            background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
-            padding: 1rem;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 50;
+            background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
+            padding: 0.75rem;
         }
 
-        .hero-section {
-            background-image: url('/api/placeholder/1920/600');
-            background-size: cover;
-            background-position: center;
-            padding: 10rem 2rem;
-            position: relative;
-            color: #fff;
-            text-align: center;
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            height: 100vh;
+            background: var(--deep-maroon);
+            padding: 2rem;
+            transition: left 0.3s ease;
+            z-index: 100;
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4));
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 90;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .dynasty-card {
-            border-radius: 1rem;
-            overflow: hidden;
-            background: #fff;
-            box-shadow: 0 4px 20px rgba(184, 134, 11, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .dynasty-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 30px rgba(184, 134, 11, 0.2);
-        }
-
-        .card-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 2rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        .mobile-menu a {
+            display: block;
             color: white;
+            padding: 1rem 0;
+            font-size: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .timeline-section {
-            position: relative;
-            padding: 4rem 0;
-        }
-
-        .timeline-section::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
+        /* Language Switcher for Mobile */
+        .language-switcher {
+            position: fixed;
             bottom: 0;
-            width: 2px;
-            background-color: var(--primary-gold);
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.75rem;
+            display: flex;
+            justify-content: space-around;
+            gap: 0.5rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 40;
         }
 
+        .language-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--deep-maroon);
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            max-width: 100px;
+        }
+
+        .language-btn.active-lang {
+            background: var(--primary-gold);
+            transform: scale(1.05);
+        }
+
+        /* Mobile-Optimized Cards */
+        .dynasty-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .dynasty-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.25rem;
+        }
+
+        /* Mobile Timeline */
         .timeline-item {
+            background: white;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: relative;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            background: #fff;
-            border-radius: 1rem;
-            box-shadow: 0 4px 20px rgba(184, 134, 11, 0.1);
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-gold);
-            border-radius: 50%;
+            left: -1rem;
             top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .heritage-card {
-            background: #fff;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(184, 134, 11, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .heritage-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .language-switcher {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            gap: 0.5rem;
-            z-index: 100;
-        }
-
-        .language-btn {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            background: var(--deep-maroon);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Padauk', sans-serif;
-        }
-
-        .language-btn:hover {
-            background: var(--primary-gold);
-            transform: translateY(-2px);
-        }
-
-        .active-lang {
+            width: 1rem;
+            height: 2px;
             background: var(--primary-gold);
         }
 
-        .section-header {
-            position: relative;
+        /* Section Headers */
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: bold;
             text-align: center;
-            margin-bottom: 4rem;
+            margin: 2rem 0 1.5rem;
+            color: var(--deep-maroon);
         }
 
-        .section-header::after {
-            content: '';
-            position: absolute;
-            bottom: -1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
+        /* Main Content Area */
+        main {
+            margin-top: 4rem;
+            padding-bottom: 5rem; /* Space for fixed bottom language switcher */
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 4rem 1rem 2rem;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url('/api/placeholder/800/400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* Touch-friendly Buttons */
+        .touch-button {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 0.75rem 1rem;
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.75rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 30;
+        }
+
+        .bottom-nav a {
+            text-align: center;
+            color: var(--deep-maroon);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .bottom-nav a.active {
+            color: var(--primary-gold);
+        }
+
+        /* Scroll Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 3px;
-            background: var(--primary-gold);
-        }
-
-        footer {
-            background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
-            color: #fff;
-            padding: 3rem 1rem;
+            background: linear-gradient(to right, var(--primary-gold), var(--accent-gold));
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+            z-index: 60;
         }
 
         @media (min-width: 768px) {
-            .timeline-item {
-                width: 45%;
-                margin-left: auto;
-                margin-right: auto;
+            .mobile-menu, .bottom-nav {
+                display: none;
             }
 
-            .timeline-item:nth-child(odd) {
-                margin-right: 55%;
+            .language-switcher {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                bottom: auto;
+                left: auto;
+                background: transparent;
+                box-shadow: none;
             }
 
-            .timeline-item:nth-child(even) {
-                margin-left: 55%;
-            }
-
-            .timeline-item:nth-child(odd)::before {
-                right: -60px;
-            }
-
-            .timeline-item:nth-child(even)::before {
-                left: -60px;
+            main {
+                margin-top: 5rem;
+                padding: 0 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Mobile Navigation -->
     <nav class="nav-container">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-white text-2xl font-bold" data-my="မြန်မာ့သမိုင်း" data-en="Myanmar History" data-ru="История Мьянмы">မြန်မာ့သမိုင်း</a>
-            <div class="hidden md:flex space-x-6">
-                <a href="index.html" class="text-white hover:text-yellow-200 transition-colors" data-my="ပင်မ" data-en="Home" data-ru="Главная">ပင်မ</a>
-                <a href="history.html" class="text-white hover:text-yellow-200 transition-colors" data-my="သမိုင်း" data-en="History" data-ru="История">သမိုင်း</a>
-                <a href="culture.html" class="text-white hover:text-yellow-200 transition-colors" data-my="ယဉ်ကျေးမှု" data-en="Culture" data-ru="Культура">ယဉ်ကျေးမှု</a>
-                <a href="heritage.html" class="text-white hover:text-yellow-200 transition-colors" data-my="အမွေအနှစ်" data-en="Heritage" data-ru="Наследие">အမွေအနှစ်</a>
-            </div>
-            <button class="md:hidden text-white text-2xl">☰</button>
+        <div class="flex justify-between items-center">
+            <button class="text-white text-2xl touch-button" id="menuBtn">☰</button>
+            <h1 class="text-white text-xl font-bold" data-my="မြန်မာ့သမိုင်း" data-en="Myanmar History" data-ru="История Мьянмы">မြန်မာ့သမိုင်း</h1>
+            <div class="w-8"></div>
         </div>
     </nav>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" data-my="ပင်မ" data-en="Home" data-ru="Главная">ပင်မ</a>
+        <a href="#history" data-my="သမိုင်း" data-en="History" data-ru="История">သမိုင်း</a>
+        <a href="#heritage" data-my="အမွေအနှစ်" data-en="Heritage" data-ru="Наследие">အမွေအနှစ်</a>
+        <a href="#culture" data-my="ယဉ်ကျေးမှု" data-en="Culture" data-ru="Культура">ယဉ်ကျေးမှု</a>
+    </div>
+    <div class="mobile-menu-overlay" id="menuOverlay"></div>
+
+    <!-- Language Switcher -->
     <div class="language-switcher">
         <button class="language-btn active-lang" onclick="changeLanguage('my')" id="my-btn">MY</button>
         <button class="language-btn" onclick="changeLanguage('en')" id="en-btn">EN</button>
         <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn">RU</button>
     </div>
 
+    <!-- Hero Section -->
     <section class="hero-section" id="home">
-        <div class="hero-content">
-            <h1 class="text-5xl font-bold mb-6" data-my="မြန်မာ့သမိုင်း အမွေအနှစ်များ" data-en="Myanmar Historical Heritage" data-ru="Историческое наследие Мьянмы">မြန်မာ့သမိုင်း အမွေအနှစ်များ</h1>
-            <p class="text-xl mb-8" data-my="အတိတ်မှ ပစ္စုပ္ပန်သို့" data-en="From Past to Present" data-ru="От прошлого к настоящему">အတိတ်မှ ပစ္စုပ္ပန်သို့</p>
-            <div class="myanmar-pattern absolute inset-0 opacity-10"></div>
-        </div>
+        <h1 class="text-3xl font-bold mb-4" data-my="မြန်မာ့သမိုင်း အမွေအနှစ်များ" data-en="Myanmar Historical Heritage" data-ru="Историческое наследие Мьянмы">မြန်မာ့သမိုင်း အမွေအနှစ်များ</h1>
+        <p class="text-lg" data-my="အတိတ်မှ ပစ္စုပ္ပန်သို့" data-en="From Past to Present" data-ru="От прошлого к настоящему">အတိတ်မှ ပစ္စုပ္ပန်သို့</p>
     </section>
 
-    <main class="container mx-auto px-4 py-16">
-        <section id="history" class="mb-20">
-            <h2 class="section-header text-3xl font-bold" data-my="ထင်ရှားသော ခေတ်များ" data-en="Notable Eras" data-ru="Выдающиеся эпохи">ထင်ရှားသော ခေတ်များ</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="dynasty-card">
-                    <div class="relative">
-                        <img src="/api/placeholder/600/400" alt="ပုဂံခေတ်" class="w-full h-64 object-cover">
-                        <div class="card-overlay">
-                            <h3 class="text-xl font-bold mb-2" data-my="ပုဂံခေတ်" data-en="Bagan Era" data-ru="Эпоха Баган">ပုဂံခေတ်</h3>
-                            <p data-my="မြန်မာနိုင်ငံ၏ ရွှေခေတ်" data-en="Golden Age of Myanmar" data-ru="Золотой век Мьянмы">မြန်မာနိုင်ငံ၏ ရွှေခေတ်</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <p class="text-gray-600" data-my="ဗိသုကာလက်ရာများ၊ ယဉ်ကျေးမှုနှင့် အနုပညာ ထွန်းကားခဲ့သော ခေတ်။" data-en="An era of architectural masterpieces, culture, and artistic achievements." data-ru="Эпоха архитектурных шедевров, культуры и художественных достижений.">ဗိသုကာလက်ရာများ၊ ယဉ်ကျေးမှုနှင့် အနုပညာ ထွန်းကားခဲ့သော ခေတ်။</p>
-                    </div>
-                </div>
-
-                <div class="dynasty-card">
-                    <div class="relative">
-                        <img src="/api/placeholder/600/400" alt="အင်းဝခေတ်" class="w-full h-64 object-cover">
-                        <div class="card-overlay">
-                            <h3 class="text-xl font-bold mb-2" data-my="အင်းဝခေတ်" data-en="Inwa Era" data-ru="Эпоха Инва">အင်းဝခေတ်</h3>
-                            <p data-my="စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်" data-en="Era of Literary Excellence" data-ru="Эпоха литературного совершенства">စာပေယဉ်ကျေးမှု ထွန်းကားခဲ့သောခေတ်</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <p class="text-gray-600" data-my="စာပေ၊ ပညာရေးနှင့် အနုပညာ ဖွံ့ဖြိုးတိုးတက်ခဲ့သော ခေတ်။" data-en="A period of literary, educational, and artistic development." data-ru="Период литературного, образовательного и художественного развития.">စာပေ၊ ပညာရေးနှင့် အနုပညာ ဖွံ့ဖြိုးတိုးတက်ခဲ့သော ခေတ်။</p>
-                    </div>
-                </div>
-
-                <div class="dynasty-card">
-                    <div class="relative">
-                        <img src="/api/placeholder/600/400" alt="ကုန်းဘောင်ခေတ်" class="w-full h-64 object-cover">
-                        <div class="card-overlay">
-                            <h3 class="text-xl font-bold mb-2" data-my="ကုန်းဘောင်ခေတ်" data-en="Konbaung Era" data-ru="Эпоха Конбаун">ကုန်းဘောင်ခေတ်</h3>
-                            <p data-my="နောက်ဆုံးမြန်မာမင်းဆက်" data-en="Last Myanmar Dynasty" data-ru=<p data-my="နောက်ဆုံးမြန်မာမင်းဆက်" data-en="Last Myanmar Dynasty" data-ru="Последняя династия Мьянмы">နောက်ဆုံးမြန်မာမင်းဆက်</p>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <p class="text-gray-600" data-my="ယဉ်ကျေးမှု၊ စီးပွားရေးနှင့် အုပ်ချုပ်ရေး ပြုပြင်ပြောင်းလဲမှုများ ပြုလုပ်ခဲ့သော ခေတ်။" data-en="A period of cultural, economic, and administrative reforms." data-ru="Период культурных, экономических и административных реформ.">ယဉ်ကျေးမှု၊ စီးပွားရေးနှင့် အုပ်ချုပ်ရေး ပြုပြင်ပြောင်းလဲမှုများ ပြုလုပ်ခဲ့သော ခေတ်။</p>
-                    </div>
+    <main>
+        <!-- Dynasties Section -->
+        <section id="history">
+            <h2 class="section-title" data-my="ထင်ရှားသော ခေတ်များ" data-en="Notable Eras" data-ru="Выдающиеся эпохи">ထင်ရှားသော ခေတ်များ</h2>
+            
+            <div class="dynasty-card">
+                <img src="/api/placeholder/600/400" alt="ပုဂံခေတ်">
+                <div class="card-content">
+                    <h3 class="text-xl font-bold mb-2" data-my="ပုဂံခေတ်" data-en="Bagan Era" data-ru="Эпоха Баган">ပုဂံခေတ်</h3>
+                    <p data-my="ဗိသုကာလက်ရာများ ထွန်းကားခဲ့သော ခေတ်" data-en="Era of architectural brilliance" data-ru="Эпоха архитектурного величия">ဗိသုကာလက်ရာများ ထွန်းကားခဲ့သော ခေတ်</p>
                 </div>
             </div>
+
+            <!-- More dynasty cards... -->
         </section>
 
-        <section id="timeline" class="timeline-section mb-20">
-            <h2 class="section-header text-3xl font-bold" data-my="သမိုင်းမှတ်တိုင်များ" data-en="Historical Timeline" data-ru="Историческая хронология">သမိုင်းမှတ်တိုင်များ</h2>
-            <div class="container mx-auto relative">
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold text-primary-gold mb-2" data-my="ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)" data-en="Bagan Era (1044-1287)" data-ru="Эпоха Баган (1044-1287)">ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)</h3>
-                    <p data-my="ထူးခြားသော ဗိသုကာလက်ရာများ တည်ဆောက်ခဲ့သော ခေတ်" data-en="Era of remarkable architectural achievements" data-ru="Эпоха выдающихся архитектурных достижений">ထူးခြားသော ဗိသုကာလက်ရာများ တည်ဆောက်ခဲ့သော ခေတ်</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold text-primary-gold mb-2" data-my="တောင်ငူခေတ် (၁၅၁၀-၁၇၅၂)" data-en="Taungoo Era (1510-1752)" data-ru="Эпоха Таунгу (1510-1752)">တောင်ငူခေတ် (၁၅၁၀-၁၇၅၂)</h3>
-                    <p data-my="မြန်မာ့အင်ပါယာ အကျယ်ပြန့်ဆုံးဖြစ်ခဲ့သောခေတ်" data-en="Period of greatest territorial expansion" data-ru="Период наибольшего территориального расширения">မြန်မာ့အင်ပါယာ အကျယ်ပြန့်ဆုံးဖြစ်ခဲ့သောခေတ်</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold text-primary-gold mb-2" data-my="ကုန်းဘောင်ခေတ် (၁၇၅၂-၁၈၈၅)" data-en="Konbaung Era (1752-1885)" data-ru="Эпоха Конбаун (1752-1885)">ကုန်းဘောင်ခေတ် (၁၇၅၂-၁၈၈၅)</h3>
-                    <p data-my="ခေတ်သစ်မြန်မာနိုင်ငံ၏ နောက်ဆုံးမင်းဆက်" data-en="Last dynasty of modern Myanmar" data-ru="Последняя династия современной Мьянмы">ခေတ်သစ်မြန်မာနိုင်ငံ၏ နောက်ဆုံးမင်းဆက်</p>
-                </div>
+        <!-- Timeline Section -->
+        <section id="timeline">
+            <h2 class="section-title" data-my="သမိုင်းမှတ်တိုင်များ" data-en="Historical Timeline" data-ru="Историческая хронология">သမိုင်းမှတ်တိုင်များ</h2>
+            
+            <div class="timeline-item">
+                <h3 class="font-bold" data-my="ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)" data-en="Bagan Era (1044-1287)" data-ru="Эпоха Баган (1044-1287)">ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)</h3>
+                <p data-my="ပထမမြန်မာနိုင်ငံတော်" data-en="First Myanmar Empire" data-ru="Первая империя Мьянмы">ပထမမြန်မာနိုင်ငံတော်</p>
             </div>
-        </section>
 
-        <section id="heritage" class="mb-20">
-            <h2 class="section-header text-3xl font-bold" data-my="ယဉ်ကျေးမှုအမွေအနှစ်များ" data-en="Cultural Heritage" data-ru="Культурное наследие">ယဉ်ကျေးမှုအမွေအနှစ်များ</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="heritage-card">
-                    <img src="/api/placeholder/600/400" alt="ရွှေတိဂုံစေတီတော်" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-4" data-my="ရွှေတိဂုံစေတီတော်" data-en="Shwedagon Pagoda" data-ru="Пагода Шведагон">ရွှေတိဂုံစေတီတော်</h3>
-                        <p class="text-gray-600" data-my="မြန်မာနိုင်ငံ၏ အထင်ကရ ဘုရားစေတီတော်" data-en="Myanmar's most sacred Buddhist pagoda" data-ru="Самая священная буддийская пагода Мьянмы">မြန်မာနိုင်ငံ၏ အထင်ကရ ဘုရားစေတီတော်</p>
-                    </div>
-                </div>
-
-                <div class="heritage-card">
-                    <img src="/api/placeholder/600/400" alt="ပုဂံဘုရားများ" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-4" data-my="ပုဂံဘုရားများ" data-en="Bagan Temples" data-ru="Храмы Багана">ပုဂံဘုရားများ</h3>
-                        <p class="text-gray-600" data-my="ကမ္ဘာ့အမွေအနှစ် စာရင်းဝင် ရှေးဟောင်းဘုရားများ" data-en="UNESCO World Heritage ancient temples" data-ru="Древние храмы Всемирного наследия ЮНЕСКО">ကမ္ဘာ့အမွေအနှစ် စာရင်းဝင် ရှေးဟောင်းဘုရားများ</p>
-                    </div>
-                </div>
-
-                <div class="heritage-card">
-                    <img src="/api/placeholder/600/400" alt="မန္တလေးနန်းတော်" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-4" data-my="မန္တလေးနန်းတော်" data-en="Mandalay Palace" data-ru="Мандалайский дворец">မန္တလေးနန်းတော်</h3>
-                        <p class="text-gray-600" data-my="နောက်ဆုံးမြန်မာဘုရင်များ၏ နန်းတော်" data-en="Last royal palace of Myanmar monarchy" data-ru="Последний королевский дворец монархии Мьянмы">နောက်ဆုံးမြန်မာဘုရင်များ၏ နန်းတော်</p>
-                    </div>
-                </div>
-            </div>
+            <!-- More timeline items... -->
         </section>
     </main>
 
-    <footer class="mt-20">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="text-white mb-4 md:mb-0" data-my="© ၂၀၂၄ မြန်မာ့သမိုင်း" data-en="© 2024 Myanmar History" data-ru="© 2024 История Мьянмы">© ၂၀၂၄ မြန်မာ့သမိုင်း</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-white hover:text-yellow-200 transition-colors">Facebook</a>
-                    <a href="#" class="text-white hover:text-yellow-200 transition-colors">Instagram</a>
-                    <a href="#" class="text-white hover:text-yellow-200 transition-colors">Twitter</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#home" class="active">
+            <span data-my="ပင်မ" data-en="Home" data-ru="Главная">ပင်မ</span>
+        </a>
+        <a href="#history">
+            <span data-my="သမိုင်း" data-en="History" data-ru="История">သမိုင်း</span>
+        </a>
+        <a href="#heritage">
+            <span data-my="အမွေအနှစ်" data-en="Heritage" data-ru="Наследие">အမွေအနှစ်</span>
+        </a>
+        <a href="#culture">
+            <span data-my="ယဉ်ကျေးမှု" data-en="Culture" data-ru="Культура">ယဉ်ကျေးမှု</span>
+        </a>
+    </div>
 
     <script>
-        // Enhanced language switching functionality
+        // Mobile menu functionality
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const scrollProgress = document.getElementById('scrollProgress');
+
+        menuBtn.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Language switching
         function changeLanguage(lang) {
-            // Update active button
             document.querySelectorAll('.language-btn').forEach(btn => {
                 btn.classList.remove('active-lang');
             });
             document.getElementById(lang + '-btn').classList.add('active-lang');
 
-            // Update content
+            document.querySelectorAll(`[data-${lang}
             document.querySelectorAll(`[data-${lang}]`).forEach(element => {
                 element.textContent = element.getAttribute(`data-${lang}`);
             });
 
-            // Update HTML lang attribute
             document.documentElement.lang = lang;
             localStorage.setItem('selectedLanguage', lang);
         }
 
-        // Mobile menu toggle
-        const menuButton = document.querySelector('.md\\:hidden');
-        const navLinks = document.querySelector('.nav-links');
-        
-        menuButton?.addEventListener('click', () => {
-            navLinks?.classList.toggle('active');
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.clientHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.scrollY / documentHeight;
+            scrollProgress.style.transform = `scaleX(${scrolled})`;
         });
 
-        // Initialize with saved language preference
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedLanguage = localStorage.getItem('selectedLanguage') || 'my';
-            changeLanguage(savedLanguage);
+        // Bottom Navigation Active State
+        const sections = document.querySelectorAll('section');
+        const bottomNavLinks = document.querySelectorAll('.bottom-nav a');
 
-            // Smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                        // Close mobile menu if open
-                        navLinks?.classList.remove('active');
-                    }
-                });
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    bottomNavLinks.forEach(link => {
+                        if (link.getAttribute('href') === '#' + entry.target.id) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                closeMenu();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerOffset = 60;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
-        // Handle clicks outside mobile menu to close it
-        document.addEventListener('click', (e) => {
-            if (navLinks?.classList.contains('active') && 
-                !e.target.closest('.nav-container')) {
-                navLinks.classList.remove('active');
+        // Touch Events for Better Mobile Experience
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.touches[0].clientY;
+        }, false);
+
+        document.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].clientY;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const languageSwitcher = document.querySelector('.language-switcher');
+            const bottomNav = document.querySelector('.bottom-nav');
+            
+            if (touchStartY - touchEndY > swipeThreshold) {
+                // Swipe Up - Show navigation
+                languageSwitcher.style.transform = 'translateY(0)';
+                bottomNav.style.transform = 'translateY(0)';
+            } else if (touchEndY - touchStartY > swipeThreshold) {
+                // Swipe Down - Hide navigation
+                languageSwitcher.style.transform = 'translateY(100%)';
+                bottomNav.style.transform = 'translateY(100%)';
             }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'my';
+            changeLanguage(savedLanguage);
+            
+            // Add loading animation class
+            document.body.classList.add('loaded');
+        });
+
+        // Handle device orientation changes
+        window.addEventListener('orientationchange', () => {
+            // Delay execution to ensure proper rendering
+            setTimeout(() => {
+                window.scrollTo(0, window.scrollY);
+            }, 300);
         });
     </script>
 </body>
