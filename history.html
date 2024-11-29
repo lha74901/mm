@@ -48,7 +48,7 @@
         /* Hero Section */
         .hero-section {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
-                        url('/api/placeholder/1920/600');
+                        url('images/historyhead.jpg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -287,10 +287,61 @@
                 left: -45px !important;
             }
 
+            /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 1rem;  /* Changed from 80px to 1rem to move to top */
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 100;  /* Increased z-index to stay above header */
+            background: white;
+            padding: 0.75rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Rest of the styles remain the same */
+        .language-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--deep-maroon);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .language-btn .lang-label {
+            font-size: 0.9rem;
+        }
+
+        .language-btn .lang-code {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .language-btn:hover {
+            background: var(--primary-gold);
+            transform: translateY(-2px);
+        }
+
+        .language-btn.active-lang {
+            background: var(--primary-gold);
+            box-shadow: 0 2px 10px rgba(184, 134, 11, 0.3);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
             .language-switcher {
                 flex-direction: row;
-                top: auto;
-                bottom: 80px;
+                top: 1rem;  /* Keep at top on mobile */
                 left: 1rem;
                 right: 1rem;
                 justify-content: center;
@@ -310,6 +361,7 @@
                 font-size: 1rem;
                 opacity: 1;
             }
+        }
 
             .hero-section {
                 padding: 4rem 1rem;
@@ -366,7 +418,7 @@
             </h2>
 
             <div class="dynasty-card">
-                <img src="/api/placeholder/1200/600" alt="ပုဂံခေတ်" class="dynasty-image">
+                <img src="images/kingofbagan.jpg" alt="ပုဂံခေတ်" class="dynasty-image">
                 <div class="dynasty-content">
                     <h3 class="text-2xl font-bold mb-4" data-my="ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)" data-en="Bagan Dynasty (1044-1287)" data-ru="Династия Баган (1044-1287)">
                         ပုဂံခေတ် (၁၀၄၄-၁၂၈၇)
@@ -380,7 +432,7 @@
             </div>
 
             <div class="dynasty-card">
-                <img src="/api/placeholder/1200/600" alt="တောင်ငူခေတ်" class="dynasty-image">
+                <img src="images/kongoftaungoo.jpg" alt="တောင်ငူခေတ်" class="dynasty-image">
                 <div class="dynasty-content">
                     <h3 class="text-2xl font-bold mb-4" data-my="တောင်ငူခေတ် (၁၅၁၀-၁၇၅၂)" data-en="Taungoo Dynasty (1510-1752)" data-ru="Династия Таунгу (1510-1752)">
                         တောင်ငူခေတ် (၁၅၁၀-၁၇၅၂)
@@ -394,7 +446,7 @@
             </div>
 
             <div class="dynasty-card">
-                <img src="/api/placeholder/1200/600" alt="ကုန်းဘောင်ခေတ်" class="dynasty-image">
+                <img src="images/Alaungpaya.jpeg" alt="ကုန်းဘောင်ခေတ်" class="dynasty-image">
                 <div class="dynasty-content">
                     <h3 class="text-2xl font-bold mb-4" data-my="ကုန်းဘောင်ခေတ် (၁၇၅၂-၁၈၈၅)" data-en="Konbaung Dynasty (1752-1885)" data-ru="Династия Конбаун (1752-1885)">
                         ကုန်းဘောင်ခေတ် (၁၇၅၂-၁၈၈၅)
