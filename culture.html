@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Discover Myanmar's rich cultural heritage, traditional arts, festivals, and customs">
     <title>မြန်မာ့ယဉ်ကျေးမှု - Myanmar Culture</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
@@ -32,7 +33,7 @@
             padding-bottom: 80px;
         }
 
-        /* Navigation Styles */
+        /* Navigation */
         .nav-container {
             position: fixed;
             top: 0;
@@ -49,34 +50,50 @@
             top: 80px;
             right: 1rem;
             display: flex;
+            flex-direction: column;
             gap: 0.5rem;
             z-index: 40;
             background: white;
-            padding: 0.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
         .language-btn {
-            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             background: var(--deep-maroon);
             color: white;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .language-btn .lang-label {
+            font-size: 0.9rem;
+        }
+
+        .language-btn .lang-code {
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
 
         .language-btn:hover {
             background: var(--primary-gold);
+            transform: translateY(-2px);
         }
 
         .language-btn.active-lang {
             background: var(--primary-gold);
+            box-shadow: 0 2px 10px rgba(184, 134, 11, 0.3);
         }
 
-        /* Content Categories */
+        /* Culture Categories */
         .culture-category {
             background: white;
             border-radius: 16px;
@@ -111,7 +128,7 @@
             font-size: 1.5rem;
         }
 
-        /* Card Layouts */
+        /* Grid Layout */
         .grid-layout {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -119,6 +136,7 @@
             margin: 1rem 0;
         }
 
+        /* Content Cards */
         .content-card {
             background: white;
             border-radius: 12px;
@@ -129,6 +147,7 @@
 
         .content-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
 
         .content-card img {
@@ -141,7 +160,7 @@
             padding: 1.5rem;
         }
 
-        /* Timeline Styles */
+        /* Timeline Items */
         .timeline-item {
             background: white;
             border-radius: 12px;
@@ -206,25 +225,11 @@
         }
 
         /* Media Queries */
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
             .language-switcher {
-                top: 1rem;
-                right: 1rem;
-            }
-
-            .grid-layout {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .culture-category {
-                margin: 2rem 0;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .language-switcher {
-                bottom: 80px;
+                flex-direction: row;
                 top: auto;
+                bottom: 80px;
                 left: 1rem;
                 right: 1rem;
                 justify-content: center;
@@ -232,8 +237,34 @@
 
             .language-btn {
                 flex: 1;
-                max-width: 100px;
+                min-width: auto;
+                padding: 0.5rem;
             }
+
+            .language-btn .lang-label {
+                display: none;
+            }
+
+            .language-btn .lang-code {
+                font-size: 1rem;
+                opacity: 1;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
         }
     </style>
 </head>
@@ -251,9 +282,18 @@
 
     <!-- Language Switcher -->
     <div class="language-switcher">
-        <button class="language-btn active-lang" onclick="changeLanguage('my')" id="my-btn">MY</button>
-        <button class="language-btn" onclick="changeLanguage('en')" id="en-btn">EN</button>
-        <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn">RU</button>
+        <button class="language-btn" onclick="changeLanguage('my')" id="my-btn" title="မြန်မာဘာသာ">
+            <span class="lang-label">မြန်မာ</span>
+            <span class="lang-code">MY</span>
+        </button>
+        <button class="language-btn" onclick="changeLanguage('en')" id="en-btn" title="English">
+            <span class="lang-label">English</span>
+            <span class="lang-code">EN</span>
+        </button>
+        <button class="language-btn" onclick="changeLanguage('ru')" id="ru-btn" title="Русский">
+            <span class="lang-label">Русский</span>
+            <span class="lang-code">RU</span>
+        </button>
     </div>
 
     <!-- Main Content -->
@@ -320,7 +360,7 @@
         <!-- Music and Dance -->
         <section class="culture-category">
             <div class="category-header">
-                <div<div class="category-icon">🎭</div>
+                <div class="category-icon">🎭</div>
                 <h2 class="text-2xl font-bold" data-my="အကနှင့်ဂီတ" data-en="Music and Dance" data-ru="Музыка и танцы">အကနှင့်ဂီတ</h2>
             </div>
 
@@ -342,8 +382,8 @@
                     <div class="card-content">
                         <h3 class="text-xl font-bold mb-2" data-my="ရိုးရာဂီတ" data-en="Traditional Music" data-ru="Традиционная музыка">ရိုးရာဂီတ</h3>
                         <p data-my="စောင်း၊ ပတ္တလား၊ မိုးဗဒင်အစရှိသော တူရိယာများဖြင့် ဖျော်ဖြေတီးမှုတ်ခြင်း" 
-                           data-en="Musical performances featuring traditional instruments like the saung (harp), pat waing (drum circle), and other classical instruments" 
-                           data-ru="Музыкальные представления с традиционными инструментами, такими как саун (арфа), пат вайн (барабанный круг) и другие классические инструменты">
+                           data-en="Musical performances featuring traditional instruments like the saung (harp), pat waing (drum circle)" 
+                           data-ru="Музыкальные представления с традиционными инструментами, такими как саун (арфа), пат вайн (барабанный круг)">
                             စောင်း၊ ပတ္တလား၊ မိုးဗဒင်အစရှိသော တူရိယာများဖြင့် ဖျော်ဖြေတီးမှုတ်ခြင်း
                         </p>
                     </div>
@@ -355,35 +395,44 @@
         <section class="culture-category">
             <div class="category-header">
                 <div class="category-icon">🎉</div>
-                <h2 class="text-2xl font-bold" data-my="ပွဲတော်များ" data-en="Traditional Festivals" data-ru="Традиционные фестивали">ပွဲတော်များ</h2>
+                <h2 class="text-2xl font-bold" data-my="ပွဲတော်များ" data-en="Festivals" data-ru="Фестивали">ပွဲတော်များ</h2>
             </div>
 
-            <div class="timeline-items">
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold mb-2" data-my="သင်္ကြန်ပွဲတော်" data-en="Thingyan Festival" data-ru="Фестиваль Тинджан">သင်္ကြန်ပွဲတော်</h3>
-                    <p data-my="မြန်မာ့နှစ်သစ်ကူး ရေပက်ပွဲတော်၊ ဧပြီလတွင် ကျင်းပသည့် အကြီးဆုံးပွဲတော်" 
-                       data-en="Myanmar New Year Water Festival, celebrated in April, marking the beginning of the Myanmar New Year" 
-                       data-ru="Водный фестиваль Мьянманского Нового года, празднуемый в апреле, знаменующий начало нового года в Мьянме">
-                        မြန်မာ့နှစ်သစ်ကူး ရေပက်ပွဲတော်၊ ဧပြီလတွင် ကျင်းပသည့် အကြီးဆုံးပွဲတော်
-                    </p>
+            <div class="grid-layout">
+                <div class="content-card">
+                    <img src="/api/placeholder/600/400" alt="သင်္ကြန်">
+                    <div class="card-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="သင်္ကြန်ပွဲတော်" data-en="Thingyan Festival" data-ru="Фестиваль Тинджан">သင်္ကြန်ပွဲတော်</h3>
+                        <p data-my="မြန်မာ့နှစ်သစ်ကူး ရေပက်ပွဲတော်" 
+                           data-en="Myanmar New Year Water Festival" 
+                           data-ru="Водный фестиваль Мьянманского Нового года">
+                            မြန်မာ့နှစ်သစ်ကူး ရေပက်ပွဲတော်
+                        </p>
+                    </div>
                 </div>
 
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold mb-2" data-my="တန်ဆောင်တိုင်ပွဲတော်" data-en="Tazaungdaing Festival" data-ru="Фестиваль Тазаундайн">တန်ဆောင်တိုင်ပွဲတော်</h3>
-                    <p data-my="တန်ဆောင်မုန်းလပြည့်တွင် ကျင်းပသော မီးထွန်းပွဲတော်" 
-                       data-en="Festival of Lights celebrated on the full moon day of Tazaungmone" 
-                       data-ru="Фестиваль огней, празднуемый в полнолуние месяца Тазаунмоне">
-                        တန်ဆောင်မုန်းလပြည့်တွင် ကျင်းပသော မီးထွန်းပွဲတော်
-                    </p>
+                <div class="content-card">
+                    <img src="/api/placeholder/600/400" alt="တန်ဆောင်တိုင်">
+                    <div class="card-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="တန်ဆောင်တိုင်ပွဲတော်" data-en="Tazaungdaing Festival" data-ru="Фестиваль Тазаундайн">တန်ဆောင်တိုင်ပွဲတော်</h3>
+                        <p data-my="မီးထွန်းပွဲတော်" 
+                           data-en="Festival of Lights" 
+                           data-ru="Фестиваль огней">
+                            မီးထွန်းပွဲတော်
+                        </p>
+                    </div>
                 </div>
 
-                <div class="timeline-item">
-                    <h3 class="text-xl font-bold mb-2" data-my="ကဆုန်နှင့် တပေါင်းပွဲတော်" data-en="Kason and Tabaung Festivals" data-ru="Фестивали Касон и Табаунг">ကဆုန်နှင့် တပေါင်းပွဲတော်</h3>
-                    <p data-my="ဘုရားများအား ရေသပ်ပွဲတော်များ" 
-                       data-en="Water pouring ceremonies at pagodas during Kason and Tabaung full moons" 
-                       data-ru="Церемонии возлияния воды в пагодах во время полнолуния Касон и Табаунг">
-                        ဘုရားများအား ရေသပ်ပွဲတော်များ
-                    </p>
+                <div class="content-card">
+                    <img src="/api/placeholder/600/400" alt="ကဆုန်">
+                    <div class="card-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ကဆုန်နှင့် တပေါင်းပွဲတော်" data-en="Kason Festival" data-ru="Фестиваль Касон">ကဆုန်နှင့် တပေါင်းပွဲတော်</h3>
+                        <p data-my="ဘုရားများအား ရေသွန်းလောင်းပူဇော်ပွဲတော်" 
+                           data-en="Water Pouring Festival at Pagodas" 
+                           data-ru="Фестиваль возлияния воды в пагодах">
+                            ဘုရားများအား ရေသွန်းလောင်းပူဇော်ပွဲတော်
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -419,18 +468,6 @@
                         </p>
                     </div>
                 </div>
-
-                <div class="content-card">
-                    <img src="/api/placeholder/600/400" alt="နာမည်ပေးပွဲ">
-                    <div class="card-content">
-                        <h3 class="text-xl font-bold mb-2" data-my="နာမည်ပေးပွဲ" data-en="Naming Ceremony" data-ru="Церемония имянаречения">နာမည်ပေးပွဲ</h3>
-                        <p data-my="ကလေးငယ်များအား နာမည်ပေးသော အခမ်းအနား" 
-                           data-en="Traditional naming ceremony for newborns" 
-                           data-ru="Традиционная церемония имянаречения для новорожденных">
-                            ကလေးငယ်များအား နာမည်ပေးသော အခမ်းအနား
-                        </p>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -461,12 +498,22 @@
             document.getElementById(lang + '-btn').classList.add('active-lang');
 
             // Update all translatable content
-            document.querySelectorAll(`[data-${lang}]`).forEach(element => {
-                element.textContent = element.getAttribute(`data-${lang}`);
+            document.querySelectorAll('[data-my], [data-en], [data-ru]').forEach(element => {
+                const translation = element.getAttribute(`data-${lang}`);
+                if (translation) {
+                    element.textContent = translation;
+                }
             });
 
-            // Update document language
-            document.documentElement.lang = lang;
+            // Set document language code
+            const langCodes = {
+                my: 'my',
+                en: 'en',
+                ru: 'ru'
+            };
+            document.documentElement.lang = langCodes[lang];
+            
+            // Store language preference
             localStorage.setItem('selectedLanguage', lang);
 
             // Update page title based on language
@@ -482,21 +529,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const savedLanguage = localStorage.getItem('selectedLanguage') || 'my';
             changeLanguage(savedLanguage);
-
-            // Add smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
         });
 
         // Intersection Observer for animations
