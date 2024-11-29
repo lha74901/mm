@@ -313,21 +313,22 @@
         }
 
         /* Media Queries */
-        @media (max-width: 768px) {
+       @media (max-width: 768px) {
             .language-switcher {
+                position: fixed;
+                top: 0.5rem; /* Keep at top with small padding */
+                right: 0.5rem;
+                display: flex;
                 flex-direction: row;
-                top: auto;
-                bottom: 80px;
-                left: 1rem;
-                right: 1rem;
-                justify-content: center;
-                background: rgba(255, 255, 255, 0.95);
+                gap: 0.25rem; /* Reduce gap for mobile */
+                padding: 0.5rem;
+                background: transparent;
             }
 
             .language-btn {
-                flex: 1;
-                min-width: auto;
-                padding: 0.5rem;
+                padding: 0.4rem 0.6rem; /* Smaller padding for mobile */
+                min-width: 40px; /* Smaller width for mobile */
+                font-size: 0.875rem; /* Slightly smaller font */
             }
 
             .language-btn .lang-label {
