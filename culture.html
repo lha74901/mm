@@ -15,7 +15,6 @@
             --accent-gold: #FFD700;
             --light-gold: #FFF8DC;
             --text-color: #333;
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -29,45 +28,23 @@
             font-family: 'Padauk', system-ui, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background: linear-gradient(to bottom, var(--light-gold), #fff);
+            background-color: var(--light-gold);
             overflow-x: hidden;
-            min-height: 100vh;
             padding-bottom: 80px;
         }
 
-        /* Scroll Progress Bar */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary-gold), var(--accent-gold));
-            transform-origin: left;
-            transform: scaleX(0);
-            z-index: 9999;
-        }
-
-        /* Enhanced Navigation */
+        /* Navigation */
         .nav-container {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 50;
-            background: linear-gradient(135deg, var(--deep-maroon), var(--primary-gold));
+            background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
             padding: 1rem;
-            transition: var(--transition-smooth);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-container.scrolled {
-            padding: 0.5rem 1rem;
-            background: rgba(128, 0, 0, 0.95);
-        }
-
-        /* Enhanced Language Switcher */
+        /* Language Switcher */
         .language-switcher {
             position: fixed;
             top: 80px;
@@ -76,39 +53,25 @@
             flex-direction: column;
             gap: 0.5rem;
             z-index: 40;
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             padding: 0.75rem;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(184, 134, 11, 0.2);
-            transition: var(--transition-smooth);
         }
 
         .language-btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(to right, var(--deep-maroon), var(--primary-gold));
-            color: white;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            min-width: 120px;
+            padding: 0.75rem 1rem;
             border: none;
-            transform-origin: center;
-        }
-
-        .language-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
-        }
-
-        .language-btn.active-lang {
-            background: linear-gradient(to right, var(--primary-gold), var(--accent-gold));
-            transform: translateY(-1px);
+            border-radius: 8px;
+            background: var(--deep-maroon);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
         }
 
         .language-btn .lang-label {
@@ -120,28 +83,28 @@
             opacity: 0.8;
         }
 
-        /* Enhanced Culture Categories */
+        .language-btn:hover {
+            background: var(--primary-gold);
+            transform: translateY(-2px);
+        }
+
+        .language-btn.active-lang {
+            background: var(--primary-gold);
+            box-shadow: 0 2px 10px rgba(184, 134, 11, 0.3);
+        }
+
+        /* Culture Categories */
         .culture-category {
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             border-radius: 16px;
             padding: 1.5rem;
             margin: 1rem 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: var(--transition-smooth);
-            border: 1px solid rgba(184, 134, 11, 0.1);
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .culture-category.visible {
-            opacity: 1;
-            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
         .culture-category:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
 
         .category-header {
@@ -149,30 +112,23 @@
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, rgba(128, 0, 0, 0.05), rgba(184, 134, 11, 0.05));
+            border-bottom: 2px solid var(--light-gold);
             padding-bottom: 1rem;
-            border-bottom: 2px solid rgba(184, 134, 11, 0.1);
         }
 
         .category-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, var(--primary-gold), var(--accent-gold));
+            background: var(--primary-gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 1.5rem;
-            transform: rotate(-5deg);
-            transition: var(--transition-smooth);
         }
 
-        .culture-category:hover .category-icon {
-            transform: rotate(0deg) scale(1.1);
-        }
-
-        /* Enhanced Grid Layout */
+        /* Grid Layout */
         .grid-layout {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -180,74 +136,89 @@
             margin: 1rem 0;
         }
 
-        /* Enhanced Content Cards */
+        /* Content Cards */
         .content-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: var(--transition-smooth);
-            border: 1px solid rgba(184, 134, 11, 0.1);
-            position: relative;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .content-card.visible {
-            opacity: 1;
-            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
         .content-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
 
         .content-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            transition: var(--transition-smooth);
-        }
-
-        .content-card:hover img {
-            transform: scale(1.05);
         }
 
         .card-content {
             padding: 1.5rem;
-            background: linear-gradient(to bottom, white, rgba(255, 248, 220, 0.5));
         }
 
-        /* Place Tag */
-        .place-tag {
+        /* Timeline Items */
+        .timeline-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(184, 134, 11, 0.9);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            backdrop-filter: blur(4px);
-            z-index: 10;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-gold);
+            border-radius: 4px 0 0 4px;
         }
 
-        /* Enhanced Bottom Navigation */
+        .world-heritage-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(to bottom, #B8860B, #8B6914);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            }
+
+        .image-container {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            }
+        
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             display: flex;
             justify-content: space-around;
             padding: 1rem;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
             z-index: 30;
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(184, 134, 11, 0.2);
         }
 
         .bottom-nav a {
@@ -255,32 +226,14 @@
             text-decoration: none;
             font-size: 0.9rem;
             text-align: center;
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem;
             border-radius: 8px;
-            transition: var(--transition-smooth);
-            position: relative;
-        }
-
-        .bottom-nav a:hover {
-            background: rgba(184, 134, 11, 0.1);
-            transform: translateY(-2px);
+            transition: all 0.3s ease;
         }
 
         .bottom-nav a.active {
-            background: linear-gradient(to right, rgba(128, 0, 0, 0.1), rgba(184, 134, 11, 0.1));
             color: var(--primary-gold);
-        }
-
-        .bottom-nav a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 2px;
-            background: var(--primary-gold);
-            border-radius: 2px;
+            background: rgba(184, 134, 11, 0.1);
         }
 
         /* Loading Animation */
@@ -295,50 +248,9 @@
             justify-content: center;
             align-items: center;
             z-index: 100;
-            transition: opacity 0.5s ease;
         }
 
-        .loading::after {
-            content: '';
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--primary-gold);
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .world-heritage-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: linear-gradient(to bottom, #B8860B, #8B6914);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
-
-.image-container {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.image-container img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-        /* Responsive Adjustments */
+        /* Media Queries */
         @media (max-width: 768px) {
             .language-switcher {
                 flex-direction: row;
@@ -363,25 +275,26 @@
                 font-size: 1rem;
                 opacity: 1;
             }
+        }
 
-            .grid-layout {
-                grid-template-columns: 1fr;
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-            .culture-category {
-                margin: 0.5rem 0;
-                padding: 1rem;
-            }
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading"></div>
-
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress"></div>
-
     <!-- Navigation -->
     <nav class="nav-container">
         <div class="flex justify-between items-center">
@@ -417,7 +330,7 @@
                 <div class="category-icon">🏛️</div>
                 <h2 class="text-2xl font-bold" data-my="မြန်မာ့ယဉ်ကျေးမှု" data-en="Myanmar Culture" data-ru="Культура Мьянмы">မြန်မာ့ယဉ်ကျေးမှု</h2>
             </div>
-            <p class="text-lg" data-my="မြန်မာ့ယဉ်ကျေးမှုသည် နှစ်ပေါင်းထောင်ချီ၍ တည်ရှိခဲ့သော ယဉ်ကျေးမှုဖြစ်ပြီး၊ ဗုဒ္ဓဘာသာနှင့် ရိုးရာဓလေ့များ ပေါင်းစပ်ထားသော ယဉကျေးမှုဖြစ်ပါသည်။" 
+            <p class="text-lg" data-my="မြန်မာ့ယဉ်ကျေးမှုသည် နှစ်ပေါင်းထောင်ချီ၍ တည်ရှိခဲ့သော ယဉ်ကျေးမှုဖြစ်ပြီး၊ ဗုဒ္ဓဘာသာနှင့် ရိုးရာဓလေ့များ ပေါင်းစပ်ထားသော ယဉ်ကျေးမှုဖြစ်ပါသည်။" 
                data-en="Myanmar culture, with its millennia-old heritage, represents a unique blend of Buddhist traditions and indigenous customs." 
                data-ru="Культура Мьянмы, с ее тысячелетним наследием, представляет собой уникальное сочетание буддийских традиций и местных обычаев.">
                 မြန်မာ့ယဉ်ကျေးမှုသည် နှစ်ပေါင်းထောင်ချီ၍ တည်ရှိခဲ့သော ယဉ်ကျေးမှုဖြစ်ပြီး၊ ဗုဒ္ဓဘာသာနှင့် ရိုးရာဓလေ့များ ပေါင်းစပ်ထားသော ယဉ်ကျေးမှုဖြစ်ပါသည်။
@@ -504,7 +417,7 @@
             </div>
         </section>
 
-        <!-- Festivals Section -->
+        <!-- Festivals -->
         <section class="culture-category">
             <div class="category-header">
                 <div class="category-icon">🎉</div>
@@ -524,19 +437,19 @@
                         </p>
                     </div>
                 </div>
-
+                            
                 <div class="content-card">
                     <img src="images/သီတင်းကျွတ်.jpg" alt="သီတင်းကျွတ်">
                     <div class="card-content">
                         <h3 class="text-xl font-bold mb-2" data-my="သီတင်းကျွတ်ပွဲတော်" data-en="Thadingyut Festival" data-ru="Фестиваль Тадинджут">သီတင်းကျွတ်ပွဲတော်</h3>
                         <p data-my="မီးထွန်းပွဲတော်၊ မိဘဆရာသမားများအား ရှိခိုးကန်တော့ပွဲ၊ အလင်းရောင်ပွဲတော်" 
-                           data-en="Festival of Lights marking the end of Buddhist Lent" 
-                           data-ru="Фестиваль огней, знаменующий окончание буддийского поста">
+                           data-en="Festival of Lights marking the end of Buddhist Lent, celebrated with light decorations and paying respects to elders" 
+                           data-ru="Фестиваль огней, знаменующий окончание буддийского поста, с украшением огнями и почитанием старших">
                             မီးထွန်းပွဲတော်၊ မိဘဆရာသမားများအား ရှိခိုးကန်တော့ပွဲ၊ အလင်းရောင်ပွဲတော်
                         </p>
                     </div>
                 </div>
-
+                
                 <div class="content-card">
                     <img src="images/တန်ဆောင်တိုင်.jpeg" alt="တန်ဆောင်တိုင်">
                     <div class="card-content">
@@ -548,10 +461,22 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="content-card">
+                    <img src="images/ကဆုန်.jpg" alt="ကဆုန်">
+                    <div class="card-content">
+                        <h3 class="text-xl font-bold mb-2" data-my="ကဆုန်နှင့် တပေါင်းပွဲတော်" data-en="Kason Festival" data-ru="Фестиваль Касон">ကဆုန်နှင့် တပေါင်းပွဲတော်</h3>
+                        <p data-my="ဘုရားများအား ရေသွန်းလောင်းပူဇော်ပွဲတော်" 
+                           data-en="Water Pouring Festival at Pagodas" 
+                           data-ru="Фестиваль возлияния воды в пагодах">
+                            ဘုရားများအား ရေသွန်းလောင်းပူဇော်ပွဲတော်
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Traditional Customs Section -->
+        <!-- Traditional Customs -->
         <section class="culture-category">
             <div class="category-header">
                 <div class="category-icon">🏮</div>
@@ -603,76 +528,31 @@
     </div>
 
     <script>
-        // Enhanced scroll handling
-        function updateScrollProgress() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.querySelector('.scroll-progress').style.transform = `scaleX(${scrolled / 100})`;
-        }
-
-        function handleScroll() {
-            const nav = document.querySelector('.nav-container');
-            const scrolled = window.scrollY > 50;
-            nav.classList.toggle('scrolled', scrolled);
-            updateScrollProgress();
-
-            // Check for elements in viewport
-            document.querySelectorAll('.culture-category, .content-card').forEach(element => {
-                const rect = element.getBoundingClientRect();
-                const isInViewport = (
-                    rect.top >= 0 &&
-                    rect.left >= 0 &&
-                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-                );
-                
-                if (isInViewport) {
-                    element.classList.add('visible');
-                }
-            });
-        }
-
-        // Smooth scroll function
-        function smoothScroll(target) {
-            const element = document.querySelector(target);
-            if (element) {
-                window.scrollTo({
-                    top: element.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            }
-        }
-
-        // Enhanced language switching
+        // Language switching functionality
         function changeLanguage(lang) {
-            // Animate elements out
-            const elements = document.querySelectorAll('[data-my], [data-en], [data-ru]');
-            
-            elements.forEach((element, index) => {
-                const translation = element.getAttribute(`data-${lang}`);
-                if (translation) {
-                    // Fade out
-                    element.style.opacity = '0';
-                    element.style.transform = 'translateY(10px)';
-                    
-                    // Change content and fade in after a short delay
-                    setTimeout(() => {
-                        element.textContent = translation;
-                        element.style.opacity = '1';
-                        element.style.transform = 'translateY(0)';
-                    }, index * 50); // Staggered animation
-                }
-            });
-
-            // Update language buttons
+            // Update active button states
             document.querySelectorAll('.language-btn').forEach(btn => {
                 btn.classList.remove('active-lang');
             });
             document.getElementById(lang + '-btn').classList.add('active-lang');
+
+            // Update all translatable content
+            document.querySelectorAll('[data-my], [data-en], [data-ru]').forEach(element => {
+                const translation = element.getAttribute(`data-${lang}`);
+                if (translation) {
+                    element.textContent = translation;
+                }
+            });
+
+            // Set document language code
+            const langCodes = {
+                my: 'my',
+                en: 'en',
+                ru: 'ru'
+            };
+            document.documentElement.lang = langCodes[lang];
             
-            // Update document language and store preference
-            document.documentElement.lang = lang;
+            // Store language preference
             localStorage.setItem('selectedLanguage', lang);
 
             // Update page title based on language
@@ -684,40 +564,26 @@
             document.title = titles[lang];
         }
 
-        // Initialize everything when the document is ready
+        // Initialize with saved language preference
         document.addEventListener('DOMContentLoaded', () => {
-            // Remove loading screen
-            const loadingScreen = document.querySelector('.loading');
-            setTimeout(() => {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => loadingScreen.remove(), 500);
-            }, 1000);
-
-            // Add scroll listener
-            window.addEventListener('scroll', handleScroll);
-
-            // Initialize language
             const savedLanguage = localStorage.getItem('selectedLanguage') || 'my';
             changeLanguage(savedLanguage);
-
-            // Initial scroll progress update
-            updateScrollProgress();
-
-            // Initialize visibility for elements in viewport
-            handleScroll();
-
-            // Add smooth scrolling to all anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = anchor.getAttribute('href');
-                    smoothScroll(targetId);
-                });
-            });
         });
 
-        // Add resize listener for responsiveness
-        window.addEventListener('resize', handleScroll);
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.culture-category').forEach(category => {
+            observer.observe(category);
+        });
     </script>
 </body>
 </html>
