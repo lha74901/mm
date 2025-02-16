@@ -313,7 +313,31 @@
                 transform: rotate(360deg);
             }
         }
+        .world-heritage-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(to bottom, #B8860B, #8B6914);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
 
+.image-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .language-switcher {
